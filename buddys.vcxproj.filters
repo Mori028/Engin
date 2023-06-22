@@ -160,18 +160,6 @@
     <ClCompile Include="Engine\3D\Particle\ParticleManager.cpp">
       <Filter>Engine\ソースファイル\3D\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="User\EnemyBullet.cpp">
-      <Filter>user\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="User\SERVANT\Wolf.cpp">
-      <Filter>user\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="User\SERVANT\Gorilla.cpp">
-      <Filter>user\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="User\EnemyCrystalBullet.cpp">
-      <Filter>user\ソース</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\COLLISION\Collision.cpp">
       <Filter>Engine\ソースファイル\COLLISION</Filter>
     </ClCompile>
@@ -182,15 +170,6 @@
       <Filter>Engine\ソースファイル\INPUT</Filter>
     </ClCompile>
     <ClCompile Include="User\Round.cpp">
-      <Filter>user\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="User\EnemyManager.cpp">
-      <Filter>user\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="User\EnemyShortRenge.cpp">
-      <Filter>user\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="User\EnemyExplosionAttack.cpp">
       <Filter>user\ソース</Filter>
     </ClCompile>
     <ClCompile Include="User\player.cpp">
@@ -273,16 +252,7 @@
     <ClInclude Include="Engine\3D\Particle\ParticleManager.h">
       <Filter>Engine\ヘッダーファイル\3D\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="User\EnemyBullet.h">
-      <Filter>user\ヘッダー</Filter>
-    </ClInclude>
-    <ClInclude Include="User\SERVANT\Wolf.h">
-      <Filter>user\ヘッダー</Filter>
-    </ClInclude>
     <ClInclude Include="User\SERVANT\Gorilla.h">
-      <Filter>user\ヘッダー</Filter>
-    </ClInclude>
-    <ClInclude Include="User\EnemyCrystalBullet.h">
       <Filter>user\ヘッダー</Filter>
     </ClInclude>
     <ClInclude Include="Engine\COLLISION\Collision.h">
@@ -295,15 +265,6 @@
       <Filter>Engine\ヘッダーファイル\INPUT</Filter>
     </ClInclude>
     <ClInclude Include="User\Round.h">
-      <Filter>user\ヘッダー</Filter>
-    </ClInclude>
-    <ClInclude Include="User\EnemyManager.h">
-      <Filter>user\ヘッダー</Filter>
-    </ClInclude>
-    <ClInclude Include="User\EnemyShortRenge.h">
-      <Filter>user\ヘッダー</Filter>
-    </ClInclude>
-    <ClInclude Include="User\EnemyExplosionAttack.h">
       <Filter>user\ヘッダー</Filter>
     </ClInclude>
     <ClInclude Include="User\Enemy.h">

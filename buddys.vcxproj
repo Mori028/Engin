@@ -114,16 +114,9 @@
     <ClCompile Include="Engine\MATH\Vector4.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="User\Enemy.cpp" />
-    <ClCompile Include="User\EnemyBullet.cpp" />
-    <ClCompile Include="User\EnemyCrystalBullet.cpp" />
-    <ClCompile Include="User\EnemyExplosionAttack.cpp" />
-    <ClCompile Include="User\EnemyManager.cpp" />
-    <ClCompile Include="User\EnemyShortRenge.cpp" />
     <ClCompile Include="User\player.cpp" />
     <ClCompile Include="User\Round.cpp" />
     <ClCompile Include="User\SCENE\GameScene.cpp" />
-    <ClCompile Include="User\SERVANT\Gorilla.cpp" />
-    <ClCompile Include="User\SERVANT\Wolf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\2D\Sprite.h" />
@@ -153,16 +146,10 @@
     <ClInclude Include="Engine\MATH\Vector3.h" />
     <ClInclude Include="Engine\MATH\Vector4.h" />
     <ClInclude Include="User\Enemy.h" />
-    <ClInclude Include="User\EnemyBullet.h" />
-    <ClInclude Include="User\EnemyCrystalBullet.h" />
-    <ClInclude Include="User\EnemyExplosionAttack.h" />
-    <ClInclude Include="User\EnemyManager.h" />
-    <ClInclude Include="User\EnemyShortRenge.h" />
     <ClInclude Include="User\player.h" />
     <ClInclude Include="User\Round.h" />
     <ClInclude Include="User\SCENE\GameScene.h" />
     <ClInclude Include="User\SERVANT\Gorilla.h" />
-    <ClInclude Include="User\SERVANT\Wolf.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

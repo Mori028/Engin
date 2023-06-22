@@ -3,8 +3,6 @@
 #include "Object3d.h"
 #include "Input.h"
 #include "Camera.h"
-#include "Wolf.h"
-
 #include "Gorilla.h"
 #include "ParticleManager.h"
 #include "Audio.h"
@@ -79,7 +77,6 @@ private:
 	const float PI = 3.141592;
 	Input* input_ = nullptr;
 	DirectXCommon* dxCommon = nullptr;
-	Collision col;
 	Audio* audio = nullptr;
 	//待機
 	FBXModel* fbxModel_ = nullptr;
@@ -165,6 +162,4 @@ private:
 public:
 	bool isActionStop;
 	int isAction;
-	//バディ
-	Wolf* wolf_ = nullptr;
 };

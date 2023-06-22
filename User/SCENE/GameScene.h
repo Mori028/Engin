@@ -13,10 +13,7 @@
 #include "Camera.h"
 
 #include "ParticleManager.h"
-
-#include"Player.h"
-#include"EnemyManager.h"
-
+#include <player.h>
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -81,11 +78,6 @@ private:	//メンバ変数
 	//プレイヤー
 	Player* player_ = nullptr;
 
-	//エネミー
-	EnemyManager* enemyManager_ = nullptr;
-	const int hitStopLimit = 1;
-	int hitStopTimer = hitStopLimit;
-
 	//背景や床
 	Object3d* floor = nullptr;
 	Model* floorMD = nullptr;
@@ -94,51 +86,14 @@ private:	//メンバ変数
 	Object3d* field = nullptr;
 	Model* fieldMD = nullptr;
 
-	//UI
-	Sprite* UI = nullptr;
-	Sprite* buttomPng1 = nullptr;
-	Sprite* buttomPng2 = nullptr;
-	Sprite* buttomx = nullptr;
-	Sprite* buttomy = nullptr;
-	Sprite* buttomb = nullptr;
-	Sprite* hpGauge = nullptr;
-	Vector2 hpPosition;
-	Sprite* mpGauge = nullptr;
-	Vector2 mpPosition;
-	Sprite* unionGauge = nullptr;
-	Vector2 unionScale;
-	Sprite* avoidUI = nullptr;
-	Vector3 avoidScale;
-	Sprite* sordUI = nullptr;
-	Sprite* sord2UI = nullptr;
-	Sprite* sord3UI = nullptr;
-
-	Sprite* srr = nullptr;
-	Vector2 srrPosition;
-	Sprite* srl = nullptr;
-	Vector2 srlPosition;
-	Sprite* sru = nullptr;
-	Vector2 sruPosition;
-	Sprite* srd = nullptr;
-	Vector2 srdPosition;
-
-	Sprite* tutoframe1 = nullptr;
-	Sprite* tutoframe2 = nullptr;
-	Sprite* tutoframe3 = nullptr;
-
-	Sprite* option2 = nullptr;
-	Sprite* option3 = nullptr;
-	Sprite* option4 = nullptr;
-	Sprite* option5 = nullptr;
-
-	Sprite* optionco = nullptr;
-	
-	Sprite* mouse = nullptr;
-	Vector2 mousePosition;
-
-	Sprite* markPointer = nullptr;
-	Vector2 mapoPosition;
-
+	//タイトル
+	Sprite* Title = nullptr;
+	//セレクト
+	Sprite* Select = nullptr;
+	//クリア
+	Sprite* Clear = nullptr;
+	//ゲームオーバー
+	Sprite* GameOver = nullptr;
 	//ゲームフロー
 	enum class Scene
 	{
@@ -153,19 +108,6 @@ private:	//メンバ変数
 	int stage;
 	//カミングスーン用フラグ
 	int cmsoon = 0;
-	Sprite* titlePic;
-	Sprite* selectPic;
-	Sprite* clearPic;
-	Sprite* gameoverPic;
-
-	//選択画面
-	int selectMode;
-
-	//ポーズ画面
-	bool isPause;
-	bool keycon;
-	int pauseSelect;
-	Sprite* pauseBg;
 
 	//オプション
 	float Sensitivity;
@@ -173,26 +115,9 @@ private:	//メンバ変数
 	bool isChangeSensitivity;
 	Sprite* optionPic;
 
-	//攻撃する前のわかりやすいエッフェクト(なぜか敵に持たせられない)
-	Sprite* CdUI = nullptr;
-	Sprite* CdUI1 = nullptr;
-	Sprite* CdUI2 = nullptr;
-	int  CdTimer = 0;
-	int  isCdFlag = 0;
-
 	//音関係まとめ
 	int soundCheckFlag = 0;
 	int soundCheckFlag2 = 0;
 	int soundCheckFlag3 = 0;
 	int soundCheckFlag4 = 0;
-
-	//戦闘開始時
-	bool isActionStop;
-	int actionStopTimer;
-	const int actionStopLimit = 3 * 60;
-	Sprite* std3 = nullptr;
-	Sprite* std2 = nullptr;
-	Sprite* std1 = nullptr;
-	Sprite* stdgo = nullptr;
-	Sprite* stdgo2 = nullptr;
 };

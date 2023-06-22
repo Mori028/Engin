@@ -5,8 +5,6 @@ Player::Player() {
 }
 
 Player::~Player() {
-	delete wolf_;
-
 	//FBXオブジェクト解放
 	delete fbxObject3d_;
 	delete fbxModel_;

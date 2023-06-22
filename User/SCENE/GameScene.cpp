@@ -17,45 +17,6 @@ GameScene::~GameScene() {
 	delete camera2;
 	delete camera3;
 	delete player_;
-
-	delete UI;
-	delete buttomPng1;
-	delete buttomPng2;
-	delete hpGauge;
-	delete mpGauge;
-	delete unionGauge;
-	delete titlePic;
-	delete selectPic;
-	delete clearPic;
-	delete gameoverPic;
-	delete floor;
-	delete skydome;
-	delete sordUI;
-	delete sord2UI;
-	delete sord3UI;
-	delete srr;
-	delete srl;
-	delete sru;
-	delete srd;
-	delete std3;
-	delete std2;
-	delete std1;
-	delete stdgo;
-	delete stdgo2;
-	delete pauseBg;
-
-	delete buttomx;
-	delete buttomy;
-	delete buttomb;
-
-	delete option2;
-	delete option3; 
-	delete option4; 
-	delete option5;
-	delete optionco;
-
-	delete mouse;
-	delete markPointer;
 }
 
 /// <summary>
@@ -103,281 +64,45 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	player_->Initialize(dxCommon,input);
 	player_->SetCamera(mainCamera);
 
-	//UI
-	UI = new Sprite();
-	UI->Initialize(spriteCommon);
-	UI->SetPozition({ 0,0 });
-	UI->SetSize({1280.0f, 720.0f});
+	//タイトル
+	Title = new Sprite();
+	Title->Initialize(spriteCommon);
+	Title->SetPozition({ 0,0 });
+	Title->SetSize({ 1280.0f, 720.0f });
 
-	buttomPng1 = new Sprite();
-	buttomPng1->Initialize(spriteCommon);
-	buttomPng1->SetPozition({ 0,0 });
-	buttomPng1->SetSize({ 1280.0f, 720.0f });
+	//セレクト
+	Select = new Sprite();
+	Select->Initialize(spriteCommon);
+	Select->SetPozition({ 0,0 });
+	Select->SetSize({ 1280.0f, 720.0f });
 
-	buttomPng2 = new Sprite();
-	buttomPng2->Initialize(spriteCommon);
-	buttomPng2->SetPozition({ 0,0 });
-	buttomPng2->SetSize({ 1280.0f, 720.0f });
+	//クリア
+	Clear = new Sprite();
+	Clear->Initialize(spriteCommon);
+	Clear->SetPozition({ 0,0 });
+	Clear->SetSize({ 1280.0f, 720.0f });
 
-	buttomx = new Sprite();
-	buttomx->Initialize(spriteCommon);
-	buttomx->SetPozition({ 0,0 });
-	buttomx->SetSize({ 1280.0f, 720.0f });
-
-	buttomy = new Sprite();
-	buttomy->Initialize(spriteCommon);
-	buttomy->SetPozition({ 0,0 });
-	buttomy->SetSize({ 1280.0f, 720.0f });
-
-	buttomb = new Sprite();
-	buttomb->Initialize(spriteCommon);
-	buttomb->SetPozition({ 0,0 });
-	buttomb->SetSize({ 1280.0f, 720.0f });
-
-	hpGauge = new Sprite();
-	hpGauge->Initialize(spriteCommon);
-	hpPosition = hpGauge->GetPosition();
-	hpGauge->SetPozition(hpPosition);
-	hpGauge->SetSize({ 1280.0f, 720.0f });
-
-	mpGauge = new Sprite();
-	mpGauge->Initialize(spriteCommon);
-	mpPosition = mpGauge->GetPosition();
-	mpGauge->SetPozition(mpPosition);
-	mpGauge->SetSize({ 1280.0f, 720.0f });
-
-	unionGauge = new Sprite();
-	unionGauge->Initialize(spriteCommon);
-	unionGauge->SetPozition({ 0,0 });
-	unionScale = unionGauge->GetPosition();
-	unionScale.x = 1280.0f;
-	unionScale.y = 720.0f;
-	unionGauge->SetSize(unionScale);
+	//ゲームオーバー
+	GameOver = new Sprite();
+	GameOver->Initialize(spriteCommon);
+	GameOver->SetPozition({ 0,0 });
+	GameOver->SetSize({ 1280.0f, 720.0f });
 
 	//ゲームフロー
 	scene = Scene::Title;
 	stage = 0;
 
-	titlePic = new Sprite();
-	titlePic->Initialize(spriteCommon);
-	titlePic->SetPozition({ 0,0 });
-	titlePic->SetSize({ 1280,720 });
+	spriteCommon->LoadTexture(0, "Title.png");
+	Title->SetTextureIndex(0);
 
-	selectPic = new Sprite();
-	selectPic->Initialize(spriteCommon);
-	selectPic->SetPozition({ 0,0 });
-	selectPic->SetSize({ 1280,720 });
+	spriteCommon->LoadTexture(1, "Select.png");
+	Select->SetTextureIndex(1);
 
-	clearPic = new Sprite();
-	clearPic->Initialize(spriteCommon);
-	clearPic->SetPozition({ 0,0 });
-	clearPic->SetSize({ 1280,720 });
+	spriteCommon->LoadTexture(2, "Clear.png");
+	Clear->SetTextureIndex(2);
 
-	gameoverPic = new Sprite();
-	gameoverPic->Initialize(spriteCommon);
-	gameoverPic->SetPozition({ 0,0 });
-	gameoverPic->SetSize({ 1280,720 });
-
-	sordUI = new Sprite();
-	sordUI->Initialize(spriteCommon);
-	sordUI->SetPozition({ 0,0 });
-	sordUI->SetSize({ 1280,720 });
-
-	sord2UI = new Sprite();
-	sord2UI->Initialize(spriteCommon);
-	sord2UI->SetPozition({ 0,0 });
-	sord2UI->SetSize({ 1280,720 });
-
-	sord3UI = new Sprite();
-	sord3UI->Initialize(spriteCommon);
-	sord3UI->SetPozition({ 0,0 });
-	sord3UI->SetSize({ 1280,720 });
-
-	srr = new Sprite();
-	srr->Initialize(spriteCommon);
-	srrPosition = srr->GetPosition();
-	srr->SetPozition(srrPosition);
-	srr->SetSize({ 1280.0f, 720.0f });
-
-	srl = new Sprite();
-	srl->Initialize(spriteCommon);
-	srlPosition = srl->GetPosition();
-	srl->SetPozition(srlPosition);
-	srl->SetSize({ 1280.0f, 720.0f });
-
-	sru = new Sprite();
-	sru->Initialize(spriteCommon);
-	sruPosition = sru->GetPosition();
-	sru->SetPozition(sruPosition);
-	sru->SetSize({ 1280.0f, 720.0f });
-
-	srd = new Sprite();
-	srd->Initialize(spriteCommon);
-	srdPosition = srd->GetPosition();
-	srd->SetPozition(srdPosition);
-	srd->SetSize({ 1280.0f, 720.0f });
-
-	std3 = new Sprite();
-	std3->Initialize(spriteCommon);
-	std3->SetPozition({ 0,0 });
-	std3->SetSize({ 1280,720 });
-
-	std2 = new Sprite();
-	std2->Initialize(spriteCommon);
-	std2->SetPozition({ 0,0 });
-	std2->SetSize({ 1280,720 });
-
-	std1 = new Sprite();
-	std1->Initialize(spriteCommon);
-	std1->SetPozition({ 0,0 });
-	std1->SetSize({ 1280,720 });
-
-	stdgo = new Sprite();
-	stdgo->Initialize(spriteCommon);
-	stdgo->SetPozition({ 0,0 });
-	stdgo->SetSize({ 1280,720 });
-
-	stdgo2 = new Sprite();
-	stdgo2->Initialize(spriteCommon);
-	stdgo2->SetPozition({ 0,0 });
-	stdgo2->SetSize({ 1280,720 });
-
-	pauseBg = new Sprite();
-	pauseBg->Initialize(spriteCommon);
-	pauseBg->SetPozition({ 0,0 });
-	pauseBg->SetSize({ 1280,720 });
-
-	optionPic = new Sprite();
-	optionPic->Initialize(spriteCommon);
-	optionPic->SetPozition({ 0,0 });
-	optionPic->SetSize({ 1280,720 });
-
-	option2 = new Sprite();
-	option2->Initialize(spriteCommon);
-	option2->SetPozition({ 0,0 });
-	option2->SetSize({ 1280,720 });
-
-	option3 = new Sprite();
-	option3->Initialize(spriteCommon);
-	option3->SetPozition({ 0,0 });
-	option3->SetSize({ 1280,720 });
-
-	option4 = new Sprite();
-	option4->Initialize(spriteCommon);
-	option4->SetPozition({ 0,0 });
-	option4->SetSize({ 1280,720 });
-
-	option5 = new Sprite();
-	option5->Initialize(spriteCommon);
-	option5->SetPozition({ 0,0 });
-	option5->SetSize({ 1280,720 });
-
-	optionco = new Sprite();
-	optionco->Initialize(spriteCommon);
-	optionco->SetPozition({ 0,0 });
-	optionco->SetSize({ 1280,720 });
-
-
-	Sensitivity = 10;
-
-	mouse = new Sprite();
-	mouse->Initialize(spriteCommon);
-	mousePosition = mouse->GetPosition();
-	mousePosition.x = Sensitivity * 24.35 + 460;
-	player_->SetSensitivity(Sensitivity);
-	mousePosition.y = 486.0f;
-	mouse->SetPozition(mousePosition);
-	mouse->SetSize({ 33,35 });
-
-	markPointer = new Sprite();
-	markPointer->Initialize(spriteCommon);
-	mapoPosition = markPointer->GetPosition();
-	mapoPosition.x = Sensitivity * 24.35 + 460;
-	player_->SetSensitivity(Sensitivity);
-	mapoPosition.y = 486.0f;
-	markPointer->SetPozition(mapoPosition);
-	markPointer->SetSize({ 33,35 });
-
-
-	spriteCommon->LoadTexture(0, "UI.png");
-	UI->SetTextureIndex(0);
-	spriteCommon->LoadTexture(1, "buttom1.png");
-	buttomPng1->SetTextureIndex(1);
-	spriteCommon->LoadTexture(2, "buttom2.png");
-	buttomPng2->SetTextureIndex(2);
-	spriteCommon->LoadTexture(3, "hpGauge.png");
-	hpGauge->SetTextureIndex(3);
-	spriteCommon->LoadTexture(4, "unionGauge.png");
-	unionGauge->SetTextureIndex(4);
-	spriteCommon->LoadTexture(5, "title.png");
-	titlePic->SetTextureIndex(5);
-	spriteCommon->LoadTexture(6, "tuto2.png");
-	selectPic->SetTextureIndex(6);
-	spriteCommon->LoadTexture(7, "clear.png");
-	clearPic->SetTextureIndex(7);
-	spriteCommon->LoadTexture(8, "gameover.png");
-	gameoverPic->SetTextureIndex(8);
-	spriteCommon->LoadTexture(9, "tutoframe1.png");
-	sordUI->SetTextureIndex(9);
-	spriteCommon->LoadTexture(10, "tutoframe2.png");
-	sord2UI->SetTextureIndex(10);
-	spriteCommon->LoadTexture(26, "tutoframe3.png");
-	sord3UI->SetTextureIndex(26);
-	spriteCommon->LoadTexture(11, "srr1.png");
-	srr->SetTextureIndex(11);
-	spriteCommon->LoadTexture(12, "srl1.png");
-	srl->SetTextureIndex(12);
-	spriteCommon->LoadTexture(13, "sru.png");
-	sru->SetTextureIndex(13);
-	spriteCommon->LoadTexture(14, "srd.png");
-	srd->SetTextureIndex(14);
-	spriteCommon->LoadTexture(15, "mpGauge.png");
-	mpGauge->SetTextureIndex(15);
-	
-	spriteCommon->LoadTexture(16, "std3.png");
-	std3->SetTextureIndex(16);
-	spriteCommon->LoadTexture(17, "std2.png");
-	std2->SetTextureIndex(17);
-	spriteCommon->LoadTexture(18, "std1.png");
-	std1->SetTextureIndex(18);
-	spriteCommon->LoadTexture(19, "stdgo.png");
-	stdgo->SetTextureIndex(19);
-	spriteCommon->LoadTexture(20, "stdgo2.png");
-	stdgo2->SetTextureIndex(20);
-
-	//ポーズ画面
-	spriteCommon->LoadTexture(21, "asedt1.png");
-	pauseBg->SetTextureIndex(21);
-
-	//オプション画面
-	spriteCommon->LoadTexture(22, "option1.png");
-	optionPic->SetTextureIndex(22);
-
-	spriteCommon->LoadTexture(23, "botomx.png");
-	buttomx->SetTextureIndex(23);
-	spriteCommon->LoadTexture(24, "botomy.png");
-	buttomy->SetTextureIndex(24);
-	spriteCommon->LoadTexture(25, "botomb.png");
-	buttomb->SetTextureIndex(25);
-
-	spriteCommon->LoadTexture(27, "option2.png");
-	option2->SetTextureIndex(27);
-	spriteCommon->LoadTexture(28, "option3.png");
-	option3->SetTextureIndex(28);
-	spriteCommon->LoadTexture(29, "option4.png");
-	option4->SetTextureIndex(29);
-	spriteCommon->LoadTexture(30, "option5.png");
-	option5->SetTextureIndex(30);
-	
-	spriteCommon->LoadTexture(31, "optionco2.png");
-	optionco->SetTextureIndex(31);
-
-	spriteCommon->LoadTexture(32, "markpoint.png");
-	mouse->SetTextureIndex(32);
-
-	spriteCommon->LoadTexture(33, "markpoint.png");
-	markPointer->SetTextureIndex(33);
-
+	spriteCommon->LoadTexture(3, "GameOver.png");
+	GameOver->SetTextureIndex(3);
 	audio = new Audio();
 	audio->Initialize();
 
@@ -401,18 +126,11 @@ void GameScene::Reset() {
 	camera3->SetEye({ 4, 4, 4 });
 	camera3->SetTarget({ 0,3,0 });
 
-	actionStopTimer = actionStopLimit;
-	isActionStop = true;
-	player_->isActionStop = isActionStop;
-
 	player_->EffTimer = 0;
 	player_->isEffFlag = 0;
 
 	player_->EffHealTimer = 0;
 	player_->isEffHealFlag = 0;
-
-	isPause = false;
-
 
 }
 
@@ -426,18 +144,10 @@ void GameScene::Update() {
 		soundCheckFlag3 = 0;
 		soundCheckFlag4 = 0;
 		
-		mapoPosition.x = Sensitivity * 24.35 + 460;
-		markPointer->SetPozition(mapoPosition);
-		//感度更新
-		player_->SetSensitivity(Sensitivity);
-		mousePosition.x = Sensitivity * 24.35 + 460;
-		mouse->SetPozition(mousePosition);
-		//感度更新
-		player_->SetSensitivity(Sensitivity);
 
 		//シーン切り替え
 		if (input->PButtonTrigger(B) || input->TriggerKey(DIK_SPACE)) {
-			selectMode = 0;
+			/*selectMode = 0;*/
 			scene = Scene::Select;
 			pSourceVoice[3] = audio->PlayWave("open.wav");
 			pSourceVoice[3]->SetVolume(0.4f);
@@ -452,38 +162,15 @@ void GameScene::Update() {
 			soundCheckFlag = 1;
 		}
 
-		sruPosition.x = 0.0f;
-		sruPosition.y = 0.0f;
-		sru->SetPozition(sruPosition);
-
-		srdPosition.x = 0.0f;
-		srdPosition.y = 0.0f;
-		srd->SetPozition(srdPosition);
-		
-		srrPosition.x = 0.0f;
-		srr->SetPozition(srrPosition);
-
-		srlPosition.x = 0.0f;
-		srl->SetPozition(srlPosition);
 
 		
-		
-		break;
 	case Scene::Select:
-		sruPosition.x -= 80.0f;
-		sruPosition.y -= 10.0f;
-		sru->SetPozition(sruPosition);
-
-		srdPosition.x += 80.0f;
-		srdPosition.y += 10.0f;
-		srd->SetPozition(srdPosition);
 
 		//0:ゲームプレイ、1:操作説明
 		
 		if (input->PushKey(DIK_SPACE)) {
 			pSourceVoice[2] = audio->PlayWave("serect.wav");
 			pSourceVoice[2]->SetVolume(0.6f);
-			selectMode = 1;
 
 		}
 		
@@ -501,7 +188,6 @@ void GameScene::Update() {
 	case Scene::Play:
 		
 			//ゲーム画面
-			actionStopTimer--;
 			camera1->Update();
 			camera2->Update();
 			camera3->Update();
@@ -515,13 +201,6 @@ void GameScene::Update() {
 				pSourceVoice[1]->SetVolume(0.1f);
 				soundCheckFlag2 = 1;
 			}
-			CdTimer++;
-
-			srrPosition.x -= 80.0f;
-			srr->SetPozition(srrPosition);
-
-			srlPosition.x += 80.0f;
-			srl->SetPozition(srlPosition);
 
 
 			floor->Update();
@@ -571,8 +250,6 @@ void GameScene::Update() {
 			pSourceVoice[2]->SetVolume(0.6f);
 		}
 		break;
-	case Scene::Option:
-		isChangeSensitivity = true;
 	}
 
 }
@@ -592,23 +269,24 @@ void GameScene::Draw() {
 	switch (scene)
 	{
 	case Scene::Title:
-
+		Title->Draw();
+		break;
+	case Scene::Select:
+		Select->Draw();
 		break;
 	case Scene::Play:
-		
 		player_->Draw();
 		
     
-		/*floor->Draw();
+		floor->Draw();
 		skydome->Draw();
-		field->Draw();*/
 		break;
 	case Scene::Clear:
-
+		Clear->Draw();
 
 		break;
 	case Scene::Gameover:
-
+		GameOver->Draw();
 
 		break;
 	}
@@ -619,20 +297,10 @@ void GameScene::Draw() {
 	switch (scene)
 	{
 	case Scene::Title:
-		titlePic->Draw();
 
 		break;
 	case Scene::Select:
-		selectPic->Draw();
-		//
-		////ステージ選択わかりやすく
-		//if (selectMode == 0) {sord3UI->Draw();}
-		//else if (selectMode == 1) { sord2UI->Draw(); }
-		//else if (selectMode == 2) { sordUI->Draw(); }
-
-		//
-		//sru->Draw();
-		//srd->Draw();
+		
 		break;
 	case Scene::Play:
 		
