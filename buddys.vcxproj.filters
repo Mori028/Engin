@@ -169,9 +169,6 @@
     <ClCompile Include="Engine\input\Controller.cpp">
       <Filter>Engine\ソースファイル\INPUT</Filter>
     </ClCompile>
-    <ClCompile Include="User\Round.cpp">
-      <Filter>user\ソース</Filter>
-    </ClCompile>
     <ClCompile Include="User\player.cpp">
       <Filter>user\ソース</Filter>
     </ClCompile>
@@ -183,9 +180,6 @@
     </ClCompile>
     <ClCompile Include="Engine\3D\FBXObject3d.cpp">
       <Filter>Engine\ソースファイル\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="User\Enemy.cpp">
-      <Filter>user\ソース</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,9 +246,6 @@
     <ClInclude Include="Engine\3D\Particle\ParticleManager.h">
       <Filter>Engine\ヘッダーファイル\3D\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="User\SERVANT\Gorilla.h">
-      <Filter>user\ヘッダー</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\COLLISION\Collision.h">
       <Filter>Engine\ヘッダーファイル\COLLISION</Filter>
     </ClInclude>
@@ -263,12 +254,6 @@
     </ClInclude>
     <ClInclude Include="Engine\input\Controller.h">
       <Filter>Engine\ヘッダーファイル\INPUT</Filter>
-    </ClInclude>
-    <ClInclude Include="User\Round.h">
-      <Filter>user\ヘッダー</Filter>
-    </ClInclude>
-    <ClInclude Include="User\Enemy.h">
-      <Filter>user\ヘッダー</Filter>
     </ClInclude>
     <ClInclude Include="User\player.h">
       <Filter>user\ヘッダー</Filter>

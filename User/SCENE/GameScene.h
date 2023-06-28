@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "DirectXCommon.h"
 #include "Input.h"
@@ -13,7 +13,10 @@
 #include "Camera.h"
 
 #include "ParticleManager.h"
-#include <player.h>
+
+#include"Player.h"
+
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -67,7 +70,7 @@ private: // メンバ変数 (固定)
 
 
 private:	//メンバ変数
-	const float PI = 3.141592;
+	const float PI = 3.141592f;
 
 	//カメラ
 	Camera* mainCamera = nullptr;
@@ -79,45 +82,10 @@ private:	//メンバ変数
 	Player* player_ = nullptr;
 
 	//背景や床
-	Object3d* floor = nullptr;
-	Model* floorMD = nullptr;
 	Object3d* skydome = nullptr;
 	Model* skydomeMD = nullptr;
-	Object3d* field = nullptr;
-	Model* fieldMD = nullptr;
-
-	//タイトル
-	Sprite* Title = nullptr;
-	//セレクト
-	Sprite* Select = nullptr;
-	//クリア
-	Sprite* Clear = nullptr;
-	//ゲームオーバー
-	Sprite* GameOver = nullptr;
+	
+	//UI
+	
 	//ゲームフロー
-	enum class Scene
-	{
-			Title,
-			Select,
-			Play,
-			Clear,
-			Gameover,
-			Option,
-	};
-	Scene scene;
-	int stage;
-	//カミングスーン用フラグ
-	int cmsoon = 0;
-
-	//オプション
-	float Sensitivity;
-	int selecOtption;
-	bool isChangeSensitivity;
-	Sprite* optionPic;
-
-	//音関係まとめ
-	int soundCheckFlag = 0;
-	int soundCheckFlag2 = 0;
-	int soundCheckFlag3 = 0;
-	int soundCheckFlag4 = 0;
 };
