@@ -20,7 +20,7 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	input_ = input;
 	camTransForm = new Transform();
 
-	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("stand");
+	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("enemystand");
 	
 	// デバイスをセット
 	FBXObject3d::SetDevice(dxCommon->GetDevice());
@@ -32,16 +32,41 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	fbxObject3d_->Initialize();
 	fbxObject3d_->SetModel(fbxModel_);
 	fbxObject3d_->wtf.position = { 0.0f,-0.3f,0.0f };
-	fbxObject3d_->wtf.scale = { 0.1f,0.1f,0.1f };
+	fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
+	fbxObject3d_->wtf.rotation = { 0.0f,3.3f,0.0f };
 	fbxObject3d_->PlayAnimation(1.0f,true);
 }
 
 void Player::Update() {
+	//キーボード入力による移動処理
+	//プレイヤーの移動
+	if (input_->PushKey(DIK_D)) {
+		
+		if (fbxObject3d_->wtf.position.x <= XMax) {
+			fbxObject3d_->wtf.position.x += moveSpeed_;
+		}
+	}
+	if (input_->PushKey(DIK_A)) {
+		if (fbxObject3d_->wtf.position.x >= XMin) {
+			fbxObject3d_->wtf.position.x -= moveSpeed_;
+		}
+	}
+	if (input_->PushKey(DIK_S)) {
+		if (fbxObject3d_->wtf.position.y >= YMax) {
+			fbxObject3d_->wtf.position.y -= moveSpeed_;
+		}
+	}
+	if (input_->PushKey(DIK_W)) {
+		if (fbxObject3d_->wtf.position.y <= YMin) {
+			fbxObject3d_->wtf.position.y += moveSpeed_;
+		}
+	}
+	
+
 	fbxObject3d_->Update();
 }
 
 void Player::Draw() {
-	
 }
 
 void Player::FbxDraw(){

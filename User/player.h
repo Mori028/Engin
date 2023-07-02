@@ -48,8 +48,13 @@ private:
 	FBXModel* fbxModel_ = nullptr;
 	FBXObject3d* fbxObject3d_ = nullptr;
 	
-	const float moveSpeed_ = 0.1f;
+	const float moveSpeed_ = 0.01f;
 	const float rotaSpeed_ = 0.1f;
+	//行動制限
+	const float XMax = 0.5f;
+	const float XMin = -0.5f;
+	const float YMax = -0.3f;
+	const float YMin = 0.2f;
 
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;
@@ -61,7 +66,7 @@ private:
 	float camMoveSpeed = 0.2f;
   
 	Vector2 camRotaSpeed = { PI / 1800, PI / 1800};
-
+	
 
 	//ワールド座標を入れる変数
 	Vector3 worldPos;
