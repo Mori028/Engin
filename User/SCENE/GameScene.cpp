@@ -55,6 +55,11 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	player_ = new Player();
 	player_->Initialize(dxCommon,input);
 	player_->SetCamera(mainCamera);
+
+	//敵
+	enemy_ = new Enemy();
+	enemy_->Initialize(dxCommon, input);
+	enemy_->SetCamera(mainCamera);
 }
 
 void GameScene::Reset() {
@@ -67,6 +72,8 @@ void GameScene::Reset() {
 void GameScene::Update() {
 
 	player_->Update();
+
+	enemy_->Update();
 
 	skydome->Update();
 }
@@ -84,6 +91,7 @@ void GameScene::Draw() {
 	Object3d::PreDraw(dxCommon->GetCommandList());
 	//// 3Dオブクジェクトの描画
 	player_->Draw();
+
 	skydome->Draw();
 
 	//3Dオブジェクト描画後処理
@@ -91,6 +99,8 @@ void GameScene::Draw() {
 
 	//// パーティクル UI FBX スプライト描画
 	player_->FbxDraw();
+
+	enemy_->FbxDraw();
 }
 
 Vector3 GameScene::bVelocity(Vector3& velocity, Transform& worldTransform)

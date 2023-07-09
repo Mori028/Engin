@@ -15,6 +15,7 @@
 #include "ParticleManager.h"
 
 #include"Player.h"
+#include "../../enemy.h"
 
 
 /// <summary>
@@ -80,6 +81,9 @@ private:	//メンバ変数
 
 	//プレイヤー
 	Player* player_ = nullptr;
+
+	//プレイヤー
+	Enemy* enemy_ = nullptr;
 
 	//背景や床
 	Object3d* skydome = nullptr;
