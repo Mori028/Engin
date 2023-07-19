@@ -60,6 +60,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	enemy_ = new Enemy();
 	enemy_->Initialize(dxCommon, input);
 	enemy_->SetCamera(mainCamera);
+
 }
 
 void GameScene::Reset() {
@@ -93,6 +94,8 @@ void GameScene::Draw() {
 	player_->Draw();
 
 	skydome->Draw();
+
+	
 
 	//3Dオブジェクト描画後処理
 	Object3d::PostDraw();

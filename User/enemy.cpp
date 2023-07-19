@@ -20,7 +20,7 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 	input_ = input;
 	camTransForm = new Transform();
 
-	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("enemystand");
+	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma");
 
 	// デバイスをセット
 	FBXObject3d::SetDevice(dxCommon->GetDevice());
@@ -31,14 +31,16 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 	fbxObject3d_ = new FBXObject3d;
 	fbxObject3d_->Initialize();
 	fbxObject3d_->SetModel(fbxModel_);
-	fbxObject3d_->wtf.position = { 0.0f,+0.1f,0.0f };
+	fbxObject3d_->wtf.position = { 0.0f,+0.1f,+3.0f };
 	fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
-	fbxObject3d_->wtf.rotation = { 0.0f,0.0f,0.0f };
+	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	fbxObject3d_->PlayAnimation(1.0f, true);
 }
 
 void Enemy::Update() {
 
+	fbxObject3d_->wtf.position.z -= moveSpeed_;
+		
 	fbxObject3d_->Update();
 }
 

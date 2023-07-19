@@ -181,10 +181,10 @@
     <ClCompile Include="Engine\3D\FBXObject3d.cpp">
       <Filter>Engine\ソースファイル\3D</Filter>
     </ClCompile>
-    <ClCompile Include="stage.cpp">
+    <ClCompile Include="User\enemy.cpp">
       <Filter>user\ソース</Filter>
     </ClCompile>
-    <ClCompile Include="enemy.cpp">
+    <ClCompile Include="User\stage.cpp">
       <Filter>user\ソース</Filter>
     </ClCompile>
   </ItemGroup>
@@ -273,10 +273,10 @@
     <ClInclude Include="Engine\3D\FBXObject3d.h">
       <Filter>Engine\ヘッダーファイル\3D</Filter>
     </ClInclude>
-    <ClInclude Include="stage.h">
+    <ClInclude Include="User\stage.h">
       <Filter>user\ヘッダー</Filter>
     </ClInclude>
-    <ClInclude Include="enemy.h">
+    <ClInclude Include="User\enemy.h">
       <Filter>user\ヘッダー</Filter>
     </ClInclude>
   </ItemGroup>

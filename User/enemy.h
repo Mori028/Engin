@@ -60,6 +60,8 @@ private:
 	float targetDistance = 10;
 	float camMoveSpeed = 0.2f;
 
+	float timer = 0;
+
 	Vector2 camRotaSpeed = { PI / 1800, PI / 1800 };
 
 

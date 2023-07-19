@@ -35,13 +35,21 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
 	fbxObject3d_->wtf.rotation = { 0.0f,3.3f,0.0f };
 	fbxObject3d_->PlayAnimation(1.0f,true);
+
+	//弾
+	bulletModel_ = Model::LoadFromOBJ("boll");
+	bulletObj_ = Object3d::Create();
+	bulletObj_->SetModel(bulletModel_);
+	bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.07f, fbxObject3d_->wtf.position.z };
+	bulletObj_->wtf.scale = { 0.03f,0.03f,0.03f };
 }
 
 void Player::Update() {
+
 	//キーボード入力による移動処理
 	//プレイヤーの移動
 	if (input_->PushKey(DIK_D)) {
-		
+
 		if (fbxObject3d_->wtf.position.x <= XMax) {
 			fbxObject3d_->wtf.position.x += moveSpeed_;
 		}
@@ -61,17 +69,44 @@ void Player::Update() {
 			fbxObject3d_->wtf.position.y += moveSpeed_;
 		}
 	}
-	
+
+	//弾発射
+	float ShortSpeed = 0.05f;
+
+	if (input_->PushKey(DIK_SPACE)) {
+		isShootFlag = true;
+	}
+	if (isShootFlag == true) {
+		bulletObj_->wtf.position.z += ShortSpeed;
+
+	}
+	else {
+		bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y , fbxObject3d_->wtf.position.z };
+	}
+	if (bulletObj_->wtf.position.z >= 5.0f) {
+		isShootFlag = false;
+	}
 
 	fbxObject3d_->Update();
+	bulletObj_->Update();
+
+}
+
+void Player::Attack()
+{
+	
 }
 
 void Player::Draw() {
+	if (isShootFlag == true) {
+		bulletObj_->Draw();
+	}
 }
 
 void Player::FbxDraw(){
 	
 	fbxObject3d_->Draw(dxCommon->GetCommandList());
+
 }
 
 Vector3 Player::bVelocity(Vector3& velocity, Transform& worldTransform)
