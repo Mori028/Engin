@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #include "DirectXCommon.h"
 #include "Object3d.h"
 #include "Input.h"
@@ -12,34 +12,31 @@
 #include "FBXObject3d.h"
 
 
-class Player {
+class Enemy {
 public:
-	Player();
-	~Player();
+	Enemy();
+	~Enemy();
 
 	void Initialize(DirectXCommon* dxCommon, Input* input);
 	void Update();
-	void Attack();
+
 	void Draw();
 	void FbxDraw();
 
 	Vector3 bVelocity(Vector3& velocity, Transform& worldTransform);
 
-	////ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’å–å¾—
+	////ƒ[ƒ‹ƒhÀ•W‚ğæ“¾
 	Vector3 GetWorldPosition();
 
-	//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’å–å¾—(å¼¾)
-	Vector3 GetBulletWorldPosition();
-
 	/// <summary>
-	/// ãƒã‚¸ã‚·ãƒ§ãƒ³
+	/// ƒ|ƒWƒVƒ‡ƒ“
 	/// </summary>
 	/// <param name="pos"></param>
-	void SetPos(Vector3 pos) {fbxObject3d_->wtf.position = pos; };
+	void SetPos(Vector3 pos) { fbxObject3d_->wtf.position = pos; };
 	void SetCamera(Camera* cam) { camera = cam; };
 
 public:
-	//éŸ³ã‚’æ­¢ã‚ã‚‹é–¢æ•°
+	//‰¹‚ğ~‚ß‚éŠÖ”
 	IXAudio2SourceVoice* pSourceVoice[10] = { 0 };
 
 private:
@@ -47,23 +44,12 @@ private:
 	Input* input_ = nullptr;
 	DirectXCommon* dxCommon = nullptr;
 	Audio* audio = nullptr;
-	//å¾…æ©Ÿ
+	//‘Ò‹@
 	FBXModel* fbxModel_ = nullptr;
 	FBXObject3d* fbxObject3d_ = nullptr;
 
-	//å¼¾
-	Object3d* bulletObj_ = nullptr;
-	Model* bulletModel_ = nullptr;
-	
 	const float moveSpeed_ = 0.01f;
 	const float rotaSpeed_ = 0.1f;
-	//è¡Œå‹•åˆ¶é™
-	const float XMax = 0.5f;
-	const float XMin = -0.5f;
-	const float YMax = -0.3f;
-	const float YMin = 0.2f;
-
-	
 
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;
@@ -73,12 +59,13 @@ private:
 	float targetTheta;
 	float targetDistance = 10;
 	float camMoveSpeed = 0.2f;
-  
-	Vector2 camRotaSpeed = { PI / 1800, PI / 1800};
 
-	//å¼¾ã®ãƒ•ãƒ©ã‚°
-	bool isShootFlag = false;
-	//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’å…¥ã‚Œã‚‹å¤‰æ•°
+	float timer = 0;
+
+	Vector2 camRotaSpeed = { PI / 1800, PI / 1800 };
+
+
+	//ƒ[ƒ‹ƒhÀ•W‚ğ“ü‚ê‚é•Ï”
 	Vector3 worldPos;
 
 };
