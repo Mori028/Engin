@@ -1,4 +1,5 @@
 #include"Enemy.h"
+#include "player.h"
 
 Enemy::Enemy() {
 
@@ -18,9 +19,12 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 
 	this->dxCommon = dxCommon;
 	input_ = input;
-	camTransForm = new Transform();
 
 	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma");
+
+	fbxredModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma1");
+
+	fbxwhiteModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma2");
 
 	// デバイスをセット
 	FBXObject3d::SetDevice(dxCommon->GetDevice());
@@ -31,45 +35,92 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 	fbxObject3d_ = new FBXObject3d;
 	fbxObject3d_->Initialize();
 	fbxObject3d_->SetModel(fbxModel_);
-	fbxObject3d_->wtf.position = { 0.0f,+0.1f,+3.0f };
-	fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
+	fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+	/*fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };*/
 	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	fbxObject3d_->PlayAnimation(1.0f, true);
+
+	enemyObject3d_ = new FBXObject3d;
+	enemyObject3d_->Initialize();
+	enemyObject3d_->SetModel(fbxredModel_);
+	enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+	/*enemyObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };*/
+	enemyObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	enemyObject3d_->PlayAnimation(1.0f, true);
+
+	enemy1Object3d_ = new FBXObject3d;
+	enemy1Object3d_->Initialize();
+	enemy1Object3d_->SetModel(fbxwhiteModel_);
+	enemy1Object3d_->wtf.position = { +0.5f,-0.3f,+3.0f };
+	/*enemy1Object3d_->wtf.scale = { 0.03f,0.03f,0.03f };*/
+	enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	enemy1Object3d_->PlayAnimation(1.0f, true);
 }
 
 void Enemy::Update() {
 
-	fbxObject3d_->wtf.position.z -= moveSpeed_;
+	//当たり判定(自機弾と雑魚敵)
+	if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
+		OnColision();
+	};
+
 		
 	fbxObject3d_->Update();
+	enemyObject3d_->Update();
+	enemy1Object3d_->Update();
 }
 
 void Enemy::Draw() {
 }
 
 void Enemy::FbxDraw() {
+	
+	if (hp == 1) {
 
-	fbxObject3d_->Draw(dxCommon->GetCommandList());
-}
+		fbxObject3d_->Draw(dxCommon->GetCommandList());
 
-Vector3 Enemy::bVelocity(Vector3& velocity, Transform& worldTransform)
-{
-	Vector3 result = { 0,0,0 };
+		fbxObject3d_->wtf.position.z -= moveSpeed_;
 
-	//内積
-	result.z = velocity.x * worldTransform.matWorld.m[0][2] +
-		velocity.y * worldTransform.matWorld.m[1][2] +
-		velocity.z * worldTransform.matWorld.m[2][2];
+		if (fbxObject3d_->wtf.position.z <= 0.5) {
+			hp = 2;
+			fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+		}
+	}
+	else if (hp == 2) {
 
-	result.x = velocity.x * worldTransform.matWorld.m[0][0] +
-		velocity.y * worldTransform.matWorld.m[1][0] +
-		velocity.z * worldTransform.matWorld.m[2][0];
+		enemyObject3d_->Draw(dxCommon->GetCommandList());
 
-	result.y = velocity.x * worldTransform.matWorld.m[0][1] +
-		velocity.y * worldTransform.matWorld.m[1][1] +
-		velocity.z * worldTransform.matWorld.m[2][1];
+		enemyObject3d_->wtf.position.z -= moveSpeed_;
 
-	return result;
+		if (enemyObject3d_->wtf.position.z <= 0.5) {
+			hp = 3;
+			enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+		}
+	}
+	else if (hp == 3) {
+
+		enemy1Object3d_->Draw(dxCommon->GetCommandList());
+
+		enemy1Object3d_->wtf.position.z -= moveSpeed_;
+
+		if (enemy1Object3d_->wtf.position.z <= 0.5) {
+			hp = 1;
+			enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+		}
+	}
+	else if (hp == 0) {
+		timer++;
+		//元の座標に戻す
+		fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+		enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+		enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+		if (timer >= 50) {
+			timer = 0;
+			hp = 1;
+		}
+	}
+	
+	
 }
 
 Vector3 Enemy::GetWorldPosition() {
@@ -80,5 +131,10 @@ Vector3 Enemy::GetWorldPosition() {
 	worldPos.z = fbxObject3d_->wtf.matWorld.m[3][2];
 
 	return worldPos;
+}
+
+void Enemy::OnColision()
+{
+	hp = 0;
 }
 

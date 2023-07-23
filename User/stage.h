@@ -34,7 +34,7 @@ private:
 
 	Object3d* stage_ = nullptr;
 	Model* felld = nullptr;
-	const float moveSpeed_ = 0.3f;
+	const float moveSpeed_ = 0.03f;
 	const float rotaSpeed_ = 0.1f;
 
 	Camera* camera = nullptr;
