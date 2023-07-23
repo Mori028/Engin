@@ -59,8 +59,12 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	//敵
 	enemy_ = new Enemy();
 	enemy_->Initialize(dxCommon, input);
-	enemy_->SetCamera(mainCamera);
+	enemy_->SetPlayer(player_);
 
+
+	stage_ = new Stage();
+	stage_->Initialize(dxCommon, input);
+	stage_->SetCamera(mainCamera);
 }
 
 void GameScene::Reset() {
@@ -72,9 +76,14 @@ void GameScene::Reset() {
 /// </summary>
 void GameScene::Update() {
 
+	skydome->wtf.position.z -= skyMoveSpeed_;
+
+
 	player_->Update();
 
 	enemy_->Update();
+
+	stage_->Update();
 
 	skydome->Update();
 }
@@ -95,7 +104,7 @@ void GameScene::Draw() {
 
 	skydome->Draw();
 
-	
+	stage_->Draw();
 
 	//3Dオブジェクト描画後処理
 	Object3d::PostDraw();

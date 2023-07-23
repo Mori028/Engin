@@ -9,6 +9,9 @@ Player::~Player() {
 	//FBXオブジェクト解放
 	delete fbxObject3d_;
 	delete fbxModel_;
+
+	delete bulletModel_;
+	delete bulletObj_;
 }
 
 void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
@@ -20,7 +23,7 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	input_ = input;
 	camTransForm = new Transform();
 
-	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("enemystand");
+	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("stand");
 	
 	// デバイスをセット
 	FBXObject3d::SetDevice(dxCommon->GetDevice());
@@ -32,19 +35,20 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	fbxObject3d_->Initialize();
 	fbxObject3d_->SetModel(fbxModel_);
 	fbxObject3d_->wtf.position = { 0.0f,-0.3f,0.0f };
-	fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
-	fbxObject3d_->wtf.rotation = { 0.0f,3.3f,0.0f };
+	fbxObject3d_->wtf.scale = { 0.04f,0.04f,0.04f };
+	fbxObject3d_->wtf.rotation = { 0.0f,0.0f,0.0f };
 	fbxObject3d_->PlayAnimation(1.0f,true);
 
 	//弾
 	bulletModel_ = Model::LoadFromOBJ("boll");
 	bulletObj_ = Object3d::Create();
 	bulletObj_->SetModel(bulletModel_);
-	bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.07f, fbxObject3d_->wtf.position.z };
+	bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.01f, fbxObject3d_->wtf.position.z };
 	bulletObj_->wtf.scale = { 0.03f,0.03f,0.03f };
 }
 
 void Player::Update() {
+
 
 	//キーボード入力による移動処理
 	//プレイヤーの移動
@@ -69,11 +73,11 @@ void Player::Update() {
 			fbxObject3d_->wtf.position.y += moveSpeed_;
 		}
 	}
-
-	//弾発射
+	 
+	//弾の発射
 	float ShortSpeed = 0.05f;
 
-	if (input_->PushKey(DIK_SPACE)) {
+	if (input_->TriggerKey (DIK_SPACE)) {
 		isShootFlag = true;
 	}
 	if (isShootFlag == true) {
@@ -83,18 +87,13 @@ void Player::Update() {
 	else {
 		bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y , fbxObject3d_->wtf.position.z };
 	}
-	if (bulletObj_->wtf.position.z >= 5.0f) {
+	if (bulletObj_->wtf.position.z >= 3.0f) {
 		isShootFlag = false;
 	}
-
+	
 	fbxObject3d_->Update();
 	bulletObj_->Update();
 
-}
-
-void Player::Attack()
-{
-	
 }
 
 void Player::Draw() {
@@ -106,7 +105,7 @@ void Player::Draw() {
 void Player::FbxDraw(){
 	
 	fbxObject3d_->Draw(dxCommon->GetCommandList());
-
+	
 }
 
 Vector3 Player::bVelocity(Vector3& velocity, Transform& worldTransform)
@@ -130,6 +129,9 @@ Vector3 Player::bVelocity(Vector3& velocity, Transform& worldTransform)
 }
 
 Vector3 Player::GetWorldPosition(){
+	//ワールド座標を入れる変数
+	Vector3 worldPos;
+
 	fbxObject3d_->wtf.UpdateMat();
 	//ワールド行列の平行移動成分
 	worldPos.x = fbxObject3d_->wtf.matWorld.m[3][0];
@@ -137,5 +139,19 @@ Vector3 Player::GetWorldPosition(){
 	worldPos.z = fbxObject3d_->wtf.matWorld.m[3][2];
 
 	return worldPos;
+}
+
+Vector3 Player::GetBulletWorldPosition()
+{
+	Vector3 BulletWorldPos;
+
+	bulletObj_->wtf.UpdateMat();
+
+	//ワールド行列の平行移動成分
+	BulletWorldPos.x = bulletObj_->wtf.matWorld.m[3][0];
+	BulletWorldPos.y = bulletObj_->wtf.matWorld.m[3][1];
+	BulletWorldPos.z = bulletObj_->wtf.matWorld.m[3][2];
+
+	return BulletWorldPos;
 }
 

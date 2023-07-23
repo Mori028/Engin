@@ -19,18 +19,18 @@ public:
 
 	void Initialize(DirectXCommon* dxCommon, Input* input);
 	void Update();
-	void Attack();
 	void Draw();
 	void FbxDraw();
 
 	Vector3 bVelocity(Vector3& velocity, Transform& worldTransform);
 
-	////ワールド座標を取得
+	////プレイヤーのワールド座標を取得
 	Vector3 GetWorldPosition();
 
-	//ワールド座標を取得(弾)
+	//弾のワールド座標を取得
 	Vector3 GetBulletWorldPosition();
 
+	Vector3 GetPos() { return fbxObject3d_->wtf.position; };
 	/// <summary>
 	/// ポジション
 	/// </summary>
@@ -54,16 +54,16 @@ private:
 	//弾
 	Object3d* bulletObj_ = nullptr;
 	Model* bulletModel_ = nullptr;
-	
-	const float moveSpeed_ = 0.01f;
+	//弾のフラグ
+	bool isShootFlag = false;
+
+	const float moveSpeed_ = 0.013f;
 	const float rotaSpeed_ = 0.1f;
 	//行動制限
 	const float XMax = 0.5f;
 	const float XMin = -0.5f;
 	const float YMax = -0.3f;
 	const float YMin = 0.2f;
-
-	
 
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;
@@ -76,9 +76,7 @@ private:
   
 	Vector2 camRotaSpeed = { PI / 1800, PI / 1800};
 
-	//弾のフラグ
-	bool isShootFlag = false;
 	//ワールド座標を入れる変数
 	Vector3 worldPos;
-
+	
 };

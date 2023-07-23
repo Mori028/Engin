@@ -10,7 +10,9 @@
 #include "FBXModel.h"
 #include "FbxLoader.h"
 #include "FBXObject3d.h"
+#include "Collision.h"
 
+class Player;
 
 class Enemy {
 public:
@@ -22,19 +24,17 @@ public:
 
 	void Draw();
 	void FbxDraw();
-
-	Vector3 bVelocity(Vector3& velocity, Transform& worldTransform);
-
 	////ワールド座標を取得
 	Vector3 GetWorldPosition();
+
+	void OnColision();
 
 	/// <summary>
 	/// ポジション
 	/// </summary>
 	/// <param name="pos"></param>
 	void SetPos(Vector3 pos) { fbxObject3d_->wtf.position = pos; };
-	void SetCamera(Camera* cam) { camera = cam; };
-
+	void SetPlayer(Player* player) { player_ = player; };
 public:
 	//音を止める関数
 	IXAudio2SourceVoice* pSourceVoice[10] = { 0 };
@@ -44,26 +44,26 @@ private:
 	Input* input_ = nullptr;
 	DirectXCommon* dxCommon = nullptr;
 	Audio* audio = nullptr;
-	//待機
+	Player* player_ = nullptr;
+	Collision coll;
+	//敵1
 	FBXModel* fbxModel_ = nullptr;
 	FBXObject3d* fbxObject3d_ = nullptr;
+	//敵2
+	FBXModel* fbxredModel_ = nullptr;
+	FBXObject3d* enemyObject3d_ = nullptr;
+	//敵3
+	FBXModel* fbxwhiteModel_ = nullptr;
+	FBXObject3d* enemy1Object3d_ = nullptr;
+
+	/*bool isAliveFlag = true;*/
 
 	const float moveSpeed_ = 0.01f;
 	const float rotaSpeed_ = 0.1f;
 
-	Camera* camera = nullptr;
-	Transform* camTransForm = nullptr;
-	Vector3 targetPos;
-	Vector3 eyePos;
-	Vector3 centerPos;
-	float targetTheta;
-	float targetDistance = 10;
-	float camMoveSpeed = 0.2f;
-
 	float timer = 0;
 
-	Vector2 camRotaSpeed = { PI / 1800, PI / 1800 };
-
+	int hp = 1;
 
 	//ワールド座標を入れる変数
 	Vector3 worldPos;

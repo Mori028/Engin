@@ -14,8 +14,9 @@
 
 #include "ParticleManager.h"
 
-#include"Player.h"
+#include "Player.h"
 #include "enemy.h"
+#include "stage.h"
 
 
 /// <summary>
@@ -85,9 +86,13 @@ private:	//メンバ変数
 	//プレイヤー
 	Enemy* enemy_ = nullptr;
 
+	//ステージ
+	Stage* stage_ = nullptr;
+
 	//背景や床
 	Object3d* skydome = nullptr;
 	Model* skydomeMD = nullptr;
+	const float skyMoveSpeed_ = 0.15f;
 	
 	//UI
 	
