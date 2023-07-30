@@ -56,6 +56,9 @@ private:
 	//弾
 	Object3d* bulletObj_ = nullptr;
 	Model* bulletModel_ = nullptr;
+	Vector3 enemylen;
+	Vector3 len;
+	float bulletCoolTime = 0;
 	//弾のフラグ
 	bool isShootFlag = false;
 
@@ -71,6 +74,11 @@ private:
 	const float YMax = -0.3f;
 	const float YMin = 0.2f;
 
+	const float retXMax = 3.5f;
+	const float retXMin = -3.5f;
+	const float retYMax = 0.3f;
+	const float retYMin = -9.3f;
+
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;
 	Vector3 targetPos;
@@ -79,7 +87,6 @@ private:
 	float targetTheta;
 	float targetDistance = 10;
 	float camMoveSpeed = 0.2f;
-  
 	Vector2 camRotaSpeed = { PI / 1800, PI / 1800};
 
 	//ワールド座標を入れる変数

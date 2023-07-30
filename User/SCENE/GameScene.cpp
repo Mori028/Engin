@@ -85,7 +85,7 @@ void GameScene::Update() {
 
 
 	if (sceneNo_ == SceneNo::TITLE) {
-		if (input->TriggerKey(DIK_SPACE)) {
+		if (input->TriggerKey(DIK_RETURN) || input->ButtonInput(RT)) {
 			sceneNo_ = SceneNo::GAME;
 		}
 	}
