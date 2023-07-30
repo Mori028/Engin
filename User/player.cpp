@@ -45,6 +45,14 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	bulletObj_->SetModel(bulletModel_);
 	bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.01f, fbxObject3d_->wtf.position.z };
 	bulletObj_->wtf.scale = { 0.03f,0.03f,0.03f };
+
+	//レティクル
+	ReticleModel_ = Model::LoadFromOBJ("boll");
+	ReticleObj_ = Object3d::Create();
+	ReticleObj_->SetModel(ReticleModel_);
+	ReticleObj_->wtf.scale = { 0.5f,0.5f,0.5f };
+	ReticleObj_->wtf.rotation = { 0.0f,0.0f,0.0f };
+	ReticleObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y ,fbxObject3d_->wtf.position.z + 10.0f };
 }
 
 void Player::Update() {
@@ -73,6 +81,28 @@ void Player::Update() {
 			fbxObject3d_->wtf.position.y += moveSpeed_;
 		}
 	}
+	//レティクル
+	if (input_->PushKey(DIK_RIGHT)) {
+
+		if (fbxObject3d_->wtf.position.x <= XMax) {
+			ReticleObj_->wtf.position.x += moveSpeed_+0.1f;
+		}
+	}
+	if (input_->PushKey(DIK_LEFT)) {
+		if (fbxObject3d_->wtf.position.x >= XMin) {
+			ReticleObj_->wtf.position.x -= moveSpeed_ + 0.1f;
+		}
+	}
+	if (input_->PushKey(DIK_DOWN)) {
+		if (fbxObject3d_->wtf.position.y >= YMax) {
+			ReticleObj_->wtf.position.y -= moveSpeed_ + 0.1f;
+		}
+	}
+	if (input_->PushKey(DIK_UP)) {
+		if (fbxObject3d_->wtf.position.y <= YMin) {
+			ReticleObj_->wtf.position.y += moveSpeed_ + 0.1f;
+		}
+	}
 	 
 	//弾の発射
 	float ShortSpeed = 0.05f;
@@ -93,10 +123,11 @@ void Player::Update() {
 	
 	fbxObject3d_->Update();
 	bulletObj_->Update();
-
+	ReticleObj_->Update();
 }
 
 void Player::Draw() {
+	ReticleObj_->Draw();
 	if (isShootFlag == true) {
 		bulletObj_->Draw();
 	}
@@ -155,3 +186,16 @@ Vector3 Player::GetBulletWorldPosition()
 	return BulletWorldPos;
 }
 
+Vector3 Player::GetReticleWorldPosition()
+{
+	//ワールド座標を入れる変数
+	Vector3 RetWorldPos;
+
+	bulletObj_->wtf.UpdateMat();
+	//ワールド行列の平行移動成分
+	RetWorldPos.x = ReticleObj_->wtf.matWorld.m[3][0];
+	RetWorldPos.y = ReticleObj_->wtf.matWorld.m[3][1];
+	RetWorldPos.z = ReticleObj_->wtf.matWorld.m[3][2];
+
+	return RetWorldPos;
+}

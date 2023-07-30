@@ -36,6 +36,13 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	spriteCommon = new SpriteCommon;
 	spriteCommon->Initialize(dxCommon);
 
+	//タイトル
+	titleSprite->Initialize(spriteCommon);
+	titleSprite->SetPozition({ 0,0 });
+	titleSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(0, "title.png");
+	titleSprite->SetTextureIndex(0);
+
 	// カメラ生成
 	mainCamera = new Camera(WinApp::window_width, WinApp::window_height);
 	camera1 = new Camera(WinApp::window_width, WinApp::window_height);
@@ -76,43 +83,59 @@ void GameScene::Reset() {
 /// </summary>
 void GameScene::Update() {
 
-	skydome->wtf.position.z -= skyMoveSpeed_;
+
+	if (sceneNo_ == SceneNo::TITLE) {
+		if (input->TriggerKey(DIK_SPACE)) {
+			sceneNo_ = SceneNo::GAME;
+		}
+	}
+
+	if (sceneNo_ == SceneNo::GAME) {
+		skydome->wtf.position.z -= skyMoveSpeed_;
 
 
-	player_->Update();
+		player_->Update();
 
-	enemy_->Update();
+		enemy_->Update();
 
-	stage_->Update();
+		stage_->Update();
 
-	skydome->Update();
+		skydome->Update();
+		
+	}
 }
 
 /// <summary>
 /// 描画
 /// </summary>
 void GameScene::Draw() {
+	//タイトル
+	if (sceneNo_ == SceneNo::TITLE) {
+		titleSprite->Draw();
 
-	/// <summary>
-	/// 3Dオブジェクトの描画
-	/// ここに3Dオブジェクトの描画処理を追加できる
-	/// <summary>
-	//3Dオブジェクト描画前処理
-	Object3d::PreDraw(dxCommon->GetCommandList());
-	//// 3Dオブクジェクトの描画
-	player_->Draw();
+	}
+	if (sceneNo_ == SceneNo::GAME) {
+		/// <summary>
+		/// 3Dオブジェクトの描画
+		/// ここに3Dオブジェクトの描画処理を追加できる
+		/// <summary>
+		//3Dオブジェクト描画前処理
+		Object3d::PreDraw(dxCommon->GetCommandList());
+		//// 3Dオブクジェクトの描画
+		player_->Draw();
 
-	skydome->Draw();
+		skydome->Draw();
 
-	stage_->Draw();
+		stage_->Draw();
 
-	//3Dオブジェクト描画後処理
-	Object3d::PostDraw();
+		//3Dオブジェクト描画後処理
+		Object3d::PostDraw();
 
-	//// パーティクル UI FBX スプライト描画
-	player_->FbxDraw();
+		//// パーティクル UI FBX スプライト描画
+		player_->FbxDraw();
 
-	enemy_->FbxDraw();
+		enemy_->FbxDraw();
+	}
 }
 
 Vector3 GameScene::bVelocity(Vector3& velocity, Transform& worldTransform)

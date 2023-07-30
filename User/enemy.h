@@ -27,6 +27,10 @@ public:
 	////ワールド座標を取得
 	Vector3 GetWorldPosition();
 
+	Vector3 GetEne2WorldPosition();
+
+	Vector3 GetEne3WorldPosition();
+
 	void OnColision();
 
 	/// <summary>
@@ -64,6 +68,8 @@ private:
 	float timer = 0;
 
 	int hp = 1;
+
+	int aliveFlag = 1;
 
 	//ワールド座標を入れる変数
 	Vector3 worldPos;

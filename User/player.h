@@ -30,6 +30,9 @@ public:
 	//弾のワールド座標を取得
 	Vector3 GetBulletWorldPosition();
 
+	//ワールド座標を取得(レティクル)
+	Vector3 GetReticleWorldPosition();
+
 	Vector3 GetPos() { return fbxObject3d_->wtf.position; };
 	/// <summary>
 	/// ポジション
@@ -50,12 +53,15 @@ private:
 	//待機
 	FBXModel* fbxModel_ = nullptr;
 	FBXObject3d* fbxObject3d_ = nullptr;
-
 	//弾
 	Object3d* bulletObj_ = nullptr;
 	Model* bulletModel_ = nullptr;
 	//弾のフラグ
 	bool isShootFlag = false;
+
+	//レティクル
+	Object3d* ReticleObj_ = nullptr;
+	Model* ReticleModel_ = nullptr;
 
 	const float moveSpeed_ = 0.013f;
 	const float rotaSpeed_ = 0.1f;
