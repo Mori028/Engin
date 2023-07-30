@@ -58,11 +58,24 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 }
 
 void Enemy::Update() {
-
-	//“–‚½‚è”»’è(Ž©‹@’e‚ÆŽG‹›“G)
-	if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
-		OnColision();
-	};
+	if (hp == 1) {
+		//“–‚½‚è”»’è(Ž©‹@’e‚Æ“G1)
+		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
+			OnColision();
+		};
+	}
+	if (hp == 2) {
+		//“–‚½‚è”»’è(Ž©‹@’e‚Æ“G2)
+		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetEne2WorldPosition(), 0.1f, 0.3f)) {
+			OnColision();
+		};
+	}
+	if (hp == 3) {
+		//“–‚½‚è”»’è(Ž©‹@’e‚Æ“G3)
+		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetEne3WorldPosition(), 0.1f, 0.3f)) {
+			OnColision();
+		};
+	}
 
 		
 	fbxObject3d_->Update();
@@ -74,52 +87,79 @@ void Enemy::Draw() {
 }
 
 void Enemy::FbxDraw() {
-	
-	if (hp == 1) {
+	if (aliveFlag == 1) {
+		if (hp == 1) {
 
-		fbxObject3d_->Draw(dxCommon->GetCommandList());
+			fbxObject3d_->Draw(dxCommon->GetCommandList());
 
-		fbxObject3d_->wtf.position.z -= moveSpeed_;
+			fbxObject3d_->wtf.position.z -= moveSpeed_;
 
-		if (fbxObject3d_->wtf.position.z <= 0.5) {
-			hp = 2;
+			if (fbxObject3d_->wtf.position.z <= 0.5) {
+				hp = 2;
+				fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+			}
+		}
+		else if (hp == 2) {
+
+			enemyObject3d_->Draw(dxCommon->GetCommandList());
+
+			enemyObject3d_->wtf.position.z -= moveSpeed_;
+
+			if (enemyObject3d_->wtf.position.z <= 0.5) {
+				hp = 3;
+				enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+			}
+		}
+		else if (hp == 3) {
+
+			enemy1Object3d_->Draw(dxCommon->GetCommandList());
+
+			enemy1Object3d_->wtf.position.z -= moveSpeed_;
+
+			if (enemy1Object3d_->wtf.position.z <= 0.5) {
+				hp = 1;
+				enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+			}
+		}
+	}
+	else if (aliveFlag == 0) {
+		if (hp == 1) {
+			timer++;
+			//Œ³‚ÌÀ•W‚É–ß‚·
 			fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
-		}
-	}
-	else if (hp == 2) {
-
-		enemyObject3d_->Draw(dxCommon->GetCommandList());
-
-		enemyObject3d_->wtf.position.z -= moveSpeed_;
-
-		if (enemyObject3d_->wtf.position.z <= 0.5) {
-			hp = 3;
 			enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
-		}
-	}
-	else if (hp == 3) {
-
-		enemy1Object3d_->Draw(dxCommon->GetCommandList());
-
-		enemy1Object3d_->wtf.position.z -= moveSpeed_;
-
-		if (enemy1Object3d_->wtf.position.z <= 0.5) {
-			hp = 1;
 			enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+			if (timer >= 50) {
+				timer = 0;
+				hp = 2;
+				aliveFlag = 1;
+			}
+		}
+		if (hp == 2) {
+			timer++;
+			//Œ³‚ÌÀ•W‚É–ß‚·
+			fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+			enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+			enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+			if (timer >= 50) {
+				timer = 0;
+				hp = 3;
+				aliveFlag = 1;
+			}
+		}
+		if (hp == 3) {
+			timer++;
+			//Œ³‚ÌÀ•W‚É–ß‚·
+			fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+			enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+			enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+			if (timer >= 50) {
+				timer = 0;
+				hp = 1;
+				aliveFlag = 1;
+			}
 		}
 	}
-	else if (hp == 0) {
-		timer++;
-		//Œ³‚ÌÀ•W‚É–ß‚·
-		fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
-		enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
-		enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
-		if (timer >= 50) {
-			timer = 0;
-			hp = 1;
-		}
-	}
-	
 	
 }
 
@@ -133,8 +173,28 @@ Vector3 Enemy::GetWorldPosition() {
 	return worldPos;
 }
 
+Vector3 Enemy::GetEne2WorldPosition() {
+	fbxObject3d_->wtf.UpdateMat();
+	//ƒ[ƒ‹ƒhs—ñ‚Ì•½sˆÚ“®¬•ª
+	worldPos.x = enemyObject3d_->wtf.matWorld.m[3][0];
+	worldPos.y = enemyObject3d_->wtf.matWorld.m[3][1];
+	worldPos.z = enemyObject3d_->wtf.matWorld.m[3][2];
+
+	return worldPos;
+}
+
+Vector3 Enemy::GetEne3WorldPosition() {
+	fbxObject3d_->wtf.UpdateMat();
+	//ƒ[ƒ‹ƒhs—ñ‚Ì•½sˆÚ“®¬•ª
+	worldPos.x = enemy1Object3d_->wtf.matWorld.m[3][0];
+	worldPos.y = enemy1Object3d_->wtf.matWorld.m[3][1];
+	worldPos.z = enemy1Object3d_->wtf.matWorld.m[3][2];
+
+	return worldPos;
+}
+
 void Enemy::OnColision()
 {
-	hp = 0;
+	aliveFlag = 0;
 }
 
