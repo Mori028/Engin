@@ -123,7 +123,7 @@ void GameScene::Draw() {
 		Object3d::PreDraw(dxCommon->GetCommandList());
 		//// 3Dオブクジェクトの描画
 		player_->Draw();
-
+		enemy_->Draw();
 		skydome->Draw();
 
 		stage_->Draw();

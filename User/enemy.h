@@ -31,6 +31,9 @@ public:
 
 	Vector3 GetEne3WorldPosition();
 
+	//弾のワールド座標を取得
+	Vector3 GetBulletWorldPosition();
+
 	void OnColision();
 
 	/// <summary>
@@ -60,13 +63,21 @@ private:
 	FBXModel* fbxwhiteModel_ = nullptr;
 	FBXObject3d* enemy1Object3d_ = nullptr;
 
-	/*bool isAliveFlag = true;*/
+	//弾
+	Object3d* enemyBulletObj_ = nullptr;
+	Model* enemyBulletModel_ = nullptr;
+	//距離
+	Vector3 playerDistance;
+	Vector3 distance;
+	float bulletCoolTime = 0;
+	//弾のフラグ
+	bool isShootFlag = false;
+	float bulletTimer = 0;
 
 	const float moveSpeed_ = 0.01f;
 	const float rotaSpeed_ = 0.1f;
 
 	float timer = 0;
-
 	int hp = 1;
 
 	int aliveFlag = 1;

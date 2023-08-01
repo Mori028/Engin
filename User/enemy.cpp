@@ -55,10 +55,36 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 	/*enemy1Object3d_->wtf.scale = { 0.03f,0.03f,0.03f };*/
 	enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	enemy1Object3d_->PlayAnimation(1.0f, true);
+
+	//’e
+	enemyBulletModel_ = Model::LoadFromOBJ("boll");
+	enemyBulletObj_ = Object3d::Create();
+	enemyBulletObj_->SetModel(enemyBulletModel_);
+	enemyBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y +0.2f , fbxObject3d_->wtf.position.z };
+	enemyBulletObj_->wtf.scale = { 0.05f,0.05f,0.05f };
 }
 
 void Enemy::Update() {
 	if (hp == 1) {
+
+		//ŽG‹›“G‚ÌUŒ‚
+		float shortSpeed = 0.05f;
+		bulletTimer++;
+		if (bulletTimer>=60) {
+			isShootFlag = true;
+		}
+		if (isShootFlag == true) {
+			bulletCoolTime++;
+			enemyBulletObj_->wtf.position.z -= shortSpeed;
+
+		}
+		else {
+			enemyBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.2f , fbxObject3d_->wtf.position.z };
+		}
+		if (enemyBulletObj_->wtf.position.z <= 0.0f) {
+			bulletTimer = 0;
+			isShootFlag = false;
+		}
 		//“–‚½‚è”»’è(Ž©‹@’e‚Æ“G1)
 		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
 			OnColision();
@@ -81,9 +107,13 @@ void Enemy::Update() {
 	fbxObject3d_->Update();
 	enemyObject3d_->Update();
 	enemy1Object3d_->Update();
+	enemyBulletObj_->Update();
 }
 
 void Enemy::Draw() {
+	if (isShootFlag == true) {
+		enemyBulletObj_->Draw();
+	}
 }
 
 void Enemy::FbxDraw() {
@@ -91,13 +121,14 @@ void Enemy::FbxDraw() {
 		if (hp == 1) {
 
 			fbxObject3d_->Draw(dxCommon->GetCommandList());
-
-			fbxObject3d_->wtf.position.z -= moveSpeed_;
+			//“G‚ÌÚ‹ß
+			/*fbxObject3d_->wtf.position.z -= moveSpeed_;*/
 
 			if (fbxObject3d_->wtf.position.z <= 0.5) {
 				hp = 2;
 				fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
 			}
+
 		}
 		else if (hp == 2) {
 
@@ -189,6 +220,17 @@ Vector3 Enemy::GetEne3WorldPosition() {
 	worldPos.x = enemy1Object3d_->wtf.matWorld.m[3][0];
 	worldPos.y = enemy1Object3d_->wtf.matWorld.m[3][1];
 	worldPos.z = enemy1Object3d_->wtf.matWorld.m[3][2];
+
+	return worldPos;
+}
+
+Vector3 Enemy::GetBulletWorldPosition()
+{
+	enemyBulletObj_->wtf.UpdateMat();
+	//ƒ[ƒ‹ƒhs—ñ‚Ì•½sˆÚ“®¬•ª
+	worldPos.x = enemyBulletObj_->wtf.matWorld.m[3][0];
+	worldPos.y = enemyBulletObj_->wtf.matWorld.m[3][1];
+	worldPos.z = enemyBulletObj_->wtf.matWorld.m[3][2];
 
 	return worldPos;
 }
