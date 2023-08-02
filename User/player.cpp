@@ -93,7 +93,7 @@ void Player::Update() {
 			ReticleObj_->wtf.position.x -= moveSpeed_ + 0.1f;
 		}
 	}
-	if (input_->PushKey(DIK_DOWN)) {
+	if (input_->PushKey(DIK_DOWN) || input_->StickInput(R_DOWN)) {
 		/*if (ReticleObj_->wtf.position.y >= retYMax) {*/
 		ReticleObj_->wtf.position.y -= moveSpeed_ + 0.1f;
 		//}
@@ -103,21 +103,20 @@ void Player::Update() {
 			ReticleObj_->wtf.position.y += moveSpeed_ + 0.1f;
 		//}
 	}
-	 
-	enemylen = ReticleObj_->wtf.position - bulletObj_->wtf.position;
-	enemylen.nomalize();
 
 	//弾の発射
-	float ShortSpeed = 1.0f;
+	float shortSpeed = 1.0f;
 
 	if (input_->TriggerKey (DIK_SPACE) || input_->ButtonInput(RT)) {
+		enemyDistance = ReticleObj_->wtf.position - bulletObj_->wtf.position;
+		enemyDistance.nomalize();
 		isShootFlag = true;
 	}
 	if (isShootFlag == true) {
 		bulletCoolTime++;
-		bulletObj_->wtf.position += enemylen;
-		len = enemylen;
-		len *= ShortSpeed;
+		bulletObj_->wtf.position += enemyDistance;
+		distance = enemyDistance;
+		distance *= shortSpeed;
 	}
 	else {
 		bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y , fbxObject3d_->wtf.position.z };

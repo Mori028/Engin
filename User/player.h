@@ -56,8 +56,8 @@ private:
 	//弾
 	Object3d* bulletObj_ = nullptr;
 	Model* bulletModel_ = nullptr;
-	Vector3 enemylen;
-	Vector3 len;
+	Vector3 enemyDistance;
+	Vector3 distance;
 	float bulletCoolTime = 0;
 	//弾のフラグ
 	bool isShootFlag = false;
