@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTex", "DirectXTex\Di
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "imgui", "imgui\imgui.vcxproj", "{EFF8CFE2-34CA-4153-A28F-E6C23291DD46}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "buddys", "buddys.vcxproj", "{15ABEF62-319D-4CC4-817E-314080E66AE1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlanetShooting", "PlanetShooting.vcxproj", "{15ABEF62-319D-4CC4-817E-314080E66AE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
