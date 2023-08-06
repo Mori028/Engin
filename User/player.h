@@ -78,6 +78,12 @@ private:
 	const float retXMin = -3.5f;
 	const float retYMax = 0.3f;
 	const float retYMin = -9.3f;
+	//傾きフラグ
+	float rollW = 0;
+	float rollA = 0;
+	float rollS = 0;
+	float rollD = 0;
+
 
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;

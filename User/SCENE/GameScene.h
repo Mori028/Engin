@@ -82,7 +82,7 @@ private:	//メンバ変数
 		GAMEOVER
 	};
 	//ゲーム制作中はgameシーンにする
-	SceneNo sceneNo_ = SceneNo::TITLE;
+	SceneNo sceneNo_ = SceneNo::GAME;
 
 	//タイトル
 	Sprite* titleSprite = new Sprite();
