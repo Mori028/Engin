@@ -60,27 +60,99 @@ void Player::Update() {
 
 	//キーボード入力による移動処理
 	//プレイヤーの移動
+	/////D/////
 	if (input_->PushKey(DIK_D) || input_->StickInput(L_RIGHT)) {
-
+		rollD = 1;
 		if (fbxObject3d_->wtf.position.x <= XMax) {
 			fbxObject3d_->wtf.position.x += moveSpeed_;
 		}
 	}
+	else {
+		rollD = 0;
+	}
+	if (rollD == 1) {
+		// 右の傾き処理
+		if (fbxObject3d_->wtf.rotation.z >= -1.0) {
+			fbxObject3d_->wtf.rotation.z -= 0.02f;
+		}
+	}
+	else if(rollD == 0) {
+		if (fbxObject3d_->wtf.rotation.z <= -0.02) {
+			fbxObject3d_->wtf.rotation.z = 0.0f;
+		}
+	}
+
+	//////A/////
 	if (input_->PushKey(DIK_A) || input_->StickInput(L_LEFT)) {
+		rollA = 1;
+		// 左の移動処理
 		if (fbxObject3d_->wtf.position.x >= XMin) {
 			fbxObject3d_->wtf.position.x -= moveSpeed_;
 		}
 	}
+	else {
+		rollA = 0;
+	}
+	if (rollA == 1) {
+		// 左の傾き処理
+		if (fbxObject3d_->wtf.rotation.z <= 1.0) {
+			fbxObject3d_->wtf.rotation.z += 0.02f;
+		}
+	}
+	else if (rollA == 0) {
+		if (fbxObject3d_->wtf.rotation.z >= 0.02) {
+			fbxObject3d_->wtf.rotation.z = 0.0f;
+		}
+	}
+
+	/////S/////
 	if (input_->PushKey(DIK_S) || input_->StickInput(L_DOWN)) {
+		rollS = 1;
+		// 下の移動処理
 		if (fbxObject3d_->wtf.position.y >= YMax) {
 			fbxObject3d_->wtf.position.y -= moveSpeed_;
 		}
 	}
+	else {
+		rollS = 0;
+	}
+	if (rollS == 1) {
+		// 下の傾き処理
+		if (fbxObject3d_->wtf.rotation.x <= 1) {
+			fbxObject3d_->wtf.rotation.x += 0.02f;
+		}
+	}
+	else if (rollS == 0) {
+		if (fbxObject3d_->wtf.rotation.x >= 0.02) {
+			fbxObject3d_->wtf.rotation.x = 0.0f;
+		}
+	}
+
+	/////W/////
 	if (input_->PushKey(DIK_W) || input_->StickInput(L_UP)) {
+		rollW = 1;
+		// 上の移動処理
 		if (fbxObject3d_->wtf.position.y <= YMin) {
 			fbxObject3d_->wtf.position.y += moveSpeed_;
 		}
 	}
+	else {
+		rollW = 0;
+	}
+	if (rollW == 1) {
+		// 上の傾き処理
+		if (fbxObject3d_->wtf.rotation.x >= -1) {
+			fbxObject3d_->wtf.rotation.x -= 0.02f;
+		}
+	}
+	else if (rollW == 0) {
+		// 上の傾き処理
+		if (fbxObject3d_->wtf.rotation.x <= -0.02) {
+			fbxObject3d_->wtf.rotation.x = 0.0f;
+		}
+		
+	}
+
 	//レティクル
 	if (input_->PushKey(DIK_RIGHT) || input_->StickInput(R_RIGHT)) {
 
@@ -103,7 +175,6 @@ void Player::Update() {
 			ReticleObj_->wtf.position.y += moveSpeed_ + 0.1f;
 		//}
 	}
-
 	//弾の発射
 	float shortSpeed = 1.0f;
 
