@@ -35,6 +35,7 @@ public:
 	Vector3 GetBulletWorldPosition();
 
 	void OnColision();
+	void OnColisionPlayer();
 
 	/// <summary>
 	/// ポジション
@@ -79,8 +80,9 @@ private:
 
 	float timer = 0;
 	int hp = 1;
-
-	int aliveFlag = 1;
+	int bulletMode = 1;
+	float changeTimer = 0;
+	int liveFlag = 1;
 
 	//ワールド座標を入れる変数
 	Vector3 worldPos;

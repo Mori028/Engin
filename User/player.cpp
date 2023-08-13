@@ -23,7 +23,7 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	input_ = input;
 	camTransForm = new Transform();
 
-	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("stand");
+	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("Player");
 	
 	// デバイスをセット
 	FBXObject3d::SetDevice(dxCommon->GetDevice());
@@ -35,8 +35,8 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	fbxObject3d_->Initialize();
 	fbxObject3d_->SetModel(fbxModel_);
 	fbxObject3d_->wtf.position = { 0.0f,-0.3f,0.0f };
-	fbxObject3d_->wtf.scale = { 0.04f,0.04f,0.04f };
-	fbxObject3d_->wtf.rotation = { 0.0f,0.0f,0.0f };
+	/*fbxObject3d_->wtf.scale = { 0.04f,0.04f,0.04f };*/
+	fbxObject3d_->wtf.rotation = { 0.0f,1.5f,0.0f };
 	fbxObject3d_->PlayAnimation(1.0f,true);
 
 	//弾
@@ -44,13 +44,13 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	bulletObj_ = Object3d::Create();
 	bulletObj_->SetModel(bulletModel_);
 	bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.01f, fbxObject3d_->wtf.position.z };
-	bulletObj_->wtf.scale = { 0.03f,0.03f,0.03f };
+	bulletObj_->wtf.scale = { 0.3f,0.3f,0.3f };
 
 	//レティクル
 	ReticleModel_ = Model::LoadFromOBJ("boll");
 	ReticleObj_ = Object3d::Create();
 	ReticleObj_->SetModel(ReticleModel_);
-	ReticleObj_->wtf.scale = { 0.3f,0.3f,0.3f };
+	ReticleObj_->wtf.scale = { 1.0f,1.0f,1.0f };
 	ReticleObj_->wtf.rotation = { 0.0f,0.0f,0.0f };
 	ReticleObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y ,fbxObject3d_->wtf.position.z + 10.0f };
 }
