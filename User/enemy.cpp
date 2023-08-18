@@ -312,10 +312,11 @@ Vector3 Enemy::GetBulletWorldPosition()
 void Enemy::OnColision()
 {
 	liveFlag = 0;
+	enemyCount = enemyCount +1;
 }
 
 void Enemy::OnColisionPlayer()
 {
-	liveFlag = 0;
+	playerHp = playerHp - 1;
 }
 

@@ -43,6 +43,19 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	spriteCommon->LoadTexture(0, "title.png");
 	titleSprite->SetTextureIndex(0);
 
+	//クリア
+	clearSprite->Initialize(spriteCommon);
+	clearSprite->SetPozition({ 0,0 });
+	clearSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(1, "clear.png");
+	clearSprite->SetTextureIndex(1);
+
+	//ゲームオーバー
+	overSprite->Initialize(spriteCommon);
+	overSprite->SetPozition({ 0,0 });
+	overSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(2, "gameover.png");
+	overSprite->SetTextureIndex(2);
 	// カメラ生成
 	mainCamera = new Camera(WinApp::window_width, WinApp::window_height);
 	camera1 = new Camera(WinApp::window_width, WinApp::window_height);
@@ -82,26 +95,60 @@ void GameScene::Reset() {
 /// 毎フレーム処理
 /// </summary>
 void GameScene::Update() {
-
-
-	if (sceneNo_ == SceneNo::TITLE) {
-		if (input->TriggerKey(DIK_RETURN) || input->ButtonInput(RT)) {
-			sceneNo_ = SceneNo::GAME;
+	switch (sceneNo_)
+	{
+	case SceneNo::TITLE:
+		if (sceneNo_ == SceneNo::TITLE) {
+			//シーン切り替え
+			if (input->TriggerKey(DIK_RETURN) || input->ButtonInput(RT)) {
+				sceneNo_ = SceneNo::GAME;
+			}
 		}
-	}
+		break;
 
-	if (sceneNo_ == SceneNo::GAME) {
-		skydome->wtf.position.z -= skyMoveSpeed_;
+	case SceneNo::GAME:
+		if (sceneNo_ == SceneNo::GAME) {
+			skydome->wtf.position.z -= skyMoveSpeed_;
 
+			player_->Update();
 
-		player_->Update();
+			enemy_->Update();
 
-		enemy_->Update();
+			stage_->Update();
 
-		stage_->Update();
+			skydome->Update();
 
-		skydome->Update();
-		
+			//シーン切り替え
+			if (enemy_->GetEnemyHP() == 10)
+			{
+				sceneNo_ = SceneNo::CLEAR;
+			}
+
+			//シーン切り替え
+			if (enemy_->GetPlayerHP() ==0)
+			{
+				sceneNo_ = SceneNo::GAMEOVER;
+			}
+		}
+		break;
+
+	case SceneNo::CLEAR:
+		if (sceneNo_ == SceneNo::CLEAR) {
+			//シーン切り替え
+			if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
+				sceneNo_ = SceneNo::TITLE;
+			}
+		}
+		break;
+
+	//case SceneNo::GAMEOVER:
+	//	if (sceneNo_ == SceneNo::GAMEOVER) {
+	//		//シーン切り替え
+	//		if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
+	//			sceneNo_ = SceneNo::TITLE;
+	//		}
+	//	}
+	//	break;
 	}
 }
 
@@ -109,33 +156,54 @@ void GameScene::Update() {
 /// 描画
 /// </summary>
 void GameScene::Draw() {
-	//タイトル
-	if (sceneNo_ == SceneNo::TITLE) {
-		titleSprite->Draw();
+	switch (sceneNo_)
+	{
+	case SceneNo::TITLE:
+		//タイトル
+		if (sceneNo_ == SceneNo::TITLE) {
+			titleSprite->Draw();
 
+		}
+		break;
+	case SceneNo::GAME:
+		if (sceneNo_ == SceneNo::GAME) {
+			/// <summary>
+			/// 3Dオブジェクトの描画
+			/// ここに3Dオブジェクトの描画処理を追加できる
+			/// <summary>
+			//3Dオブジェクト描画前処理
+			Object3d::PreDraw(dxCommon->GetCommandList());
+			//// 3Dオブクジェクトの描画
+			player_->Draw();
+			enemy_->Draw();
+			skydome->Draw();
+
+			stage_->Draw();
+
+			//3Dオブジェクト描画後処理
+			Object3d::PostDraw();
+
+			//// パーティクル UI FBX スプライト描画
+			player_->FbxDraw();
+
+			enemy_->FbxDraw();
+		}
+		break;
+	case SceneNo::CLEAR:
+		//クリア
+		if (sceneNo_ == SceneNo::CLEAR) {
+			clearSprite->Draw();
+		}
+		break;
+
+	case SceneNo::GAMEOVER:
+		//ゲームオーバー
+		if (sceneNo_ == SceneNo::GAMEOVER) {
+			overSprite->Draw();
+		}
+		break;
 	}
-	if (sceneNo_ == SceneNo::GAME) {
-		/// <summary>
-		/// 3Dオブジェクトの描画
-		/// ここに3Dオブジェクトの描画処理を追加できる
-		/// <summary>
-		//3Dオブジェクト描画前処理
-		Object3d::PreDraw(dxCommon->GetCommandList());
-		//// 3Dオブクジェクトの描画
-		player_->Draw();
-		enemy_->Draw();
-		skydome->Draw();
 
-		stage_->Draw();
-
-		//3Dオブジェクト描画後処理
-		Object3d::PostDraw();
-
-		//// パーティクル UI FBX スプライト描画
-		player_->FbxDraw();
-
-		enemy_->FbxDraw();
-	}
 }
 
 Vector3 GameScene::bVelocity(Vector3& velocity, Transform& worldTransform)
