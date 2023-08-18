@@ -47,6 +47,10 @@ public:
 	//‰¹‚ğ~‚ß‚éŠÖ”
 	IXAudio2SourceVoice* pSourceVoice[10] = { 0 };
 
+	int GetPlayerHP() { return playerHp; }
+
+	int GetEnemyHP() { return enemyCount; }
+
 private:
 	const float PI = 3.141592f;
 	Input* input_ = nullptr;
@@ -84,6 +88,12 @@ private:
 	float changeTimer = 0;
 	int liveFlag = 1;
 
+	//HP
+	//playerHP
+	int playerHp = 15;//hp0‚ª3
+	//enemyCount
+	int enemyCount = 0;
+	
 	//ƒ[ƒ‹ƒhÀ•W‚ğ“ü‚ê‚é•Ï”
 	Vector3 worldPos;
 
