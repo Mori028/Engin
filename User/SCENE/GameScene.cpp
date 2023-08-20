@@ -81,10 +81,16 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	enemy_->Initialize(dxCommon, input);
 	enemy_->SetPlayer(player_);
 
+	//ボス
+	boss_ = new Boss();
+	boss_->Initialize(dxCommon, input);
+	boss_->SetPlayer(player_);
 
+	//ステージ
 	stage_ = new Stage();
 	stage_->Initialize(dxCommon, input);
 	stage_->SetCamera(mainCamera);
+
 }
 
 void GameScene::Reset() {
@@ -121,15 +127,23 @@ void GameScene::Update() {
 			//シーン切り替え
 			if (enemy_->GetEnemyHP() == 10)
 			{
-				sceneNo_ = SceneNo::CLEAR;
+				sceneNo_ = SceneNo::BOSS;
 			}
 
 			//シーン切り替え
-			if (enemy_->GetPlayerHP() ==0)
+			/*if (enemy_->GetPlayerHP() ==0)
 			{
 				sceneNo_ = SceneNo::GAMEOVER;
-			}
+			}*/
 		}
+		break;
+	case SceneNo::BOSS:
+
+		player_->Update();
+
+		skydome->Update();
+
+		boss_->Update();
 		break;
 
 	case SceneNo::CLEAR:
@@ -179,6 +193,7 @@ void GameScene::Draw() {
 			skydome->Draw();
 
 			stage_->Draw();
+			boss_->Draw();
 
 			//3Dオブジェクト描画後処理
 			Object3d::PostDraw();
@@ -189,6 +204,30 @@ void GameScene::Draw() {
 			enemy_->FbxDraw();
 		}
 		break;
+
+	case SceneNo::BOSS:
+		//クリア
+		if (sceneNo_ == SceneNo::BOSS) {
+			/// <summary>
+			/// 3Dオブジェクトの描画
+			/// ここに3Dオブジェクトの描画処理を追加できる
+			/// <summary>
+			//3Dオブジェクト描画前処理
+			Object3d::PreDraw(dxCommon->GetCommandList());
+			//// 3Dオブクジェクトの描画
+			player_->Draw();
+			skydome->Draw();
+
+			//3Dオブジェクト描画後処理
+			Object3d::PostDraw();
+
+			//// パーティクル UI FBX スプライト描画
+			player_->FbxDraw();
+			boss_->FbxDraw();
+	
+		}
+		break;
+
 	case SceneNo::CLEAR:
 		//クリア
 		if (sceneNo_ == SceneNo::CLEAR) {

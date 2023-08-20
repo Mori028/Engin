@@ -61,7 +61,7 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 	enemyBulletObj_ = Object3d::Create();
 	enemyBulletObj_->SetModel(enemyBulletModel_);
 	enemyBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y +0.2f , fbxObject3d_->wtf.position.z };
-	enemyBulletObj_->wtf.scale = { 2.0f,2.0f,2.0f };
+	enemyBulletObj_->wtf.scale = { 0.5f,0.5f,0.5f };
 }
 
 void Enemy::Update() {
@@ -155,12 +155,170 @@ void Enemy::Update() {
 		};
 	}
 	if (hp == 2) {
+		changeTimer++;
+		if (changeTimer == 120) {
+			bulletMode = 2;
+		}
+		if (changeTimer == 240) {
+			bulletMode = 3;
+		}
+		if (changeTimer == 360) {
+			bulletMode = 1;
+			changeTimer = 0;
+		}
+		////////////
+
+		if (bulletMode == 1) {
+			//ŽG‹›“G‚ÌUŒ‚
+			float shortSpeed = 0.05f;
+			bulletTimer++;
+			if (bulletTimer >= 60) {
+				isShootFlag = true;
+			}
+			if (isShootFlag == true) {
+				bulletCoolTime++;
+				enemyBulletObj_->wtf.position.z -= shortSpeed;
+
+			}
+			else {
+				enemyBulletObj_->wtf.position = { enemyObject3d_->wtf.position.x,enemyObject3d_->wtf.position.y + 0.2f , enemyObject3d_->wtf.position.z };
+			}
+			if (enemyBulletObj_->wtf.position.z <= 0.0f) {
+				bulletTimer = 0;
+				isShootFlag = false;
+			}
+		}
+
+		if (bulletMode == 2) {
+			//ŽG‹›“G‚ÌUŒ‚
+			float shortSpeed = 0.05f;
+
+			float shortXSpeed = 0.005f;
+			bulletTimer++;
+			if (bulletTimer >= 60) {
+				isShootFlag = true;
+			}
+			if (isShootFlag == true) {
+				bulletCoolTime++;
+				enemyBulletObj_->wtf.position.z -= shortSpeed;
+				enemyBulletObj_->wtf.position.x -= shortXSpeed;
+			}
+			else {
+				enemyBulletObj_->wtf.position = { enemyObject3d_->wtf.position.x,enemyObject3d_->wtf.position.y + 0.2f , enemyObject3d_->wtf.position.z };
+			}
+			if (enemyBulletObj_->wtf.position.z <= 0.0f) {
+				bulletTimer = 0;
+				isShootFlag = false;
+			}
+		}
+
+		if (bulletMode == 3) {
+			//ŽG‹›“G‚ÌUŒ‚
+			float shortSpeed = 0.05f;
+
+			float shortXSpeed = 0.005f;
+			bulletTimer++;
+			if (bulletTimer >= 60) {
+				isShootFlag = true;
+			}
+			if (isShootFlag == true) {
+				bulletCoolTime++;
+				enemyBulletObj_->wtf.position.z -= shortSpeed;
+				enemyBulletObj_->wtf.position.x += shortXSpeed;
+			}
+			else {
+				enemyBulletObj_->wtf.position = { enemyObject3d_->wtf.position.x,enemyObject3d_->wtf.position.y + 0.2f , enemyObject3d_->wtf.position.z };
+			}
+			if (enemyBulletObj_->wtf.position.z <= 0.0f) {
+				bulletTimer = 0;
+				isShootFlag = false;
+			}
+		}
 		//“–‚½‚è”»’è(Ž©‹@’e‚Æ“G2)
 		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetEne2WorldPosition(), 0.1f, 0.3f)) {
 			OnColision();
 		};
 	}
 	if (hp == 3) {
+		changeTimer++;
+		if (changeTimer == 120) {
+			bulletMode = 2;
+		}
+		if (changeTimer == 240) {
+			bulletMode = 3;
+		}
+		if (changeTimer == 360) {
+			bulletMode = 1;
+			changeTimer = 0;
+		}
+		////////////
+
+		if (bulletMode == 1) {
+			//ŽG‹›“G‚ÌUŒ‚
+			float shortSpeed = 0.05f;
+			bulletTimer++;
+			if (bulletTimer >= 60) {
+				isShootFlag = true;
+			}
+			if (isShootFlag == true) {
+				bulletCoolTime++;
+				enemyBulletObj_->wtf.position.z -= shortSpeed;
+
+			}
+			else {
+				enemyBulletObj_->wtf.position = { enemy1Object3d_->wtf.position.x,enemy1Object3d_->wtf.position.y + 0.2f , enemy1Object3d_->wtf.position.z };
+			}
+			if (enemyBulletObj_->wtf.position.z <= 0.0f) {
+				bulletTimer = 0;
+				isShootFlag = false;
+			}
+		}
+
+		if (bulletMode == 2) {
+			//ŽG‹›“G‚ÌUŒ‚
+			float shortSpeed = 0.05f;
+
+			float shortXSpeed = 0.005f;
+			bulletTimer++;
+			if (bulletTimer >= 60) {
+				isShootFlag = true;
+			}
+			if (isShootFlag == true) {
+				bulletCoolTime++;
+				enemyBulletObj_->wtf.position.z -= shortSpeed;
+				enemyBulletObj_->wtf.position.x -= shortXSpeed;
+			}
+			else {
+				enemyBulletObj_->wtf.position = { enemy1Object3d_->wtf.position.x,enemy1Object3d_->wtf.position.y + 0.2f , enemy1Object3d_->wtf.position.z };
+			}
+			if (enemyBulletObj_->wtf.position.z <= 0.0f) {
+				bulletTimer = 0;
+				isShootFlag = false;
+			}
+		}
+
+		if (bulletMode == 3) {
+			//ŽG‹›“G‚ÌUŒ‚
+			float shortSpeed = 0.05f;
+
+			float shortXSpeed = 0.005f;
+			bulletTimer++;
+			if (bulletTimer >= 60) {
+				isShootFlag = true;
+			}
+			if (isShootFlag == true) {
+				bulletCoolTime++;
+				enemyBulletObj_->wtf.position.z -= shortSpeed;
+				enemyBulletObj_->wtf.position.x += shortXSpeed;
+			}
+			else {
+				enemyBulletObj_->wtf.position = { enemy1Object3d_->wtf.position.x,enemy1Object3d_->wtf.position.y + 0.2f , enemy1Object3d_->wtf.position.z };
+			}
+			if (enemyBulletObj_->wtf.position.z <= 0.0f) {
+				bulletTimer = 0;
+				isShootFlag = false;
+			}
+		}
 		//“–‚½‚è”»’è(Ž©‹@’e‚Æ“G3)
 		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetEne3WorldPosition(), 0.1f, 0.3f)) {
 			OnColision();
@@ -180,13 +338,28 @@ void Enemy::Update() {
 void Enemy::Draw() {
 	if (liveFlag == 1) {
 		if (isShootFlag == true) {
-			if (hp == 1) {
-				enemyBulletObj_->Draw();
-			}
+			
+			enemyBulletObj_->Draw();
+			
 		}
 	}
-	if (liveFlag == 0) {
-		enemyBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y +0.2f , fbxObject3d_->wtf.position.z };
+	if (hp == 1) {
+		if (liveFlag == 0) {
+
+			enemyBulletObj_->wtf.position = { enemyObject3d_->wtf.position.x,enemyObject3d_->wtf.position.y + 0.2f , enemyObject3d_->wtf.position.z };
+		}
+	}
+	else if (hp == 2) {
+		if (liveFlag == 0) {
+
+			enemyBulletObj_->wtf.position = { enemy1Object3d_->wtf.position.x,enemy1Object3d_->wtf.position.y + 0.2f , enemy1Object3d_->wtf.position.z };
+		}
+	}
+	else if (hp == 3) {
+		if (liveFlag == 0) {
+
+			enemyBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.2f , fbxObject3d_->wtf.position.z };
+		}
 	}
 }
 

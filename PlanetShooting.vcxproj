@@ -121,6 +121,7 @@
     <ClCompile Include="User\player.cpp" />
     <ClCompile Include="User\SCENE\GameScene.cpp" />
     <ClCompile Include="User\stage.cpp" />
+    <ClCompile Include="User\boss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\2D\Sprite.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Engine\MATH\Vector2.h" />
     <ClInclude Include="Engine\MATH\Vector3.h" />
     <ClInclude Include="Engine\MATH\Vector4.h" />
+    <ClInclude Include="User\boss.h" />
     <ClInclude Include="User\enemy.h" />
     <ClInclude Include="User\player.h" />
     <ClInclude Include="User\SCENE\GameScene.h" />
