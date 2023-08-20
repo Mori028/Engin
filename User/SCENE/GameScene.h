@@ -17,6 +17,7 @@
 #include "Player.h"
 #include "enemy.h"
 #include "stage.h"
+#include <boss.h>
 
 
 /// <summary>
@@ -78,11 +79,12 @@ private:	//メンバ変数
 	enum class SceneNo {
 		TITLE, //タイトル
 		GAME, //ゲームシーン
-		CLEAR, //くｒ
-		GAMEOVER
+		BOSS, //ボス
+		CLEAR, //クリア
+		GAMEOVER //ゲームオーバー
 	};
 	//ゲーム制作中はgameシーンにする
-	SceneNo sceneNo_ = SceneNo::TITLE;
+	SceneNo sceneNo_ = SceneNo::BOSS;
 
 	//タイトル
 	Sprite* titleSprite = new Sprite();
@@ -107,6 +109,9 @@ private:	//メンバ変数
 
 	//ステージ
 	Stage* stage_ = nullptr;
+
+	//ボス
+	Boss* boss_ = nullptr;
 
 	//背景や床
 	Object3d* skydome = nullptr;
