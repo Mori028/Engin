@@ -217,7 +217,7 @@ void GameScene::Draw() {
 			//// 3Dオブクジェクトの描画
 			player_->Draw();
 			skydome->Draw();
-
+			boss_->Draw();
 			//3Dオブジェクト描画後処理
 			Object3d::PostDraw();
 
