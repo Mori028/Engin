@@ -84,7 +84,7 @@ private:	//メンバ変数
 		GAMEOVER //ゲームオーバー
 	};
 	//ゲーム制作中はgameシーンにする
-	SceneNo sceneNo_ = SceneNo::BOSS;
+	SceneNo sceneNo_ = SceneNo::TITLE;
 
 	//タイトル
 	Sprite* titleSprite = new Sprite();
@@ -94,6 +94,9 @@ private:	//メンバ変数
 
 	//ゲームオーバー
 	Sprite* overSprite = new Sprite();
+	//Hp
+	Sprite* HPSprite = new Sprite();
+
 
 	//カメラ
 	Camera* mainCamera = nullptr;

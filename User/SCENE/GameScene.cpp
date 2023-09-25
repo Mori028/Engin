@@ -11,7 +11,7 @@ GameScene::GameScene() {
 /// デストラクタ
 /// </summary>
 GameScene::~GameScene() {
-	delete spriteCommon;
+	
 	delete mainCamera;
 	delete camera1;
 	delete camera2;
@@ -40,22 +40,28 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	titleSprite->Initialize(spriteCommon);
 	titleSprite->SetPozition({ 0,0 });
 	titleSprite->SetSize({ 1280.0f, 720.0f });
-	spriteCommon->LoadTexture(0, "title.png");
-	titleSprite->SetTextureIndex(0);
+	spriteCommon->LoadTexture(1, "title.png");
+	titleSprite->SetTextureIndex(1);
 
-	//クリア
+	////クリア
 	clearSprite->Initialize(spriteCommon);
 	clearSprite->SetPozition({ 0,0 });
 	clearSprite->SetSize({ 1280.0f, 720.0f });
-	spriteCommon->LoadTexture(1, "clear.png");
-	clearSprite->SetTextureIndex(1);
+	spriteCommon->LoadTexture(2, "clear.png");
+	clearSprite->SetTextureIndex(2);
 
-	//ゲームオーバー
+	////ゲームオーバー
 	overSprite->Initialize(spriteCommon);
 	overSprite->SetPozition({ 0,0 });
 	overSprite->SetSize({ 1280.0f, 720.0f });
-	spriteCommon->LoadTexture(2, "gameover.png");
-	overSprite->SetTextureIndex(2);
+	spriteCommon->LoadTexture(3, "gameover.png");
+	overSprite->SetTextureIndex(3);
+	//HP
+	HPSprite->Initialize(spriteCommon);
+	HPSprite->SetPozition({ 0,0 });
+	HPSprite->SetSize({200.0f, 100.0f });
+	spriteCommon->LoadTexture(4, "HP3.png");
+	HPSprite->SetTextureIndex(4);
 	// カメラ生成
 	mainCamera = new Camera(WinApp::window_width, WinApp::window_height);
 	camera1 = new Camera(WinApp::window_width, WinApp::window_height);
@@ -106,7 +112,7 @@ void GameScene::Update() {
 	case SceneNo::TITLE:
 		if (sceneNo_ == SceneNo::TITLE) {
 			//シーン切り替え
-			if (input->TriggerKey(DIK_RETURN) || input->ButtonInput(RT)) {
+			if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
 				sceneNo_ = SceneNo::GAME;
 			}
 		}
@@ -131,10 +137,12 @@ void GameScene::Update() {
 			}
 
 			//シーン切り替え
-			/*if (enemy_->GetPlayerHP() ==0)
+			if (enemy_->GetPlayerHP() ==0)
 			{
 				sceneNo_ = SceneNo::GAMEOVER;
-			}*/
+				enemy_->playerHp = 15;
+
+			}
 		}
 		break;
 	case SceneNo::BOSS:
@@ -155,14 +163,14 @@ void GameScene::Update() {
 		}
 		break;
 
-	//case SceneNo::GAMEOVER:
-	//	if (sceneNo_ == SceneNo::GAMEOVER) {
-	//		//シーン切り替え
-	//		if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
-	//			sceneNo_ = SceneNo::TITLE;
-	//		}
-	//	}
-	//	break;
+	case SceneNo::GAMEOVER:
+		if (sceneNo_ == SceneNo::GAMEOVER) {
+			//シーン切り替え
+			if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
+				sceneNo_ = SceneNo::TITLE;
+			}
+		}
+		break;
 	}
 }
 
@@ -176,11 +184,13 @@ void GameScene::Draw() {
 		//タイトル
 		if (sceneNo_ == SceneNo::TITLE) {
 			titleSprite->Draw();
+			/*HPSprite->Draw();*/
 
 		}
 		break;
 	case SceneNo::GAME:
 		if (sceneNo_ == SceneNo::GAME) {
+			
 			/// <summary>
 			/// 3Dオブジェクトの描画
 			/// ここに3Dオブジェクトの描画処理を追加できる
@@ -202,12 +212,14 @@ void GameScene::Draw() {
 			player_->FbxDraw();
 
 			enemy_->FbxDraw();
+			HPSprite->Draw();
 		}
 		break;
 
 	case SceneNo::BOSS:
 		//クリア
 		if (sceneNo_ == SceneNo::BOSS) {
+			HPSprite->Draw();
 			/// <summary>
 			/// 3Dオブジェクトの描画
 			/// ここに3Dオブジェクトの描画処理を追加できる
