@@ -44,29 +44,68 @@ void Boss::Initialize(DirectXCommon* dxCommon, Input* input) {
 	BossBulletObj_->SetModel(BossBulletModel_);
 	BossBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.2f , fbxObject3d_->wtf.position.z };
 	BossBulletObj_->wtf.scale = { 0.5f,0.5f,0.5f };
+
+	//•Ç
+	BossWallModel_ = Model::LoadFromOBJ("box");
+	BossWallObj_ = Object3d::Create();
+	BossWallObj_->SetModel(BossWallModel_);
+	BossWallObj_->wtf.position = { 0.0f,-0.3f,+2.3f };
+	BossWallObj_->wtf.rotation = { 0.0f,-1.6f,0.0f };
+	BossWallObj_->wtf.scale = { 0.02f,0.02f,0.02f };
 }
 
 void Boss::Update() {
-	
-	if (fbxObject3d_->wtf.position.y >= -0.8) {
-		fbxObject3d_->wtf.position.y -= moveSpeed_;
-	}
-	else {
-		fbxObject3d_->wtf.position = { 0.0f,-0.8f,+3.0f };
-	}
+	if (liveFlag == 1) {
 
-	//“–‚½‚è”»’è(Ž©‹@’e‚Æ“G1)
-	if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
-		OnColision();
-	};	
-	
-	//“–‚½‚è”»’è(Ž©‹@‚Æ“G’e)
-	if (coll.CircleCollision(player_->GetWorldPosition(), GetBulletWorldPosition(), 0.1f, 0.1f)) {
-		OnColisionPlayer();
-	};
+		enemyTimer++;
+		if (entry == 1) {
+			if (fbxObject3d_->wtf.position.y >= -0.8) {
+				fbxObject3d_->wtf.position.y -= moveSpeed_;
+			}
+			else {
+				fbxObject3d_->wtf.position = { 0.0f,-0.8f,+3.0f };
+				entry = 0;
+			}
+		}
+		//////“G‚ÌUŒ‚‚P//////
+		if (returnFlag == 0) {
+			if (enemyTimer >= 290) {
 
+				fbxObject3d_->wtf.position.z += attackMoveSpeed_;
+
+				if (fbxObject3d_->wtf.position.z >= 12.0) {
+					fbxObject3d_->wtf.position = { 0.0f,2.0f,+3.0f };
+					returnFlag = 1;
+				}
+			}
+		}
+		if (returnFlag == 1) {
+			BossWallObj_->wtf.position.z -= moveSpeed_;
+			entryTimer--;
+			if (entryTimer <= 0) {
+				entry = 1;
+				enemyTimer = 0;
+				BossWallObj_->wtf.position = { 0.0f,-0.3f,+2.3f };
+				returnFlag = 0;
+				entryTimer = 300.0f;
+			}
+
+		}
+		//////“G‚ÌUŒ‚‚P//////
+		
+		//“–‚½‚è”»’è(Ž©‹@’e‚Æƒ{ƒX)
+		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
+			OnColision();
+		};
+
+		//“–‚½‚è”»’è(Ž©‹@‚Æ“G’e)
+		if (coll.CircleCollision(player_->GetWorldPosition(), GetBulletWorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+	}
 	fbxObject3d_->Update();
 	BossBulletObj_->Update();
+	BossWallObj_->Update();
 }
 
 void Boss::Draw() {
@@ -74,7 +113,9 @@ void Boss::Draw() {
 		if (isShootFlag == true) {
 
 			BossBulletObj_->Draw();
-
+		}
+		if (returnFlag == 1) {
+			BossWallObj_->Draw();
 		}
 	}
 }

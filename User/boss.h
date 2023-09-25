@@ -61,6 +61,10 @@ private:
 	//’e
 	Object3d* BossBulletObj_ = nullptr;
 	Model* BossBulletModel_ = nullptr;
+
+	//•Ç
+	Object3d* BossWallObj_ = nullptr;
+	Model* BossWallModel_ = nullptr;
 	//‹——£
 	Vector3 playerDistance;
 	Vector3 distance;
@@ -71,12 +75,17 @@ private:
 
 	const float moveSpeed_ = 0.01f;
 	const float rotaSpeed_ = 0.1f;
-
+	const float attackMoveSpeed_ = 0.30f;
 	float timer = 0;
 	int hp = 1;
 	int bulletMode = 1;
 	float changeTimer = 0;
 	int liveFlag = 1;
+	float enemyTimer = 0.0f;
+	int returnFlag = 0;
+	int attackFlag = 0;
+	float entryTimer = 300.0f;
+	int entry = 1;
 
 	//HP
 	//playerHP

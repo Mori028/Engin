@@ -51,6 +51,12 @@ public:
 
 	int GetEnemyHP() { return enemyCount; }
 
+	//HP
+	//playerHP
+	int playerHp = 15;//hp0‚ª4
+	//enemyCount
+	int enemyCount = 0;
+
 private:
 	const float PI = 3.141592f;
 	Input* input_ = nullptr;
@@ -87,12 +93,6 @@ private:
 	int bulletMode = 1;
 	float changeTimer = 0;
 	int liveFlag = 1;
-
-	//HP
-	//playerHP
-	int playerHp = 15;//hp0‚ª3
-	//enemyCount
-	int enemyCount = 0;
 	
 	//ƒ[ƒ‹ƒhÀ•W‚ğ“ü‚ê‚é•Ï”
 	Vector3 worldPos;
