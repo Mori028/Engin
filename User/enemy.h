@@ -20,6 +20,8 @@ public:
 	~Enemy();
 
 	void Initialize(DirectXCommon* dxCommon, Input* input);
+	void Reset();
+	
 	void Update();
 
 	void Draw();

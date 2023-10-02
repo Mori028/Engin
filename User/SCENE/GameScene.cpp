@@ -56,12 +56,34 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	overSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(3, "gameover.png");
 	overSprite->SetTextureIndex(3);
-	//HP
+	//HP3
 	HPSprite->Initialize(spriteCommon);
 	HPSprite->SetPozition({ 0,0 });
 	HPSprite->SetSize({200.0f, 100.0f });
 	spriteCommon->LoadTexture(4, "HP3.png");
 	HPSprite->SetTextureIndex(4);
+
+	//HP2
+	HP2Sprite->Initialize(spriteCommon);
+	HP2Sprite->SetPozition({ 0,0 });
+	HP2Sprite->SetSize({ 200.0f, 100.0f });
+	spriteCommon->LoadTexture(5, "HP2.png");
+	HP2Sprite->SetTextureIndex(5);
+
+	//HP1
+	HP1Sprite->Initialize(spriteCommon);
+	HP1Sprite->SetPozition({ 0,0 });
+	HP1Sprite->SetSize({ 200.0f, 100.0f });
+	spriteCommon->LoadTexture(6, "HP1.png");
+	HP1Sprite->SetTextureIndex(6);
+
+	//HP0
+	HP0Sprite->Initialize(spriteCommon);
+	HP0Sprite->SetPozition({ 0,0 });
+	HP0Sprite->SetSize({ 200.0f, 100.0f });
+	spriteCommon->LoadTexture(7, "HP0.png");
+	HP0Sprite->SetTextureIndex(7);
+
 	// カメラ生成
 	mainCamera = new Camera(WinApp::window_width, WinApp::window_height);
 	camera1 = new Camera(WinApp::window_width, WinApp::window_height);
@@ -100,7 +122,11 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 }
 
 void GameScene::Reset() {
-	
+
+	player_->Reset();
+	enemy_->Reset();
+	stage_->Reset();
+	boss_->Reset();
 }
 
 /// <summary>
@@ -111,10 +137,13 @@ void GameScene::Update() {
 	{
 	case SceneNo::TITLE:
 		if (sceneNo_ == SceneNo::TITLE) {
+			
+			Reset();
 			//シーン切り替え
 			if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
 				sceneNo_ = SceneNo::GAME;
 			}
+
 		}
 		break;
 
@@ -129,18 +158,20 @@ void GameScene::Update() {
 			stage_->Update();
 
 			skydome->Update();
-
 			//シーン切り替え
 			if (enemy_->GetEnemyHP() == 10)
 			{
 				sceneNo_ = SceneNo::BOSS;
+				enemy_->playerHp = 15;
+				enemy_->enemyCount = 0;
 			}
 
-			//シーン切り替え
-			if (enemy_->GetPlayerHP() ==0)
+			//シーン切り替え&リセット
+			if (enemy_->GetPlayerHP() <=0)
 			{
 				sceneNo_ = SceneNo::GAMEOVER;
 				enemy_->playerHp = 15;
+				enemy_->enemyCount = 0;
 
 			}
 		}
@@ -212,7 +243,19 @@ void GameScene::Draw() {
 			player_->FbxDraw();
 
 			enemy_->FbxDraw();
-			HPSprite->Draw();
+			
+			//HPバー
+			if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
+				HPSprite->Draw();
+			}else if (enemy_->GetPlayerHP() <= 10 && enemy_->GetPlayerHP() >= 6) {
+				HP2Sprite->Draw();
+			}
+			else if (enemy_->GetPlayerHP() <= 5 && enemy_->GetPlayerHP() >= 1) {
+				HP1Sprite->Draw();
+			}
+			else if (enemy_->GetPlayerHP() <= 0) {
+				HP0Sprite->Draw();
+			}
 		}
 		break;
 
@@ -236,6 +279,20 @@ void GameScene::Draw() {
 			//// パーティクル UI FBX スプライト描画
 			player_->FbxDraw();
 			boss_->FbxDraw();
+
+			//HPバー
+			if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
+				HPSprite->Draw();
+			}
+			else if (enemy_->GetPlayerHP() <= 10 && enemy_->GetPlayerHP() >= 6) {
+				HP2Sprite->Draw();
+			}
+			else if (enemy_->GetPlayerHP() <= 5 && enemy_->GetPlayerHP() >= 1) {
+				HP1Sprite->Draw();
+			}
+			else if (enemy_->GetPlayerHP() <= 0) {
+				HP0Sprite->Draw();
+			}
 	
 		}
 		break;

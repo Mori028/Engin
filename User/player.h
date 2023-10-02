@@ -10,6 +10,8 @@
 #include "FBXModel.h"
 #include "FbxLoader.h"
 #include "FBXObject3d.h"
+#include "Sprite.h"
+#include "SpriteCommon.h"
 
 
 class Player {
@@ -18,9 +20,11 @@ public:
 	~Player();
 
 	void Initialize(DirectXCommon* dxCommon, Input* input);
+	void Reset();
 	void Update();
 	void Draw();
 	void FbxDraw();
+
 
 	Vector3 bVelocity(Vector3& velocity, Transform& worldTransform);
 
@@ -44,6 +48,7 @@ public:
 public:
 	//音を止める関数
 	IXAudio2SourceVoice* pSourceVoice[10] = { 0 };
+	SpriteCommon* spriteCommon = nullptr;
 
 private:
 	const float PI = 3.141592f;
@@ -53,6 +58,10 @@ private:
 	//待機
 	/*FBXModel* fbxModel_ = nullptr;
 	FBXObject3d* fbxObject3d_ = nullptr;*/
+
+	//レティクル
+	Sprite* RetSprite = new Sprite();
+	
 	Object3d* playerObj_ = nullptr;
 	Model* playerModel_ = nullptr;
 	//弾
@@ -85,7 +94,8 @@ private:
 	float rollA = 0;
 	float rollS = 0;
 	float rollD = 0;
-
+	int stoptimer = 0;
+	int attackFlag = 0;
 
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;

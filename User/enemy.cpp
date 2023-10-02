@@ -64,6 +64,17 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 	enemyBulletObj_->wtf.scale = { 0.5f,0.5f,0.5f };
 }
 
+void Enemy::Reset()
+{
+	fbxObject3d_->Initialize();
+	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	enemyObject3d_->Initialize();
+	enemyObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	enemy1Object3d_->Initialize();
+	enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	enemyBulletObj_->Initialize();
+}
+
 void Enemy::Update() {
 	if (hp == 1) {
 

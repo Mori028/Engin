@@ -96,7 +96,12 @@ private:	//メンバ変数
 	Sprite* overSprite = new Sprite();
 	//Hp
 	Sprite* HPSprite = new Sprite();
-
+	//Hp
+	Sprite* HP2Sprite = new Sprite();
+	//Hp
+	Sprite* HP1Sprite = new Sprite();
+	//Hp
+	Sprite* HP0Sprite = new Sprite();
 
 	//カメラ
 	Camera* mainCamera = nullptr;
@@ -120,7 +125,6 @@ private:	//メンバ変数
 	Object3d* skydome = nullptr;
 	Model* skydomeMD = nullptr;
 	const float skyMoveSpeed_ = 0.15f;
-	
 	//UI
 	
 	//ゲームフロー
