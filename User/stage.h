@@ -11,6 +11,7 @@ public:
 	~Stage();
 
 	void Initialize(DirectXCommon* dxCommon, Input* input);
+	void Reset();
 	void Update();
 
 	void Draw();

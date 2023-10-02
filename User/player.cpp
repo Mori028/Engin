@@ -56,12 +56,39 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	ReticleObj_->wtf.scale = { 1.0f,1.0f,1.0f };
 	ReticleObj_->wtf.rotation = { 0.0f,0.0f,0.0f };
 	ReticleObj_->wtf.position = { playerObj_->wtf.position.x,playerObj_->wtf.position.y ,playerObj_->wtf.position.z + 10.0f };
+
+	////レティクル
+	//RetSprite->Initialize(spriteCommon);
+	//RetSprite->SetPozition({ 0,0 });
+	//RetSprite->SetSize({ 50.0f, 50.0f });
+	//spriteCommon->LoadTexture(8, "ret.png");
+	//RetSprite->SetTextureIndex(8);
+
+	Reset();
+}
+
+void Player::Reset()
+{
+	playerObj_->Initialize();
+	bulletObj_->Initialize();
+	ReticleObj_->Initialize();
+	playerObj_->wtf.position = { 0.0f,-0.3f,0.0f };
+	bulletObj_->wtf.position = { playerObj_->wtf.position.x,playerObj_->wtf.position.y + 0.01f, playerObj_->wtf.position.z };
+	ReticleObj_->wtf.position = { playerObj_->wtf.position.x,playerObj_->wtf.position.y ,playerObj_->wtf.position.z + 10.0f };
+	stoptimer = 0;
+	attackFlag = 0;
 }
 
 void Player::Update() {
 
 
 	//キーボード入力による移動処理
+	// //ゲーム開始からの攻撃受付
+	stoptimer++;
+	if (stoptimer >= 60) {
+		attackFlag = 1;
+	}
+	
 	//プレイヤーの移動
 	/////D/////
 	if (input_->PushKey(DIK_D) || input_->StickInput(L_RIGHT)) {
@@ -180,26 +207,26 @@ void Player::Update() {
 	}
 	//弾の発射
 	float shortSpeed = 1.0f;
-
-	if (input_->TriggerKey (DIK_SPACE) || input_->ButtonInput(RT)) {
-		enemyDistance = ReticleObj_->wtf.position - bulletObj_->wtf.position;
-		enemyDistance.nomalize();
-		isShootFlag = true;
+	if (attackFlag == 1) {
+		if (input_->TriggerKey(DIK_SPACE) || input_->ButtonInput(RT)) {
+			enemyDistance = ReticleObj_->wtf.position - bulletObj_->wtf.position;
+			enemyDistance.nomalize();
+			isShootFlag = true;
+		}
+		if (isShootFlag == true) {
+			bulletCoolTime++;
+			bulletObj_->wtf.position += enemyDistance;
+			distance = enemyDistance;
+			distance *= shortSpeed;
+		}
+		else {
+			bulletObj_->wtf.position = { playerObj_->wtf.position.x,playerObj_->wtf.position.y , playerObj_->wtf.position.z };
+		}
+		if (bulletCoolTime >= 10.0f) {
+			bulletCoolTime = 0;
+			isShootFlag = false;
+		}
 	}
-	if (isShootFlag == true) {
-		bulletCoolTime++;
-		bulletObj_->wtf.position += enemyDistance;
-		distance = enemyDistance;
-		distance *= shortSpeed;
-	}
-	else {
-		bulletObj_->wtf.position = { playerObj_->wtf.position.x,playerObj_->wtf.position.y , playerObj_->wtf.position.z };
-	}
-	if (bulletCoolTime >= 10.0f) {
-		bulletCoolTime = 0;
-		isShootFlag = false;
-	}
-	
 	playerObj_->Update();
 	bulletObj_->Update();
 	ReticleObj_->Update();
@@ -208,6 +235,7 @@ void Player::Update() {
 void Player::Draw() {
 	playerObj_->Draw();
 	ReticleObj_->Draw();
+	/*RetSprite->Draw();*/
 	if (isShootFlag == true) {
 		bulletObj_->Draw();
 	}

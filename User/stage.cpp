@@ -27,6 +27,13 @@ void Stage::Initialize(DirectXCommon* dxCommon, Input* input)
 
 }
 
+void Stage::Reset()
+{
+	stage_->Initialize();
+	stage_->wtf.position = { -0.3f,-1.0f,0.0f };
+	stage_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+}
+
 void Stage::Update()
 {
 	stage_->wtf.position.z -= moveSpeed_;

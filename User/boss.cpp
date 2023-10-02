@@ -54,6 +54,21 @@ void Boss::Initialize(DirectXCommon* dxCommon, Input* input) {
 	BossWallObj_->wtf.scale = { 0.02f,0.02f,0.02f };
 }
 
+void Boss::Reset()
+{
+	fbxObject3d_->Initialize();
+	BossBulletObj_->Initialize();
+	BossWallObj_->Initialize();
+	fbxObject3d_->wtf.position = { 0.0f,1.0f,+3.0f };
+	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	fbxObject3d_->wtf.scale = { 3.5f,3.5f,3.5f };
+	BossBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.2f , fbxObject3d_->wtf.position.z };
+	BossBulletObj_->wtf.scale = { 0.5f,0.5f,0.5f };
+	BossWallObj_->wtf.position = { 0.0f,-0.3f,+2.3f };
+	BossWallObj_->wtf.rotation = { 0.0f,-1.6f,0.0f };
+	BossWallObj_->wtf.scale = { 0.02f,0.02f,0.02f };
+}
+
 void Boss::Update() {
 	if (liveFlag == 1) {
 
