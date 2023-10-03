@@ -43,6 +43,12 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	spriteCommon->LoadTexture(1, "title.png");
 	titleSprite->SetTextureIndex(1);
 
+	spaceSprite->Initialize(spriteCommon);
+	spaceSprite->SetPozition({ 0,0 });
+	spaceSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(9, "SPACE.png");
+	spaceSprite->SetTextureIndex(9);
+
 	////クリア
 	clearSprite->Initialize(spriteCommon);
 	clearSprite->SetPozition({ 0,0 });
@@ -84,6 +90,69 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	spriteCommon->LoadTexture(7, "HP0.png");
 	HP0Sprite->SetTextureIndex(7);
 
+	//フェードイン0
+	outSprite->Initialize(spriteCommon);
+	outSprite->SetPozition({ 0,0 });
+	outSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(10, "out.png");
+	outSprite->SetTextureIndex(10);
+	//フェードイン1
+	out1Sprite->Initialize(spriteCommon);
+	out1Sprite->SetPozition({ 0,0 });
+	out1Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(11, "out1.png");
+	out1Sprite->SetTextureIndex(11);
+	//フェードイン2
+	out2Sprite->Initialize(spriteCommon);
+	out2Sprite->SetPozition({ 0,0 });
+	out2Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(12, "out2.png");
+	out2Sprite->SetTextureIndex(12);
+	//フェードイン3
+	out3Sprite->Initialize(spriteCommon);
+	out3Sprite->SetPozition({ 0,0 });
+	out3Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(13, "out3.png");
+	out3Sprite->SetTextureIndex(13);
+	//フェードイン4
+	out4Sprite->Initialize(spriteCommon);
+	out4Sprite->SetPozition({ 0,0 });
+	out4Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(14, "out4.png");
+	out4Sprite->SetTextureIndex(14);
+	//フェードイン5
+	out5Sprite->Initialize(spriteCommon);
+	out5Sprite->SetPozition({ 0,0 });
+	out5Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(15, "out5.png");
+	out5Sprite->SetTextureIndex(15);
+
+	//スタートカウント3
+	start3Sprite->Initialize(spriteCommon);
+	start3Sprite->SetPozition({ 0,0 });
+	start3Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(16, "3.png");
+	start3Sprite->SetTextureIndex(16);
+	//スタートカウント2
+	start2Sprite->Initialize(spriteCommon);
+	start2Sprite->SetPozition({ 0,0 });
+	start2Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(17, "2.png");
+	start2Sprite->SetTextureIndex(17);
+	//スタートカウント1
+	start1Sprite->Initialize(spriteCommon);
+	start1Sprite->SetPozition({ 0,0 });
+	start1Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(18, "1.png");
+	start1Sprite->SetTextureIndex(18);
+	//スタートカウント0
+	GOSprite->Initialize(spriteCommon);
+	GOSprite->SetPozition({ 0,0 });
+	GOSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(19, "GO.png");
+	GOSprite->SetTextureIndex(19);
+	
+
 	// カメラ生成
 	mainCamera = new Camera(WinApp::window_width, WinApp::window_height);
 	camera1 = new Camera(WinApp::window_width, WinApp::window_height);
@@ -98,6 +167,11 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	skydome = Object3d::Create();
 	skydome->SetModel(skydomeMD);
 	skydome->wtf.scale = (Vector3{ 1000, 1000, 1000 });
+
+	//タイトル
+	title_ = new Title();
+	title_->Initialize(dxCommon, input);
+	title_->SetCamera(mainCamera);
 
 	//プレイヤー
 	player_ = new Player();
@@ -122,11 +196,21 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 }
 
 void GameScene::Reset() {
-
+	title_->Reset();
 	player_->Reset();
 	enemy_->Reset();
 	stage_->Reset();
 	boss_->Reset();
+}
+
+void GameScene::FadeOut()
+{
+	title_->FadeOut();
+}
+
+void GameScene::FadeIn()
+{
+	player_->FadeIn();
 }
 
 /// <summary>
@@ -137,11 +221,37 @@ void GameScene::Update() {
 	{
 	case SceneNo::TITLE:
 		if (sceneNo_ == SceneNo::TITLE) {
-			
-			Reset();
-			//シーン切り替え
+			titleTimer++;
+
+			if (titleTimer >= 100) {
+				titleTimer = 0;
+			}
+
+			title_->Update();
+			stage_->Update();
+
+			//シーン切り替え//
 			if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
-				sceneNo_ = SceneNo::GAME;
+				if (fadeCount == 0) {
+					fadeCount = 1;
+				}
+			}
+			if (fadeCount == 1) {
+				outTimer++;
+				FadeOut();
+			}
+			if (outTimer >= 90) {
+				fadeFlag = 1;
+			}
+			if (fadeFlag == 1) {
+				fadeTimer++;
+				if (fadeTimer >= 50) {
+					fadeCount = 0;
+					outTimer = 0;
+					Reset();
+					sceneNo_ = SceneNo::GAME;
+					
+				}
 			}
 
 		}
@@ -149,30 +259,72 @@ void GameScene::Update() {
 
 	case SceneNo::GAME:
 		if (sceneNo_ == SceneNo::GAME) {
-			skydome->wtf.position.z -= skyMoveSpeed_;
+			if (fadeFlag == 1) {
+				fadeTimer--;
+				if (fadeTimer <= 1) {
 
-			player_->Update();
-
-			enemy_->Update();
-
-			stage_->Update();
-
-			skydome->Update();
-			//シーン切り替え
-			if (enemy_->GetEnemyHP() == 10)
-			{
-				sceneNo_ = SceneNo::BOSS;
-				enemy_->playerHp = 15;
-				enemy_->enemyCount = 0;
+					fadeFlag = 0;
+					fadeTimer = 0;
+				}
 			}
+			//ゲーム開始までの演出
+			if (startFlag == 0) {
+				FadeIn();
+				startCountTimer++;
+				if (startCountTimer == 150) {
+					startCountFlag = 1;
+				}
+				if (startCountFlag == 1) {
+					startTimer++;
+					//スタートカウント
+					if (startTimer <= 30 && startTimer >= 1) {
+						startCount = 1;
+					}
+					else if (startTimer <= 60 && startTimer >= 31) {
+						startCount = 2;
+					}
+					else if (startTimer <= 90 && startTimer >= 61) {
+						startCount = 3;
+					}
+					else if (startTimer <= 120 && startTimer >= 91) {
+						startCount = 4;
+					}
+					else if (startTimer >= 121) {
+						startCount = 5;
+					}
+					if (startCount == 5) {
+						startFlag = 1;
+						startTimer = 0;
+						startCount = 0;
+					}
+				}
+			}
+			
+			player_->Update();
+			stage_->Update();
+			skydome->Update();
 
-			//シーン切り替え&リセット
-			if (enemy_->GetPlayerHP() <=0)
-			{
-				sceneNo_ = SceneNo::GAMEOVER;
-				enemy_->playerHp = 15;
-				enemy_->enemyCount = 0;
+			if (startFlag == 1) {
+				skydome->wtf.position.z -= skyMoveSpeed_;
 
+				enemy_->Update();
+				//シーン切り替え
+				if (enemy_->GetEnemyHP() == 10)
+				{
+					sceneNo_ = SceneNo::BOSS;
+					enemy_->playerHp = 15;
+					enemy_->enemyCount = 0;
+				}
+
+				//シーン切り替え&リセット
+				if (enemy_->GetPlayerHP() <= 0)
+				{
+					sceneNo_ = SceneNo::GAMEOVER;
+					enemy_->playerHp = 15;
+					enemy_->enemyCount = 0;
+
+
+				}
 			}
 		}
 		break;
@@ -183,6 +335,15 @@ void GameScene::Update() {
 		skydome->Update();
 
 		boss_->Update();
+
+		stage_->Update();
+
+
+		//シーン切り替え
+		if (input->TriggerKey(DIK_R) || input->ButtonInput(RT)) {
+			Reset();
+			sceneNo_ = SceneNo::GAME;
+		}
 		break;
 
 	case SceneNo::CLEAR:
@@ -214,9 +375,43 @@ void GameScene::Draw() {
 	case SceneNo::TITLE:
 		//タイトル
 		if (sceneNo_ == SceneNo::TITLE) {
-			titleSprite->Draw();
-			/*HPSprite->Draw();*/
+			/// <summary>
+			/// 3Dオブジェクトの描画
+			/// ここに3Dオブジェクトの描画処理を追加できる
+			/// <summary>
+			//3Dオブジェクト描画前処理
+			Object3d::PreDraw(dxCommon->GetCommandList());
+			//// 3Dオブクジェクトの描画
+			title_->Draw();
+			stage_->Draw();
+			//3Dオブジェクト描画後処理
+			Object3d::PostDraw();
 
+			title_->FbxDraw();
+
+			titleSprite->Draw();
+			if (titleTimer >= 50) {
+				spaceSprite->Draw();
+			}
+			//フェードインフェードアウト
+			if (fadeTimer <= 8 && fadeTimer >= 1) {
+				outSprite->Draw();
+			}
+			else if (fadeTimer <= 17 && fadeTimer >= 9) {
+				out1Sprite->Draw();
+			}
+			else if (fadeTimer <= 26 && fadeTimer >= 18) {
+				out2Sprite->Draw();
+			}
+			else if (fadeTimer <= 35 && fadeTimer >= 27) {
+				out3Sprite->Draw();
+			}
+			else if (fadeTimer <= 42 && fadeTimer >= 36) {
+				out4Sprite->Draw();
+			}
+			else if (fadeTimer <= 50 && fadeTimer >= 43) {
+				out5Sprite->Draw();
+			}
 		}
 		break;
 	case SceneNo::GAME:
@@ -244,6 +439,38 @@ void GameScene::Draw() {
 
 			enemy_->FbxDraw();
 			
+			//フェードインフェードアウト
+			if (fadeTimer <= 8 && fadeTimer >= 1) {
+				outSprite->Draw();
+			}
+			else if (fadeTimer <= 17 && fadeTimer >= 9) {
+				out1Sprite->Draw();
+			}
+			else if (fadeTimer <= 26 && fadeTimer >= 18) {
+				out2Sprite->Draw();
+			}
+			else if (fadeTimer <= 35 && fadeTimer >= 27) {
+				out3Sprite->Draw();
+			}
+			else if (fadeTimer <= 42 && fadeTimer >= 36) {
+				out4Sprite->Draw();
+			}
+			else if (fadeTimer <= 50 && fadeTimer >= 43) {
+				out5Sprite->Draw();
+			}
+			//カウントダウン
+			if (startCount == 1) {
+				start3Sprite->Draw();
+			}else if (startCount == 2) {
+				start2Sprite->Draw();
+			}
+			else if (startCount == 3) {
+				start1Sprite->Draw();
+			}
+			else if (startCount == 4) {
+				GOSprite->Draw();
+			}
+
 			//HPバー
 			if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
 				HPSprite->Draw();
@@ -273,6 +500,7 @@ void GameScene::Draw() {
 			player_->Draw();
 			skydome->Draw();
 			boss_->Draw();
+			stage_->Draw();
 			//3Dオブジェクト描画後処理
 			Object3d::PostDraw();
 
