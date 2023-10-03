@@ -18,6 +18,7 @@
 #include "enemy.h"
 #include "stage.h"
 #include <boss.h>
+#include <title.h>
 
 
 /// <summary>
@@ -47,6 +48,8 @@ public: // メンバ関数
 
 	void Reset();
 
+	void FadeOut();
+	void FadeIn();
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
@@ -88,6 +91,7 @@ private:	//メンバ変数
 
 	//タイトル
 	Sprite* titleSprite = new Sprite();
+	Sprite* spaceSprite = new Sprite();
 
 	//クリア
 	Sprite* clearSprite = new Sprite();
@@ -103,11 +107,36 @@ private:	//メンバ変数
 	//Hp
 	Sprite* HP0Sprite = new Sprite();
 
+	//フェードイン＆フェードアウト
+	Sprite* outSprite = new Sprite();
+	Sprite* out1Sprite = new Sprite();
+	Sprite* out2Sprite = new Sprite();
+	Sprite* out3Sprite = new Sprite();
+	Sprite* out4Sprite = new Sprite();
+	Sprite* out5Sprite = new Sprite();
+	int fadeCount = 0;
+	int outTimer = 0;
+	int fadeFlag = 0;
+	int fadeTimer = 0;
+	//ゲームスタート
+	//カウント
+	Sprite* start3Sprite = new Sprite();
+	Sprite* start2Sprite = new Sprite();
+	Sprite* start1Sprite = new Sprite();
+	Sprite* GOSprite = new Sprite();
+	int startCountTimer = 0;
+	int startCountFlag = 0;
+	int startCount = 0;
+	int startTimer = 0;
+	int startFlag = 0;
 	//カメラ
 	Camera* mainCamera = nullptr;
 	Camera* camera1 = nullptr;
 	Camera* camera2 = nullptr;
 	Camera* camera3 = nullptr;
+
+	//タイトル
+	Title* title_ = nullptr;
 
 	//プレイヤー
 	Player* player_ = nullptr;
@@ -125,6 +154,8 @@ private:	//メンバ変数
 	Object3d* skydome = nullptr;
 	Model* skydomeMD = nullptr;
 	const float skyMoveSpeed_ = 0.15f;
+
+	int titleTimer = 0;
 	//UI
 	
 	//ゲームフロー
