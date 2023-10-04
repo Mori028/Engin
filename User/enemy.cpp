@@ -66,10 +66,13 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 
 void Enemy::Reset()
 {
+	//“G‚P
 	fbxObject3d_->Initialize();
 	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	//“G2
 	enemyObject3d_->Initialize();
 	enemyObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	//“G3
 	enemy1Object3d_->Initialize();
 	enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	enemyBulletObj_->Initialize();

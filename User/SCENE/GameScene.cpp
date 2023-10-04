@@ -196,11 +196,16 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 }
 
 void GameScene::Reset() {
+	//クラスごとのリセット
 	title_->Reset();
 	player_->Reset();
 	enemy_->Reset();
 	stage_->Reset();
 	boss_->Reset();
+	//その他初期化
+	startFlag = 0;
+	startCountTimer = 0;
+	startCountFlag = 0;
 }
 
 void GameScene::FadeOut()

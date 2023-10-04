@@ -56,17 +56,16 @@ private:
 	Input* input_ = nullptr;
 	DirectXCommon* dxCommon = nullptr;
 	Audio* audio = nullptr;
-	//待機
-	/*FBXModel* fbxModel_ = nullptr;
-	FBXObject3d* fbxObject3d_ = nullptr;*/
 
 	//レティクル
 	Sprite* RetSprite = new Sprite();
-	//player
+	//player回転
 	FBXModel* fbxModel_ = nullptr;
 	FBXObject3d* fbxObject3d_ = nullptr;
-	/*Object3d* playerObj_ = nullptr;
-	Model* playerModel_ = nullptr;*/
+	//player通常時
+	FBXModel* fbxRoteModel_ = nullptr;
+	FBXObject3d* fbxRoteObject3d_ = nullptr;
+	
 	//弾
 	Object3d* bulletObj_ = nullptr;
 	Model* bulletModel_ = nullptr;
