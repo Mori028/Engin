@@ -52,6 +52,7 @@ void Stage::Initialize(DirectXCommon* dxCommon, Input* input)
 
 void Stage::Reset()
 {
+	//ステージの位置初期化
 	stage_->Initialize();
 	stage_->wtf.position = { -0.3f,-1.0f,0.0f };
 	stage_->wtf.rotation = { 0.0f,-1.5f,0.0f };
@@ -75,6 +76,7 @@ void Stage::Reset()
 
 void Stage::Loop()
 {
+	//ステージの位置をループさせる
 	stage_->Initialize();
 	stage_->wtf.position = { -0.3f,-1.0f,-50.0f };
 	stage_->wtf.rotation = { 0.0f,-1.5f,0.0f };
@@ -98,7 +100,7 @@ void Stage::Loop()
 
 void Stage::Update()
 {
-
+	//ステージ3でループさせる
 	if (stage3_->wtf.position.z <= 0) {
 		Loop();
 	}

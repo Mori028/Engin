@@ -43,7 +43,7 @@ void Title::Initialize(DirectXCommon* dxCommon, Input* input)
 
 void Title::Reset()
 {
-	/*playerObj_->wtf.position = { 0.0f,-0.1f,0.0f };*/
+	//タイトルの回転するプレイヤー
 	fbxObject3d_->wtf.position = { 0.0f,-0.1f,0.0f };
 }
 
@@ -58,13 +58,13 @@ void Title::FadeOut()
 
 void Title::Update()
 {
-	/*playerObj_->Update();*/
+	
 	fbxObject3d_->Update();
 }
 
 void Title::Draw()
 {
-	/*playerObj_->Draw();*/
+	
 }
 
 void Title::FbxDraw()

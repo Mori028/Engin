@@ -21,14 +21,14 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	input_ = input;
 	camTransForm = new Transform();
 
-	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("player");
-	
+	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("playerNeutral"); 
+	fbxRoteModel_ = FbxLoader::GetInstance()->LoadModelFromFile("player");
 	// デバイスをセット
 	FBXObject3d::SetDevice(dxCommon->GetDevice());
 	// グラフィックスパイプライン生成
 	FBXObject3d::CreateGraphicsPipeline();
 
-	//待機
+	//通常時
 	fbxObject3d_ = new FBXObject3d;
 	fbxObject3d_->Initialize();
 	fbxObject3d_->SetModel(fbxModel_);
@@ -36,6 +36,14 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
 	/*fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };*/
 	fbxObject3d_->PlayAnimation(4.0f, true);
+
+	//回転
+	fbxRoteObject3d_ = new FBXObject3d;
+	fbxRoteObject3d_->Initialize();
+	fbxRoteObject3d_->SetModel(fbxRoteModel_);
+	fbxRoteObject3d_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y, fbxObject3d_->wtf.position.z };
+	fbxRoteObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
+	fbxRoteObject3d_->PlayAnimation(4.0f, true);
 
 	//弾
 	bulletModel_ = Model::LoadFromOBJ("boll");
@@ -64,13 +72,21 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 
 void Player::Reset()
 {
+	//プレイヤー
 	fbxObject3d_->Initialize();
-	bulletObj_->Initialize();
-	ReticleObj_->Initialize();
 	fbxObject3d_->wtf.position = { -1.5f,-0.1f,0.0f };
 	fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
+	//プレイヤー回転
+	fbxRoteObject3d_->Initialize();
+	fbxRoteObject3d_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y, fbxObject3d_->wtf.position.z };
+	fbxRoteObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
+	//弾
+	bulletObj_->Initialize();
 	bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.01f, fbxObject3d_->wtf.position.z };
+	//レティクル
+	ReticleObj_->Initialize();
 	ReticleObj_->wtf.position = { 0.0f,0.0f,10.0f };
+	//その他初期化
 	stoptimer = 0;
 	moovFlag = 0;
 }
@@ -87,7 +103,9 @@ void Player::Update() {
 	
 	//キーボード入力による移動処理
 	// //ゲーム開始からの攻撃受付
-	stoptimer++;
+	if (moovFlag ==0) {
+		stoptimer++;
+	}
 	if (stoptimer >= 250) {
 		moovFlag = 1;
 	}
@@ -231,7 +249,11 @@ void Player::Update() {
 			}
 		}
 	}
+	//FBXモデル位置固定
+	fbxRoteObject3d_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y , fbxObject3d_->wtf.position.z };
+
 	fbxObject3d_->Update();
+	fbxRoteObject3d_->Update();
 	bulletObj_->Update();
 	ReticleObj_->Update();
 }
@@ -245,8 +267,11 @@ void Player::Draw() {
 }
 
 void Player::FbxDraw(){
-	
+	if (moovFlag == 0) {
+		fbxRoteObject3d_->Draw(dxCommon->GetCommandList());
+	}else{
 	fbxObject3d_->Draw(dxCommon->GetCommandList());
+	}
 }
 
 Vector3 Player::bVelocity(Vector3& velocity, Transform& worldTransform)
