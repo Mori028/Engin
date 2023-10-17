@@ -38,11 +38,17 @@ void Title::Initialize(DirectXCommon* dxCommon, Input* input)
 	playerObj_->wtf.position = { 0.0f,-0.0f,0.0f };
 	playerObj_->wtf.scale = { 0.03f,0.03f,0.03f };
 
+	skydomeMD = Model::LoadFromOBJ("titledpme");
+	skydome = Object3d::Create();
+	skydome->SetModel(skydomeMD);
+	skydome->wtf.scale = (Vector3{ 1000, 1000, 1000 });
+
 	Reset();
 }
 
 void Title::Reset()
 {
+
 	//タイトルの回転するプレイヤー
 	fbxObject3d_->wtf.position = { 0.0f,-0.1f,0.0f };
 }
@@ -58,13 +64,13 @@ void Title::FadeOut()
 
 void Title::Update()
 {
-	
+	skydome->Update();
 	fbxObject3d_->Update();
 }
 
 void Title::Draw()
 {
-	
+	skydome->Draw();
 }
 
 void Title::FbxDraw()

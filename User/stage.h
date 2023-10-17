@@ -39,6 +39,11 @@ private:
 	Object3d* stage3_ = nullptr;
 	Object3d* stage4_ = nullptr;
 	Object3d* stage5_ = nullptr;
+	Object3d* stage6_ = nullptr;
+	Object3d* stage7_ = nullptr;
+	Object3d* stage8_ = nullptr;
+	Object3d* stage9_ = nullptr;
+	Object3d* stage10_ = nullptr;
 	Model* felld = nullptr;
 	const float moveSpeed_ = 0.53f;
 	const float rotaSpeed_ = 0.1f;

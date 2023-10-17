@@ -53,6 +53,10 @@ private:
 	const float movexSpeed_ = 0.005f;
 	const float rotaSpeed_ = 0.1f;
 
+	//îwåiÇ‚è∞
+	Object3d* skydome = nullptr;
+	Model* skydomeMD = nullptr;
+
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;
 	Vector3 targetPos;
