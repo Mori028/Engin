@@ -48,6 +48,36 @@ void Stage::Initialize(DirectXCommon* dxCommon, Input* input)
 	stage5_->wtf.rotation = { 0.0f,-1.5f,0.0f };
 	stage5_->wtf.scale = { 1.0f,4.0f,5.0f };
 	stage5_->SetModel(felld);
+
+	stage6_ = Object3d::Create();
+	stage6_->wtf.position = { -0.3f,-1.0f,0.0f };
+	stage6_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+	stage6_->wtf.scale = { 1.0f,4.0f,5.0f };
+	stage6_->SetModel(felld);
+
+	stage7_ = Object3d::Create();
+	stage7_->wtf.position = { -0.3f,-1.0f,0.0f };
+	stage7_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+	stage7_->wtf.scale = { 1.0f,4.0f,5.0f };
+	stage7_->SetModel(felld);
+
+	stage8_ = Object3d::Create();
+	stage8_->wtf.position = { -0.3f,-1.0f,0.0f };
+	stage8_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+	stage8_->wtf.scale = { 1.0f,4.0f,5.0f };
+	stage8_->SetModel(felld);
+
+	stage9_ = Object3d::Create();
+	stage9_->wtf.position = { -0.3f,-1.0f,0.0f };
+	stage9_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+	stage9_->wtf.scale = { 1.0f,4.0f,5.0f };
+	stage9_->SetModel(felld);
+
+	stage10_ = Object3d::Create();
+	stage10_->wtf.position = { -0.3f,-1.0f,0.0f };
+	stage10_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+	stage10_->wtf.scale = { 1.0f,4.0f,5.0f };
+	stage10_->SetModel(felld);
 }
 
 void Stage::Reset()
@@ -72,6 +102,26 @@ void Stage::Reset()
 	stage5_->Initialize();
 	stage5_->wtf.position = { -0.3f,-1.0f,200.0f };
 	stage5_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage6_->Initialize();
+	stage6_->wtf.position = { -0.3f,-1.0f,250.0f };
+	stage6_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage7_->Initialize();
+	stage7_->wtf.position = { -0.3f,-1.0f,300.0f };
+	stage7_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage8_->Initialize();
+	stage8_->wtf.position = { -0.3f,-1.0f,350.0f };
+	stage8_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage9_->Initialize();
+	stage9_->wtf.position = { -0.3f,-1.0f,400.0f };
+	stage9_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage10_->Initialize();
+	stage10_->wtf.position = { -0.3f,-1.0f,450.0f };
+	stage10_->wtf.rotation = { 0.0f,-1.5f,0.0f };
 }
 
 void Stage::Loop()
@@ -96,6 +146,27 @@ void Stage::Loop()
 	stage5_->Initialize();
 	stage5_->wtf.position = { -0.3f,-1.0f,150.0f };
 	stage5_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage6_->Initialize();
+	stage6_->wtf.position = { -0.3f,-1.0f,200.0f };
+	stage6_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage7_->Initialize();
+	stage7_->wtf.position = { -0.3f,-1.0f,250.0f };
+	stage7_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage8_->Initialize();
+	stage8_->wtf.position = { -0.3f,-1.0f,300.0f };
+	stage8_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage9_->Initialize();
+	stage9_->wtf.position = { -0.3f,-1.0f,350.0f };
+	stage9_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	stage10_->Initialize();
+	stage10_->wtf.position = { -0.3f,-1.0f,400.0f };
+	stage10_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
 }
 
 void Stage::Update()
@@ -109,11 +180,21 @@ void Stage::Update()
 	stage3_->wtf.position.z -= moveSpeed_;
 	stage4_->wtf.position.z -= moveSpeed_;
 	stage5_->wtf.position.z -= moveSpeed_;
+	stage6_->wtf.position.z -= moveSpeed_;
+	stage7_->wtf.position.z -= moveSpeed_;
+	stage8_->wtf.position.z -= moveSpeed_;
+	stage9_->wtf.position.z -= moveSpeed_;
+	stage10_->wtf.position.z -= moveSpeed_;
 	stage_->Update();
 	stage2_->Update();
 	stage3_->Update();
 	stage4_->Update();
 	stage5_->Update();
+	stage6_->Update();
+	stage7_->Update();
+	stage8_->Update();
+	stage9_->Update();
+	stage10_->Update();
 }
 
 void Stage::Draw()
@@ -123,4 +204,9 @@ void Stage::Draw()
 	stage3_->Draw();
 	stage4_->Draw();
 	stage5_->Draw();
+	stage6_->Draw();
+	stage7_->Draw();
+	stage8_->Draw();
+	stage9_->Draw();
+	stage10_->Draw();
 }

@@ -331,6 +331,11 @@ void GameScene::Update() {
 
 				}
 			}
+			//シーン切り替え
+			if (input->TriggerKey(DIK_R) || input->ButtonInput(Y)) {
+				Reset();
+				sceneNo_ = SceneNo::TITLE;
+			}
 		}
 		break;
 	case SceneNo::BOSS:
