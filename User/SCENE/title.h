@@ -48,7 +48,7 @@ private:
 
 	Object3d* playerObj_ = nullptr;
 	Model* playerModel_ = nullptr;
-	
+	 
 	const float moveSpeed_ = 0.013f;
 	const float movexSpeed_ = 0.005f;
 	const float rotaSpeed_ = 0.1f;

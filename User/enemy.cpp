@@ -62,6 +62,12 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 	enemyBulletObj_->SetModel(enemyBulletModel_);
 	enemyBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y +0.2f , fbxObject3d_->wtf.position.z };
 	enemyBulletObj_->wtf.scale = { 0.5f,0.5f,0.5f };
+
+	//パーティクル生成
+	particleManager = std::make_unique<ParticleManager>();
+	particleManager.get()->Initialize();
+	particleManager->LoadTexture("blod.png");
+	particleManager->Update();
 }
 
 void Enemy::Reset()
@@ -76,9 +82,24 @@ void Enemy::Reset()
 	enemy1Object3d_->Initialize();
 	enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	enemyBulletObj_->Initialize();
+	//パーティクル初期化
+	EffTimer = 0;
+	isEffFlag = 0;
 }
 
 void Enemy::Update() {
+	//ダメージエフェクト
+	if (isEffFlag == 1) {
+		EffTimer++;
+	}
+	if (EffTimer <= 10 && EffTimer >= 1) {
+		EffUpdate();
+	}
+	if (EffTimer >= 11) {
+		isEffFlag = 0;
+		EffTimer = 0;
+	}
+
 	if (hp == 1) {
 
 		////////////
@@ -455,6 +476,48 @@ void Enemy::FbxDraw() {
 	
 }
 
+void Enemy::EffUpdate()
+{
+	//パーティクル範囲
+	for (int i = 0; i < 20; i++) {
+		//X,Y,Z全て[-5.0f,+5.0f]でランダムに分布
+		const float rnd_pos = 0.01f;
+		Vector3 pos{};
+		pos.x += (float)rand() / RAND_MAX * rnd_pos - rnd_pos / 0.1f;
+		pos.y += (float)rand() / RAND_MAX * rnd_pos - rnd_pos / 0.1f;
+		pos.z += (float)rand() / RAND_MAX * rnd_pos - rnd_pos / 2.0f;
+		
+		pos += player_->GetWorldPosition();
+		
+		//速度
+		//X,Y,Z全て[-0.05f,+0.05f]でランダムに分布
+		const float rnd_vel = 0.1f;
+		Vector3 vel{};
+		vel.x = (float)rand() / RAND_MAX * rnd_vel - rnd_vel / 2.5f;
+		vel.y = (float)rand() / RAND_MAX * rnd_vel - rnd_vel / 2.5f;
+		vel.z = (float)rand() / RAND_MAX * rnd_vel - rnd_vel / 2.5f;
+		//重力に見立ててYのみ[-0.001f,0]でランダムに分布
+		const float rnd_acc = 0.00001f;
+		Vector3 acc{};
+		acc.x = (float)rand() / RAND_MAX * rnd_acc - rnd_acc / 0.5f;
+		acc.y = (float)rand() / RAND_MAX * rnd_acc - rnd_acc / 0.5f;
+
+		//追加
+		particleManager->Add(20, pos, vel, acc, 1.0f, 0.0f);
+
+		particleManager->Update();
+	}
+}
+
+void Enemy::EffDraw()
+{
+	//ダメージエフェクト
+	if (isEffFlag == 1) {
+		// 3Dオブクジェクトの描画
+		particleManager->Draw();
+	}
+}
+
 Vector3 Enemy::GetWorldPosition() {
 	fbxObject3d_->wtf.UpdateMat();
 	//ワールド行列の平行移動成分
@@ -504,6 +567,7 @@ void Enemy::OnColision()
 
 void Enemy::OnColisionPlayer()
 {
+	isEffFlag = 1;
 	playerHp = playerHp - 1;
 }
 
