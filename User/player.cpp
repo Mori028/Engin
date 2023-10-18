@@ -74,7 +74,7 @@ void Player::Reset()
 {
 	//プレイヤー
 	fbxObject3d_->Initialize();
-	fbxObject3d_->wtf.position = { -1.5f,-0.1f,0.0f };
+	fbxObject3d_->wtf.position = { 0.0f,+1.5f,0.0f };
 	fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };
 	//プレイヤー回転
 	fbxRoteObject3d_->Initialize();
@@ -93,8 +93,8 @@ void Player::Reset()
 
 void Player::FadeIn()
 {
-	if (fbxObject3d_->wtf.position.x <= 0) {
-		fbxObject3d_->wtf.position.x += moveSpeed_;
+	if (fbxObject3d_->wtf.position.y >= 0) {
+		fbxObject3d_->wtf.position.y -= moveSpeed_;
 	}
 	
 }

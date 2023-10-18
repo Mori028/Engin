@@ -119,11 +119,13 @@ private:	//メンバ変数
 	int fadeFlag = 0;
 	int fadeTimer = 0;
 	//ゲームスタート
+	int roadTimer = 0;
+	 
 	//カウント
 	Sprite* start3Sprite = new Sprite();
-	Sprite* start2Sprite = new Sprite();
-	Sprite* start1Sprite = new Sprite();
-	Sprite* GOSprite = new Sprite();
+	
+	Sprite* goSprite = new Sprite();
+	Sprite* go2Sprite = new Sprite();
 	int startCountTimer = 0;
 	int startCountFlag = 0;
 	int startCount = 0;

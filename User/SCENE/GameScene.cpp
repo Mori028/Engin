@@ -40,7 +40,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	titleSprite->Initialize(spriteCommon);
 	titleSprite->SetPozition({ 0,0 });
 	titleSprite->SetSize({ 1280.0f, 720.0f });
-	spriteCommon->LoadTexture(1, "title.png");
+	spriteCommon->LoadTexture(1, "Titlee.png");
 	titleSprite->SetTextureIndex(1);
 
 	spaceSprite->Initialize(spriteCommon);
@@ -127,31 +127,24 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	spriteCommon->LoadTexture(15, "out5.png");
 	out5Sprite->SetTextureIndex(15);
 
-	//スタートカウント3
+	//スタートカウント
 	start3Sprite->Initialize(spriteCommon);
 	start3Sprite->SetPozition({ 0,0 });
 	start3Sprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(16, "3.png");
 	start3Sprite->SetTextureIndex(16);
-	//スタートカウント2
-	start2Sprite->Initialize(spriteCommon);
-	start2Sprite->SetPozition({ 0,0 });
-	start2Sprite->SetSize({ 1280.0f, 720.0f });
-	spriteCommon->LoadTexture(17, "2.png");
-	start2Sprite->SetTextureIndex(17);
-	//スタートカウント1
-	start1Sprite->Initialize(spriteCommon);
-	start1Sprite->SetPozition({ 0,0 });
-	start1Sprite->SetSize({ 1280.0f, 720.0f });
-	spriteCommon->LoadTexture(18, "1.png");
-	start1Sprite->SetTextureIndex(18);
-	//スタートカウント0
-	GOSprite->Initialize(spriteCommon);
-	GOSprite->SetPozition({ 0,0 });
-	GOSprite->SetSize({ 1280.0f, 720.0f });
-	spriteCommon->LoadTexture(19, "GO.png");
-	GOSprite->SetTextureIndex(19);
 	
+	goSprite->Initialize(spriteCommon);
+	goSprite->SetPozition({ 0,0 });
+	goSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(17, "G.png");
+	goSprite->SetTextureIndex(17);
+	
+	go2Sprite->Initialize(spriteCommon);
+	go2Sprite->SetPozition({ 0,0 });
+	go2Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(18, "O.png");
+	go2Sprite->SetTextureIndex(18);
 
 	// カメラ生成
 	mainCamera = new Camera(WinApp::window_width, WinApp::window_height);
@@ -206,6 +199,10 @@ void GameScene::Reset() {
 	startFlag = 0;
 	startCountTimer = 0;
 	startCountFlag = 0;
+	roadTimer = 0;
+	//スプライトの位置を初期化
+	goSprite->SetPozition({ 0,0 });
+	go2Sprite->SetPozition({ 0,0 });
 }
 
 void GameScene::FadeOut()
@@ -250,7 +247,7 @@ void GameScene::Update() {
 			}
 			if (fadeFlag == 1) {
 				fadeTimer++;
-				if (fadeTimer >= 50) {
+				if (fadeTimer >= 47) {
 					fadeCount = 0;
 					outTimer = 0;
 					Reset();
@@ -265,11 +262,14 @@ void GameScene::Update() {
 	case SceneNo::GAME:
 		if (sceneNo_ == SceneNo::GAME) {
 			if (fadeFlag == 1) {
-				fadeTimer--;
-				if (fadeTimer <= 1) {
+				roadTimer++;
+				if (roadTimer >= 50) {
+					fadeTimer--;
+					if (fadeTimer <= 1) {
 
-					fadeFlag = 0;
-					fadeTimer = 0;
+						fadeFlag = 0;
+						fadeTimer = 0;
+					}
 				}
 			}
 			//ゲーム開始までの演出
@@ -293,6 +293,29 @@ void GameScene::Update() {
 					}
 					else if (startTimer <= 120 && startTimer >= 91) {
 						startCount = 4;
+						if (startTimer <= 103 && startTimer >= 100) {
+							goSprite->SetPozition({ 0,-20 });
+							go2Sprite->SetPozition({ 0,20 });
+						}else if (startTimer <= 106 && startTimer >= 104) {
+							goSprite->SetPozition({ 0,-40 });
+							go2Sprite->SetPozition({ 0,40 });
+						}
+						else if (startTimer <= 109 && startTimer >= 107) {
+							goSprite->SetPozition({ 0,-60 });
+							go2Sprite->SetPozition({ 0,60 });
+						}
+						else if (startTimer <= 113 && startTimer >= 110) {
+							goSprite->SetPozition({ 0,-80 });
+							go2Sprite->SetPozition({ 0,80 });
+						}
+						else if (startTimer <= 117 && startTimer >= 114) {
+							goSprite->SetPozition({ 0,-100 });
+							go2Sprite->SetPozition({ 0,100 });
+						}
+						else if (startTimer <= 120 && startTimer >= 118) {
+							goSprite->SetPozition({ 0,-120 });
+							go2Sprite->SetPozition({ 0,120 });
+						}
 					}
 					else if (startTimer >= 121) {
 						startCount = 5;
@@ -404,22 +427,22 @@ void GameScene::Draw() {
 				spaceSprite->Draw();
 			}
 			//フェードインフェードアウト
-			if (fadeTimer <= 8 && fadeTimer >= 1) {
+			if (fadeTimer <= 5 && fadeTimer >= 1) {
 				outSprite->Draw();
 			}
-			else if (fadeTimer <= 17 && fadeTimer >= 9) {
+			else if (fadeTimer <= 14 && fadeTimer >= 6) {
 				out1Sprite->Draw();
 			}
-			else if (fadeTimer <= 26 && fadeTimer >= 18) {
+			else if (fadeTimer <= 23 && fadeTimer >= 15) {
 				out2Sprite->Draw();
 			}
-			else if (fadeTimer <= 35 && fadeTimer >= 27) {
+			else if (fadeTimer <= 32 && fadeTimer >= 24) {
 				out3Sprite->Draw();
 			}
-			else if (fadeTimer <= 42 && fadeTimer >= 36) {
+			else if (fadeTimer <= 39 && fadeTimer >= 33) {
 				out4Sprite->Draw();
 			}
-			else if (fadeTimer <= 50 && fadeTimer >= 43) {
+			else if (fadeTimer <= 47 && fadeTimer >= 40) {
 				out5Sprite->Draw();
 			}
 		}
@@ -446,53 +469,57 @@ void GameScene::Draw() {
 
 			//// パーティクル UI FBX スプライト描画
 			player_->FbxDraw();
-
+			enemy_->EffDraw();
 			enemy_->FbxDraw();
-			
+			if (startFlag == 1) {
+				//HPバー
+				if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
+					HPSprite->Draw();
+				}
+				else if (enemy_->GetPlayerHP() <= 10 && enemy_->GetPlayerHP() >= 6) {
+					HP2Sprite->Draw();
+				}
+				else if (enemy_->GetPlayerHP() <= 5 && enemy_->GetPlayerHP() >= 1) {
+					HP1Sprite->Draw();
+				}
+				else if (enemy_->GetPlayerHP() <= 0) {
+					HP0Sprite->Draw();
+				}
+			}
+
 			//フェードインフェードアウト
-			if (fadeTimer <= 8 && fadeTimer >= 1) {
+			if (fadeTimer <= 5 && fadeTimer >= 1) {
 				outSprite->Draw();
 			}
-			else if (fadeTimer <= 17 && fadeTimer >= 9) {
+			else if (fadeTimer <= 14 && fadeTimer >= 6) {
 				out1Sprite->Draw();
 			}
-			else if (fadeTimer <= 26 && fadeTimer >= 18) {
+			else if (fadeTimer <= 23 && fadeTimer >= 15) {
 				out2Sprite->Draw();
 			}
-			else if (fadeTimer <= 35 && fadeTimer >= 27) {
+			else if (fadeTimer <= 32 && fadeTimer >= 24) {
 				out3Sprite->Draw();
 			}
-			else if (fadeTimer <= 42 && fadeTimer >= 36) {
+			else if (fadeTimer <= 39 && fadeTimer >= 33) {
 				out4Sprite->Draw();
 			}
-			else if (fadeTimer <= 50 && fadeTimer >= 43) {
+			else if (fadeTimer <= 47 && fadeTimer >= 40) {
 				out5Sprite->Draw();
 			}
 			//カウントダウン
 			if (startCount == 1) {
 				start3Sprite->Draw();
 			}else if (startCount == 2) {
-				start2Sprite->Draw();
+				start3Sprite->Draw();
 			}
 			else if (startCount == 3) {
-				start1Sprite->Draw();
+				start3Sprite->Draw();
 			}
 			else if (startCount == 4) {
-				GOSprite->Draw();
+				goSprite->Draw();
+				go2Sprite->Draw();
 			}
 
-			//HPバー
-			if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
-				HPSprite->Draw();
-			}else if (enemy_->GetPlayerHP() <= 10 && enemy_->GetPlayerHP() >= 6) {
-				HP2Sprite->Draw();
-			}
-			else if (enemy_->GetPlayerHP() <= 5 && enemy_->GetPlayerHP() >= 1) {
-				HP1Sprite->Draw();
-			}
-			else if (enemy_->GetPlayerHP() <= 0) {
-				HP0Sprite->Draw();
-			}
 		}
 		break;
 

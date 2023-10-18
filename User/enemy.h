@@ -26,6 +26,10 @@ public:
 
 	void Draw();
 	void FbxDraw();
+	//パーティクル
+	void EffUpdate();
+	void EffDraw();
+
 	////ワールド座標を取得
 	Vector3 GetWorldPosition();
 
@@ -53,9 +57,8 @@ public:
 
 	int GetEnemyHP() { return enemyCount; }
 
-	//HP
-	//playerHP
-	int playerHp = 15;//hp0が4
+	//playerHP   = 15
+	int playerHp = 15000;//hp0が3
 	//enemyCount
 	int enemyCount = 0;
 
@@ -86,15 +89,22 @@ private:
 	//弾のフラグ
 	bool isShootFlag = false;
 	float bulletTimer = 0;
-
+	//敵のスピード
 	const float moveSpeed_ = 0.01f;
 	const float rotaSpeed_ = 0.1f;
-
+	//敵関連
 	float timer = 0;
 	int hp = 1;
 	int bulletMode = 1;
 	float changeTimer = 0;
 	int liveFlag = 1;
+
+	//パーティクル関連
+	int EffTimer = 0;
+	int isEffFlag = 0;
+	//パーティクルクラスの初期化 
+	//ダメージ
+	std::unique_ptr<ParticleManager> particleManager;
 	
 	//ワールド座標を入れる変数
 	Vector3 worldPos;
