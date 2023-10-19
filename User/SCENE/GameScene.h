@@ -20,7 +20,10 @@
 #include <boss.h>
 #include <title.h>
 
-
+/*
+* @file GameScene.h
+* @brind ゲームの本体
+*/
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -50,6 +53,7 @@ public: // メンバ関数
 
 	void FadeOut();
 	void FadeIn();
+	void Over();
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
@@ -98,6 +102,8 @@ private:	//メンバ変数
 
 	//ゲームオーバー
 	Sprite* overSprite = new Sprite();
+	Sprite* over2Sprite = new Sprite();
+	Sprite* over3Sprite = new Sprite();
 	//Hp
 	Sprite* HPSprite = new Sprite();
 	//Hp
@@ -123,7 +129,11 @@ private:	//メンバ変数
 	 
 	//カウント
 	Sprite* start3Sprite = new Sprite();
-	
+
+	//ゲームオーバー
+	int overFlag = 0;
+	int retryFlag = 0;
+
 	Sprite* goSprite = new Sprite();
 	Sprite* go2Sprite = new Sprite();
 	int startCountTimer = 0;

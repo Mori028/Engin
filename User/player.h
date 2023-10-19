@@ -13,20 +13,30 @@
 #include "Sprite.h"
 #include "SpriteCommon.h"
 
-
+/*
+* @file player.h
+* @brind プレイヤーの動きなど
+*/
 class Player {
 public:
 	Player();
 	~Player();
-
+	//初期化
 	void Initialize(DirectXCommon* dxCommon, Input* input);
+	//リセット
 	void Reset();
+	//登場時
 	void FadeIn();
+	//ゲームオーバー時
+	void Over();
+	//更新
 	void Update();
+	//描画
 	void Draw();
+	//FBXの描画
 	void FbxDraw();
 
-
+	//積
 	Vector3 bVelocity(Vector3& velocity, Transform& worldTransform);
 
 	////プレイヤーのワールド座標を取得
@@ -40,7 +50,7 @@ public:
 
 	Vector3 GetPos() { return fbxObject3d_->wtf.position; };
 	/// <summary>
-	/// ポジション
+	/// カメラポジション
 	/// </summary>
 	/// <param name="pos"></param>
 	void SetPos(Vector3 pos) { fbxObject3d_->wtf.position = pos; };
@@ -99,14 +109,17 @@ private:
 
 	int stoptimer = 0;
 	int moovFlag = 0;
-
+	//カメラ関連
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;
 	Vector3 targetPos;
 	Vector3 eyePos;
 	Vector3 centerPos;
+	//レティクル
 	float targetTheta;
+	//レティクルの距離
 	float targetDistance = 10;
+	//カメラ
 	float camMoveSpeed = 0.2f;
 	Vector2 camRotaSpeed = { PI / 1800, PI / 1800};
 

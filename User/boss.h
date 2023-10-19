@@ -12,25 +12,34 @@
 #include "FBXObject3d.h"
 #include "Collision.h"
 
+/*
+* @file boss.h
+* @brind ボスの動きなど
+*/
 class Player;
 
 class Boss {
 public:
 	Boss();
 	~Boss();
-
+	//初期化
 	void Initialize(DirectXCommon* dxCommon, Input* input);
+	//リセット
 	void Reset();
+	//ゲームオーバー
+	void Over();
+	//更新
 	void Update();
-
+	//描画
 	void Draw();
+	//FBXの描画
 	void FbxDraw();
 	////ワールド座標を取得
 	Vector3 GetWorldPosition();
 
 	//弾のワールド座標を取得
 	Vector3 GetBulletWorldPosition();
-
+	//当たり判定
 	void OnColision();
 	void OnColisionPlayer();
 
@@ -43,9 +52,9 @@ public:
 public:
 	//音を止める関数
 	IXAudio2SourceVoice* pSourceVoice[10] = { 0 };
-
+	//playerのHP管理
 	int GetPlayerHP() { return playerHp; }
-
+	//enemyのHP管理
 	int GetBossHP() { return BossCount; }
 
 private:
@@ -73,18 +82,23 @@ private:
 	//弾のフラグ
 	bool isShootFlag = false;
 	float bulletTimer = 0;
-
+	//動くスピード
 	const float moveSpeed_ = 0.01f;
 	const float rotaSpeed_ = 0.1f;
 	const float attackMoveSpeed_ = 0.30f;
 	float timer = 0;
+	//敵のHP
 	int hp = 1;
+	//攻撃の種類
 	int bulletMode = 1;
 	float changeTimer = 0;
+	//生存しているか
 	int liveFlag = 1;
 	float enemyTimer = 0.0f;
 	int returnFlag = 0;
+	//攻撃をしているか
 	int attackFlag = 0;
+	//敵の登場
 	float entryTimer = 300.0f;
 	int entry = 1;
 

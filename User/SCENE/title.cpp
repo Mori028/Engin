@@ -1,5 +1,10 @@
 #include "title.h"
 
+
+/*
+* @file title.cpp
+* @brind ƒ^ƒCƒgƒ‹‚Å‚Ì“®‚«‚È‚Ç
+*/
 Title::Title()
 {
 }

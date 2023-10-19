@@ -1,6 +1,10 @@
 #include"Enemy.h"
 #include "player.h"
 
+/*
+* @file enemy.cpp
+* @brind 敵の動きなど
+*/
 Enemy::Enemy() {
 
 }
@@ -19,7 +23,7 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 
 	this->dxCommon = dxCommon;
 	input_ = input;
-
+	//モデル
 	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma");
 
 	fbxredModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma1");
@@ -85,6 +89,11 @@ void Enemy::Reset()
 	//パーティクル初期化
 	EffTimer = 0;
 	isEffFlag = 0;
+}
+
+void Enemy::Over()
+{
+	liveFlag = 2;
 }
 
 void Enemy::Update() {
@@ -511,10 +520,12 @@ void Enemy::EffUpdate()
 
 void Enemy::EffDraw()
 {
-	//ダメージエフェクト
-	if (isEffFlag == 1) {
-		// 3Dオブクジェクトの描画
-		particleManager->Draw();
+	if (liveFlag == 1) {
+		//ダメージエフェクト
+		if (isEffFlag == 1) {
+			// 3Dオブクジェクトの描画
+			particleManager->Draw();
+		}
 	}
 }
 

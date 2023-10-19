@@ -1,5 +1,10 @@
 #include "stage.h"
 
+
+/*
+* @file stage.cpp
+* @brind ステージ配置など
+*/
 Stage::Stage()
 {
 }
@@ -122,6 +127,8 @@ void Stage::Reset()
 	stage10_->Initialize();
 	stage10_->wtf.position = { -0.3f,-1.0f,450.0f };
 	stage10_->wtf.rotation = { 0.0f,-1.5f,0.0f };
+
+	moveFlag = 1;
 }
 
 void Stage::Loop()
@@ -169,22 +176,29 @@ void Stage::Loop()
 
 }
 
+void Stage::Over()
+{
+	moveFlag = 0;
+}
+
 void Stage::Update()
 {
 	//ステージ3でループさせる
 	if (stage3_->wtf.position.z <= 0) {
 		Loop();
 	}
-	stage_->wtf.position.z -= moveSpeed_;
-	stage2_->wtf.position.z -= moveSpeed_;
-	stage3_->wtf.position.z -= moveSpeed_;
-	stage4_->wtf.position.z -= moveSpeed_;
-	stage5_->wtf.position.z -= moveSpeed_;
-	stage6_->wtf.position.z -= moveSpeed_;
-	stage7_->wtf.position.z -= moveSpeed_;
-	stage8_->wtf.position.z -= moveSpeed_;
-	stage9_->wtf.position.z -= moveSpeed_;
-	stage10_->wtf.position.z -= moveSpeed_;
+	if (moveFlag == 1) {
+		stage_->wtf.position.z -= moveSpeed_;
+		stage2_->wtf.position.z -= moveSpeed_;
+		stage3_->wtf.position.z -= moveSpeed_;
+		stage4_->wtf.position.z -= moveSpeed_;
+		stage5_->wtf.position.z -= moveSpeed_;
+		stage6_->wtf.position.z -= moveSpeed_;
+		stage7_->wtf.position.z -= moveSpeed_;
+		stage8_->wtf.position.z -= moveSpeed_;
+		stage9_->wtf.position.z -= moveSpeed_;
+		stage10_->wtf.position.z -= moveSpeed_;
+	}
 	stage_->Update();
 	stage2_->Update();
 	stage3_->Update();
