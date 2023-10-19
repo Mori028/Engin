@@ -1,6 +1,9 @@
 ﻿#include "GameScene.h"
 
-
+/*
+* @file GameScene.cpp
+* @brind ゲームの本体
+*/
 /// <summary>
 	/// コンストクラタ
 	/// </summary>
@@ -55,13 +58,24 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	clearSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(2, "clear.png");
 	clearSprite->SetTextureIndex(2);
-
-	////ゲームオーバー
+	//リトライ
 	overSprite->Initialize(spriteCommon);
 	overSprite->SetPozition({ 0,0 });
 	overSprite->SetSize({ 1280.0f, 720.0f });
-	spriteCommon->LoadTexture(3, "gameover.png");
-	overSprite->SetTextureIndex(3);
+	spriteCommon->LoadTexture(19, "yes.png");
+	overSprite->SetTextureIndex(19);
+	//ゲームオーバー
+	over2Sprite->Initialize(spriteCommon);
+	over2Sprite->SetPozition({ 0,0 });
+	over2Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(3, "no.png");
+	over2Sprite->SetTextureIndex(3);
+
+	over3Sprite->Initialize(spriteCommon);
+	over3Sprite->SetPozition({ 0,0 });
+	over3Sprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(20, "over.png");
+	over3Sprite->SetTextureIndex(20);
 	//HP3
 	HPSprite->Initialize(spriteCommon);
 	HPSprite->SetPozition({ 0,0 });
@@ -200,6 +214,10 @@ void GameScene::Reset() {
 	startCountTimer = 0;
 	startCountFlag = 0;
 	roadTimer = 0;
+	enemy_->playerHp = 15;
+	enemy_->enemyCount = 0;
+	overFlag = 0;
+	retryFlag = 0;
 	//スプライトの位置を初期化
 	goSprite->SetPozition({ 0,0 });
 	go2Sprite->SetPozition({ 0,0 });
@@ -213,6 +231,14 @@ void GameScene::FadeOut()
 void GameScene::FadeIn()
 {
 	player_->FadeIn();
+}
+
+void GameScene::Over()
+{
+	player_->Over();
+	stage_->Over();
+	enemy_->Over();
+	boss_->Over();
 }
 
 /// <summary>
@@ -294,30 +320,43 @@ void GameScene::Update() {
 					else if (startTimer <= 120 && startTimer >= 91) {
 						startCount = 4;
 						if (startTimer <= 103 && startTimer >= 100) {
-							goSprite->SetPozition({ 0,-20 });
-							go2Sprite->SetPozition({ 0,20 });
-						}else if (startTimer <= 106 && startTimer >= 104) {
-							goSprite->SetPozition({ 0,-40 });
-							go2Sprite->SetPozition({ 0,40 });
+							goSprite->SetPozition({ 0,0 });
+							go2Sprite->SetPozition({ 0,0 });
+						}
+						else if (startTimer <= 106 && startTimer >= 104) {
+							goSprite->SetPozition({ 0,-30 });
+							go2Sprite->SetPozition({ 0,30 });
 						}
 						else if (startTimer <= 109 && startTimer >= 107) {
 							goSprite->SetPozition({ 0,-60 });
 							go2Sprite->SetPozition({ 0,60 });
 						}
-						else if (startTimer <= 113 && startTimer >= 110) {
-							goSprite->SetPozition({ 0,-80 });
-							go2Sprite->SetPozition({ 0,80 });
+						else if (startTimer <= 112 && startTimer >= 110) {
+							goSprite->SetPozition({ 0,-90 });
+							go2Sprite->SetPozition({ 0,90 });
 						}
-						else if (startTimer <= 117 && startTimer >= 114) {
-							goSprite->SetPozition({ 0,-100 });
-							go2Sprite->SetPozition({ 0,100 });
-						}
-						else if (startTimer <= 120 && startTimer >= 118) {
+						else if (startTimer <= 115 && startTimer >= 113) {
 							goSprite->SetPozition({ 0,-120 });
 							go2Sprite->SetPozition({ 0,120 });
 						}
+						else if (startTimer <= 118 && startTimer >= 116) {
+							goSprite->SetPozition({ 0,-150 });
+							go2Sprite->SetPozition({ 0,150 });
+						}
+						else if (startTimer <= 120 && startTimer >= 119) {
+							goSprite->SetPozition({ 0,-180 });
+							go2Sprite->SetPozition({ 0,180 });
+						}
+						else if (startTimer <= 123 && startTimer >= 121) {
+							goSprite->SetPozition({ 0,-210 });
+							go2Sprite->SetPozition({ 0,210 });
+						}
+						else if (startTimer <= 125 && startTimer >= 124) {
+							goSprite->SetPozition({ 0,-240 });
+							go2Sprite->SetPozition({ 0,240 });
+						}
 					}
-					else if (startTimer >= 121) {
+					else if (startTimer >= 125) {
 						startCount = 5;
 					}
 					if (startCount == 5) {
@@ -327,7 +366,7 @@ void GameScene::Update() {
 					}
 				}
 			}
-			
+
 			player_->Update();
 			stage_->Update();
 			skydome->Update();
@@ -347,17 +386,39 @@ void GameScene::Update() {
 				//シーン切り替え&リセット
 				if (enemy_->GetPlayerHP() <= 0)
 				{
-					sceneNo_ = SceneNo::GAMEOVER;
-					enemy_->playerHp = 15;
-					enemy_->enemyCount = 0;
-
+					Over();
+					overFlag = 1;
+					
+					if (input->TriggerKey(DIK_A) || input->TriggerKey(DIK_LEFT) || input->ButtonInput(B)) {
+						retryFlag = 1;
+					}
+					
+					if (input->TriggerKey(DIK_D) || input->TriggerKey(DIK_RIGHT) || input->ButtonInput(A)) {
+						retryFlag = 2;
+					}
+					//リトライ
+					if (retryFlag == 1) {
+						if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(B)) {
+							Reset();
+							sceneNo_ = SceneNo::GAME;
+						}
+					}
+					if (retryFlag == 2) {
+						//タイトルに戻る
+						if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(A)) {
+							Reset();
+							sceneNo_ = SceneNo::TITLE;
+						}
+					}
 
 				}
 			}
-			//シーン切り替え
-			if (input->TriggerKey(DIK_R) || input->ButtonInput(Y)) {
-				Reset();
-				sceneNo_ = SceneNo::TITLE;
+			if (enemy_->GetPlayerHP() <= 1) {
+				//シーン切り替え
+				if (input->TriggerKey(DIK_R) || input->ButtonInput(Y)) {
+					Reset();
+					sceneNo_ = SceneNo::TITLE;
+				}
 			}
 		}
 		break;
@@ -519,12 +580,25 @@ void GameScene::Draw() {
 				goSprite->Draw();
 				go2Sprite->Draw();
 			}
+			if (enemy_->GetPlayerHP() <= 0)
+			{
 
+				//リトライ
+				if (retryFlag == 1) {
+					overSprite->Draw();
+				}
+				else if (retryFlag == 2) {
+					over2Sprite->Draw();
+				}
+				else{
+					over3Sprite->Draw();
+				}
+			}
 		}
 		break;
 
 	case SceneNo::BOSS:
-		//クリア
+		
 		if (sceneNo_ == SceneNo::BOSS) {
 			HPSprite->Draw();
 			/// <summary>

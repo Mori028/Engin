@@ -13,7 +13,10 @@
 #include "Sprite.h"
 #include "SpriteCommon.h"
 
-
+/*
+* @file title.h
+* @brind ƒ^ƒCƒgƒ‹‚Å‚Ì“®‚«‚È‚Ç
+*/
 class Title {
 public:
 	Title();

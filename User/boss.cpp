@@ -1,6 +1,10 @@
 #include"Boss.h"
 #include "player.h"
 
+/*
+* @file boss.cpp
+* @brind ƒ{ƒX‚Ì“®‚«‚È‚Ç
+*/
 Boss::Boss() {
 
 }
@@ -70,6 +74,10 @@ void Boss::Reset()
 	BossWallObj_->wtf.position = { 0.0f,-0.3f,+2.3f };
 	BossWallObj_->wtf.rotation = { 0.0f,-1.6f,0.0f };
 	BossWallObj_->wtf.scale = { 0.02f,0.02f,0.02f };
+}
+
+void Boss::Over()
+{
 }
 
 void Boss::Update() {

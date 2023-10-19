@@ -21,10 +21,10 @@ static const uint vnum = 4;
 //センターからのオフセット
 static const float4 offset_array[vnum] =
 {
-	float4(-0.5f,-0.5f,0,0), //左下
-	float4(-0.5f,+0.5f,0,0), //左上
-	float4(+0.5f,-0.5f,0,0), //右下
-	float4(+0.5f,+0.5f,0,0)  //右上
+	float4(-0.4f,-0.4f,0,0), //左下
+	float4(-0.4f,+0.4f,0,0), //左上
+	float4(+0.4f,-0.4f,0,0), //右下
+	float4(+0.4f,+0.4f,0,0)  //右上
 };
 
 //左上が0,0 右下が1,1

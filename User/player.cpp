@@ -1,5 +1,9 @@
 ﻿#include"player.h"
 
+/*
+* @file player.cpp
+* @brind プレイヤーの動きなど
+*/
 Player::Player() {
 
 }
@@ -99,15 +103,21 @@ void Player::FadeIn()
 	
 }
 
+void Player::Over()
+{
+	moovFlag = 2;
+}
+
 void Player::Update() {
 	
 	//キーボード入力による移動処理
 	// //ゲーム開始からの攻撃受付
-	if (moovFlag ==0) {
+	if (moovFlag == 0) {
 		stoptimer++;
-	}
-	if (stoptimer >= 250) {
-		moovFlag = 1;
+
+		if (stoptimer >= 250) {
+			moovFlag = 1;
+		}
 	}
 	if (moovFlag == 1) {
 		//プレイヤーの移動
@@ -259,7 +269,9 @@ void Player::Update() {
 }
 
 void Player::Draw() {
-	ReticleObj_->Draw();
+	if (moovFlag == 1) {
+		ReticleObj_->Draw();
+	}
 	/*RetSprite->Draw();*/
 	if (isShootFlag == true) {
 		bulletObj_->Draw();

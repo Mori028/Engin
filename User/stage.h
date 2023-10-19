@@ -4,23 +4,26 @@
 #include "Input.h"
 #include "Camera.h"
 
-
+/*
+* @file stage.h
+* @brind ステージ配置など
+*/
 class Stage {
 public:
 	Stage();
 	~Stage();
-
+	//初期化
 	void Initialize(DirectXCommon* dxCommon, Input* input);
+	//リセット
 	void Reset();
+	//ステージのループ
 	void Loop();
+	//ゲームオーバー時に動きを止める
+	void Over();
+	//更新
 	void Update();
-
+	//描画
 	void Draw();
-
-	Vector3 bVelocity(Vector3& velocity, Transform& worldTransform);
-
-	////ワールド座標を取得
-	Vector3 GetWorldPosition();
 
 	/// <summary>
 	/// ポジション
@@ -33,7 +36,7 @@ private:
 	const float PI = 3.141592f;
 	Input* input_ = nullptr;
 	DirectXCommon* dxCommon = nullptr;
-
+	//ステージのモデル
 	Object3d* stage_ = nullptr;
 	Object3d* stage2_ = nullptr;
 	Object3d* stage3_ = nullptr;
@@ -45,9 +48,11 @@ private:
 	Object3d* stage9_ = nullptr;
 	Object3d* stage10_ = nullptr;
 	Model* felld = nullptr;
+	//ステージの進むスピード
 	const float moveSpeed_ = 0.53f;
 	const float rotaSpeed_ = 0.1f;
-
+	int moveFlag = 1;
+	//カメラ関連
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;
 	Vector3 targetPos;
@@ -58,7 +63,6 @@ private:
 	float camMoveSpeed = 0.2f;
 
 	Vector2 camRotaSpeed = { PI / 1800, PI / 1800 };
-
 
 	//ワールド座標を入れる変数
 	Vector3 worldPos;

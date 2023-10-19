@@ -12,22 +12,32 @@
 #include "FBXObject3d.h"
 #include "Collision.h"
 
+
+/*
+* @file enemy.h
+* @brind 敵の動きなど
+*/
 class Player;
 
 class Enemy {
 public:
 	Enemy();
 	~Enemy();
-
+	//初期化
 	void Initialize(DirectXCommon* dxCommon, Input* input);
+	//リセット
 	void Reset();
-	
+	//ゲームオーバー
+	void Over();
+	//更新
 	void Update();
-
+	//描画
 	void Draw();
+	//FBXの描画
 	void FbxDraw();
-	//パーティクル
+	//パーティクル更新
 	void EffUpdate();
+	//バーティクル描画
 	void EffDraw();
 
 	////ワールド座標を取得
@@ -57,9 +67,9 @@ public:
 
 	int GetEnemyHP() { return enemyCount; }
 
-	//playerHP   = 15
-	int playerHp = 15000;//hp0が3
-	//enemyCount
+	//playerのHP
+	int playerHp = 15;
+	//enemyの数
 	int enemyCount = 0;
 
 private:
