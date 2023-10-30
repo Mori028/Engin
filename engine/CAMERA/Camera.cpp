@@ -2,6 +2,10 @@
 
 using namespace DirectX;
 
+/*
+* @file Camera.h
+* @brind カメラ基本機能
+*/
 Camera::Camera(int window_width, int window_height)
 {
 	aspectRatio = (float)window_width / window_height;

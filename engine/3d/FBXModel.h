@@ -10,7 +10,10 @@
 #include <fbxsdk.h>
 
 
-
+/*
+* @file FBXModel.h
+* @brind FBXのデータ
+*/
 // ノード
 struct Node
 {

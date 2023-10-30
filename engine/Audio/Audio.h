@@ -8,7 +8,10 @@
 #include <fstream>
 #include <set>
 
-
+/*
+* @file Audio.h
+* @brind 音楽のデータ
+*/
 /// <summary>
 /// オーディオ
 /// </summary>

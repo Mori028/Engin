@@ -5,6 +5,10 @@
 Controller::Controller(){}
 Controller::~Controller(){}
 
+/*
+* @file Controller.cpp
+* @brind コントローラーの操作
+*/
 bool Controller::StickInDeadZone(Vector2& Thumb, const Vector2& DeadRate)
 {
 	bool x = false;

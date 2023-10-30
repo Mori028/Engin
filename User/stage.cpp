@@ -11,6 +11,7 @@ Stage::Stage()
 
 Stage::~Stage()
 {
+	
 }
 
 void Stage::Initialize(DirectXCommon* dxCommon, Input* input)

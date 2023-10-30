@@ -10,10 +10,6 @@ Player::Player() {
 
 Player::~Player() {
 
-	//FBXオブジェクト解放
-
-	delete bulletModel_;
-	delete bulletObj_;
 }
 
 void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
@@ -105,6 +101,7 @@ void Player::FadeIn()
 
 void Player::Over()
 {
+	fbxObject3d_->wtf.position = { 0.0f,+1.5f,0.0f };
 	moovFlag = 2;
 }
 
@@ -124,7 +121,7 @@ void Player::Update() {
 		/////D/////
 		if (input_->PushKey(DIK_D) || input_->StickInput(L_RIGHT)) {
 			rollD = 1;
-			if (fbxObject3d_->wtf.position.x <= XMax) {
+			if (fbxObject3d_->wtf.position.x <= xMax) {
 				fbxObject3d_->wtf.position.x += moveSpeed_;
 			}
 		}
@@ -147,7 +144,7 @@ void Player::Update() {
 		if (input_->PushKey(DIK_A) || input_->StickInput(L_LEFT)) {
 			rollA = 1;
 			// 左の移動処理
-			if (fbxObject3d_->wtf.position.x >= XMin) {
+			if (fbxObject3d_->wtf.position.x >= xMin) {
 				fbxObject3d_->wtf.position.x -= moveSpeed_;
 			}
 		}
@@ -170,7 +167,7 @@ void Player::Update() {
 		if (input_->PushKey(DIK_S) || input_->StickInput(L_DOWN)) {
 			rollS = 1;
 			// 下の移動処理
-			if (fbxObject3d_->wtf.position.y >= YMax) {
+			if (fbxObject3d_->wtf.position.y >= yMax) {
 				fbxObject3d_->wtf.position.y -= moveSpeed_;
 			}
 		}
@@ -193,7 +190,7 @@ void Player::Update() {
 		if (input_->PushKey(DIK_W) || input_->StickInput(L_UP)) {
 			rollW = 1;
 			// 上の移動処理
-			if (fbxObject3d_->wtf.position.y <= YMin) {
+			if (fbxObject3d_->wtf.position.y <= yMin) {
 				fbxObject3d_->wtf.position.y += moveSpeed_;
 			}
 		}

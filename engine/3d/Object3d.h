@@ -17,7 +17,10 @@
 #include "Transform.h"
 #include "Camera.h"
 
-
+/*
+* @file Object3d.h
+* @brind OBJの本体
+*/
 /// <summary>
 /// 3Dオブジェクト
 /// </summary>

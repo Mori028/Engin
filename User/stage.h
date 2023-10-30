@@ -12,6 +12,7 @@ class Stage {
 public:
 	Stage();
 	~Stage();
+public:
 	//‰Šú‰»
 	void Initialize(DirectXCommon* dxCommon, Input* input);
 	//ƒŠƒZƒbƒg

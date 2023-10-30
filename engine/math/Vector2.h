@@ -1,4 +1,9 @@
 #pragma once
+
+/*
+ * @file Vector2.h
+ * @brief Vector2
+ */
 class Vector2
 {
 public:

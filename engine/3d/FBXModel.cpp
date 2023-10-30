@@ -1,6 +1,9 @@
 #include "FBXModel.h"
 
-
+/*
+* @file FBXModel.cpp
+* @brind FBX‚Ìƒf[ƒ^
+*/
 FBXModel::~FBXModel()
 {
     fbxScene->Destroy();

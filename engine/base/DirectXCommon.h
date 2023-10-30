@@ -9,6 +9,11 @@
 // Microsoft::WRL::‚ğÈ—ª
 //template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
+/*
+* @file DirectXCommon.h
+* @brind Šî”Õ
+*/
+
 //DirectXŠî”Õ
 class DirectXCommon
 {

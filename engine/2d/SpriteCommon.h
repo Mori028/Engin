@@ -10,7 +10,10 @@
 #include "Matrix4.h"
 #include "Affin.h"
 
-
+/*
+* @file SpriteCommon.h
+* @brind スプライト画像データ
+*/
 //スプライト共通部分
 class SpriteCommon {
 public:

@@ -2,6 +2,10 @@
 #include<cmath>
 #include "Affin.h"
 
+/*
+ * @file Quaternion.cpp
+ * @brief Quaternion
+ */
 Quaternion::Quaternion()
 {
 	this->w = 1;

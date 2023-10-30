@@ -7,6 +7,10 @@
 
 using namespace Microsoft::WRL;
 
+/*
+* @file DirectXCommon.cpp
+* @brind Šî”Õ
+*/
 void DirectXCommon::Initialize(WinApp* winApp)
 {
 	//NULLŒŸ’m

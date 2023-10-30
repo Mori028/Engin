@@ -2,6 +2,11 @@
 #include "math.h"
 #include <cmath>
 
+/*
+ * @file Affin.cpp
+ * @brief アフィン行列
+ */
+
 /// <summary>
 /// 単位行列設定
 /// </summary>

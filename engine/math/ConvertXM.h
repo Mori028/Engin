@@ -4,6 +4,10 @@
 
 using namespace DirectX;
 
+/*
+ * @file ConvertXM.h
+ * @brief DirectXMath‚ðƒNƒ‰ƒX‚É•ÏŠ·
+ */
 class ConvertXM
 {
 

@@ -2,7 +2,10 @@
 
 #include "Matrix4.h"
 #include "Affin.h"
-
+/*
+* @file Transform.h
+* @brind 座標のデータ
+*/
 class Transform
 {
 public:

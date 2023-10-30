@@ -7,6 +7,10 @@
 
 #pragma comment(lib, "winmm.lib")
 
+/*
+* @file FPS.h
+* @brind FPSŒÅ’è
+*/
 class FPS {
 private:
 	// CPUü”g”

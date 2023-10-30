@@ -1,6 +1,12 @@
 #pragma once
 #include <Windows.h>
 
+
+/*
+* @file WinApp.h
+* @brind WindowsAPI
+*/
+
 //WindowsAPI
 class WinApp
 {

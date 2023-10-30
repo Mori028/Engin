@@ -2,6 +2,11 @@
 #include "WinApp.h"
 #include "DirectXCommon.h"
 
+/*
+* @file ImGuiManager.h
+* @brind Imgui‚ÌŠÇ—
+*/
+
 // Imgui ‚ÌŠÇ—
 class ImGuiManager
 {

@@ -1,6 +1,10 @@
 #pragma once
 #include"vector3.h"
 #include"Matrix4.h"
+/*
+ * @file Quaternion.h
+ * @brief Quaternion
+ */
 class Quaternion
 {
 public:

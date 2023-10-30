@@ -17,6 +17,10 @@
 #include "Camera.h"
 #include "Transform.h"
 
+/*
+* @file FBXObject3d.h
+* @brind FBX本体
+*/
 class FBXObject3d
 {
 protected: // エイリアス

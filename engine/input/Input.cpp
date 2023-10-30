@@ -5,6 +5,10 @@
 
 //using namespace Microsoft::WRL;
 
+/*
+* @file Input.cpp
+* @brind コントローラーの操作の入力
+*/
 void Input::Initialize(WinApp* winApp)
 {
 	this->winApp_ = winApp;

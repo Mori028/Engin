@@ -30,7 +30,10 @@ Vector3 Object3d::up = { 0, 1, 0 };
 float Object3d::focalLengs = 50.0f;
 
 Camera* Object3d::camera = nullptr;
-
+/*
+* @file Object3d.h
+* @brind OBJの本体
+*/
 Object3d::Object3d() {
 
 }

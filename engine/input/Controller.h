@@ -4,6 +4,10 @@
 #include <xinput.h>
 #pragma comment (lib, "xinput.lib")
 
+/*
+* @file Controller.h
+* @brind コントローラーの操作
+*/
 enum ControllerButton
 {
 	B = XINPUT_GAMEPAD_B,

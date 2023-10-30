@@ -23,6 +23,7 @@ class Enemy {
 public:
 	Enemy();
 	~Enemy();
+public:
 	//初期化
 	void Initialize(DirectXCommon* dxCommon, Input* input);
 	//リセット
@@ -110,7 +111,7 @@ private:
 	int liveFlag = 1;
 
 	//パーティクル関連
-	int EffTimer = 0;
+	int effTimer = 0;
 	int isEffFlag = 0;
 	//パーティクルクラスの初期化 
 	//ダメージ

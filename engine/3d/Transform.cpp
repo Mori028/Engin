@@ -1,5 +1,9 @@
 #include "Transform.h"
 
+/*
+* @file Transform.h
+* @brind 座標のデータ
+*/
 Transform::Transform() {
 	// ローカルスケール
 	scale = { 1,1,1 };
