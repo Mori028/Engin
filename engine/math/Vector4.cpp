@@ -2,7 +2,10 @@
 #include "Vector3.h"
 #include <math.h>
 
-
+/*
+ * @file Vector4.cpp
+ * @brief Vector4
+ */
 Vector4::Vector4() : x(0.0f), y(0.0f), z(0.0f), w(0.0f)
 {
 }

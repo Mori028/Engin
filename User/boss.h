@@ -22,6 +22,8 @@ class Boss {
 public:
 	Boss();
 	~Boss();
+
+public:
 	//‰Šú‰»
 	void Initialize(DirectXCommon* dxCommon, Input* input);
 	//ƒŠƒZƒbƒg

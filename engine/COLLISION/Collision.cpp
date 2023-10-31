@@ -2,6 +2,10 @@
 
 using namespace DirectX;
 
+/*
+* @file Collision.cpp
+* @brind 当たり判定の関数
+*/
 void Collision::ClosestPtPoint2Triangle(const Vector3& point, const Triangle& triangle, Vector3* closest)
 {
 	//pointがp0の外側の頂点領域の中にあるかどうかチェック

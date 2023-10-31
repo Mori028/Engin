@@ -7,7 +7,10 @@
 
 //#define DIRECTINPUT_VERSION 0x0800 // DirectInputのバージョン指定
 
-
+/*
+* @file Input.h
+* @brind コントローラーの操作の入力
+*/
 // 入力
 class Input
 {

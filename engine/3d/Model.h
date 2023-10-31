@@ -12,7 +12,10 @@
 #include "Matrix4.h"
 #include "Affin.h"
 
-
+/*
+* @file Model.h
+* @brind OBJのデータ
+*/
 class Model
 {
 private: // エイリアス

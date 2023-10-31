@@ -21,6 +21,7 @@ class Player {
 public:
 	Player();
 	~Player();
+public:
 	//初期化
 	void Initialize(DirectXCommon* dxCommon, Input* input);
 	//リセット
@@ -92,10 +93,10 @@ private:
 	const float moveSpeed_ = 0.013f;
 	const float rotaSpeed_ = 0.1f;
 	//行動制限
-	const float XMax = 0.5f;
-	const float XMin = -0.5f;
-	const float YMax = -0.3f;
-	const float YMin = 0.2f;
+	const float xMax = 0.5f;
+	const float xMin = -0.5f;
+	const float yMax = -0.3f;
+	const float yMin = 0.2f;
 
 	const float retXMax = 3.5f;
 	const float retXMin = -3.5f;
@@ -106,7 +107,7 @@ private:
 	float rollA = 0;
 	float rollS = 0;
 	float rollD = 0;
-
+	//スタート演出
 	int stoptimer = 0;
 	int moovFlag = 0;
 	//カメラ関連

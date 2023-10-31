@@ -6,6 +6,11 @@
 #include"Vector3.h"
 #include<DirectXMath.h>
 
+/*
+* @file CollisionPrimitive.h
+* @brind “–‚½‚è”»’è‚ÌŒ`ó
+*/
+
 struct Sphere {
 	Vector3 center = { 0,0,0};
 

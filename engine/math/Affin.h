@@ -5,6 +5,11 @@
 
 //#include "WorldTransform.h"
 
+/*
+ * @file Affin.h
+ * @brief アフィン行列
+ */
+
 /// <summary>
 /// アフィン行列 （角度指定：度数法）
 /// </summary>

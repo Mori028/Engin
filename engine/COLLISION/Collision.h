@@ -3,6 +3,11 @@
 #include "CollisionPrimitive.h"
 #include "Vector3.h"
 
+/*
+* @file Collision.h
+* @brind “–‚½‚è”»’è‚ÌŠÖ”
+*/
+
 class Collision
 {
 public:

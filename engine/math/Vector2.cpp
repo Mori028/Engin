@@ -1,6 +1,9 @@
 #include "Vector2.h"
 #include <cmath>
-
+/*
+ * @file Vector2.cpp
+ * @brief Vector2
+ */
 Vector2::Vector2()
 {
 	x = 0;

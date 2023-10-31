@@ -1,5 +1,9 @@
 #include"Sprite.h"
 
+/*
+* @file Sprite.cpp
+* @brind スプライト描画
+*/
 void Sprite::Initialize(SpriteCommon* spritecommon_, uint32_t textureIndex)
 {
 	spritecomon = spritecommon_;

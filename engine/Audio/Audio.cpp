@@ -3,6 +3,10 @@
 #include <cassert>
 #pragma comment (lib,"xaudio2.lib")
 
+/*
+* @file Audio.cpp
+* @brind 音楽のデータ
+*/
 void Audio::Initialize(const std::string& directoryPath)
 {
 

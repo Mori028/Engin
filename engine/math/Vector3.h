@@ -2,6 +2,10 @@
 
 #include <DirectXMath.h>
 
+/*
+ * @file Vector3.h
+ * @brief Vector3
+ */
 class Vector3
 {
 public:

@@ -2,7 +2,10 @@
 #include "Vector3.h"
 //#include <DxLib.h>
 
-
+/*
+ * @file Matrix4.h
+ * @brief Matrix4
+ */
 class Matrix4
 {
 public:

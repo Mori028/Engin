@@ -11,7 +11,10 @@
 
 #include "Camera.h"
 #include <array>
-
+/*
+* @file ParticleManager.h
+* @brind パーティクルのデータ
+*/
 /// <summary>
 /// 3Dオブジェクト
 /// </summary>

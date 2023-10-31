@@ -2,6 +2,10 @@
 
 using namespace DirectX;
 
+/*
+* @file CollisionPrimitive.h
+* @brind “–‚½‚è”»’è‚ÌŒ`ó
+*/
 void Triangle::ComputeNormal()
 {
 

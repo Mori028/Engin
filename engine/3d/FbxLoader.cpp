@@ -4,7 +4,10 @@
 
 using namespace DirectX;
 
-
+/*
+* @file FbxLoader.cpp
+* @brind FBXの描画
+*/
 /// <summary>
 /// 静的メンバ変数の実体
 /// </summary>

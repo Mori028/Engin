@@ -4,6 +4,10 @@
 
 #pragma comment(lib, "d3dcompiler.lib")
 
+/*
+* @file SpriteCommon.cpp
+* @brind スプライト画像データ
+*/
 //デフォルトテクスチャ格納ディレクトリ
 std::string SpriteCommon::kDefaultTextureDirectoryPath = "Resources/";
 

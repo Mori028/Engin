@@ -13,7 +13,10 @@ using namespace std;
 //静的メンバ変数の実体
 ComPtr<ID3D12Device> Model::device ;
 
-
+/*
+* @file Model.cpp
+* @brind OBJのデータ
+*/
 Model* Model::LoadFromOBJ(const std::string& modelname)
 {
 	//新たなModel型のインスタンスのメモリを確保

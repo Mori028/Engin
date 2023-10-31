@@ -1,5 +1,9 @@
 #pragma once
 
+/*
+ * @file Vector4.h
+ * @brief Vector4
+ */
 //4ŽŸŒ³ƒxƒNƒgƒ‹
 class Vector4
 {

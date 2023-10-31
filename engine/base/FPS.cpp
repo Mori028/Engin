@@ -1,5 +1,9 @@
 #include "FPS.h"
 
+/*
+* @file FPS.cpp
+* @brind FPSŒÅ’è
+*/
 void FPS::FpsControlBegin() {
 	//ü”g”æ“¾
 	QueryPerformanceFrequency(&cpuClock);

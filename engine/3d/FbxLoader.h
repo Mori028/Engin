@@ -6,7 +6,10 @@
 #include <d3dx12.h>
 #include <string>
 
-
+/*
+* @file FbxLoader.h
+* @brind FBXの描画
+*/
 class FbxLoader
 {
 private: // エイリアス

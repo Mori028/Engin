@@ -14,7 +14,10 @@ Camera* FBXObject3d::camera = nullptr;
 ComPtr<ID3D12RootSignature> FBXObject3d::rootsignature;
 ComPtr<ID3D12PipelineState> FBXObject3d::pipelinestate;
 
-
+/*
+* @file FBXObject3d.cpp
+* @brind FBX–{‘Ì
+*/
 void FBXObject3d::CreateGraphicsPipeline()
 {
 	HRESULT result = S_FALSE;

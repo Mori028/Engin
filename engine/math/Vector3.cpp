@@ -1,6 +1,9 @@
 #include "Vector3.h"
 #include <cmath>
-
+/*
+ * @file Vector3.cpp
+ * @brief Vector3
+ */
 Vector3::Vector3()
 {
 	x = 0;

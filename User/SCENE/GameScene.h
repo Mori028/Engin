@@ -19,6 +19,7 @@
 #include "stage.h"
 #include <boss.h>
 #include <title.h>
+#include "playerBullet.h"
 
 /*
 * @file GameScene.h
@@ -101,17 +102,18 @@ private:	//メンバ変数
 	Sprite* clearSprite = new Sprite();
 
 	//ゲームオーバー
+	Sprite* blackSprite = new Sprite();
 	Sprite* overSprite = new Sprite();
 	Sprite* over2Sprite = new Sprite();
 	Sprite* over3Sprite = new Sprite();
 	//Hp
-	Sprite* HPSprite = new Sprite();
+	Sprite* hPSprite = new Sprite();
 	//Hp
-	Sprite* HP2Sprite = new Sprite();
+	Sprite* hP2Sprite = new Sprite();
 	//Hp
-	Sprite* HP1Sprite = new Sprite();
+	Sprite* hP1Sprite = new Sprite();
 	//Hp
-	Sprite* HP0Sprite = new Sprite();
+	Sprite* hP0Sprite = new Sprite();
 
 	//フェードイン＆フェードアウト
 	Sprite* outSprite = new Sprite();
@@ -153,6 +155,9 @@ private:	//メンバ変数
 	//プレイヤー
 	Player* player_ = nullptr;
 
+	//プレイヤーの弾
+	PlayerBullet* playerBullet_ = nullptr;
+
 	//プレイヤー
 	Enemy* enemy_ = nullptr;
 
@@ -168,6 +173,7 @@ private:	//メンバ変数
 	const float skyMoveSpeed_ = 0.15f;
 
 	int titleTimer = 0;
+	int overTimer = 0;
 	//UI
 	
 	//ゲームフロー

@@ -7,7 +7,10 @@
 #include "Matrix4.h"
 #include "Affin.h"
 
-
+/*
+* @file Sprite.h
+* @brind スプライト描画
+*/
 // 頂点データ構造体
 struct Vertex
 {

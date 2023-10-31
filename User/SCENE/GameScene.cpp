@@ -19,7 +19,6 @@ GameScene::~GameScene() {
 	delete camera1;
 	delete camera2;
 	delete camera3;
-	delete player_;
 	delete skydome;
 	delete skydomeMD;
 }
@@ -65,6 +64,12 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	spriteCommon->LoadTexture(19, "yes.png");
 	overSprite->SetTextureIndex(19);
 	//ゲームオーバー
+	blackSprite->Initialize(spriteCommon);
+	blackSprite->SetPozition({ 0,0 });
+	blackSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(21, "Black.png");
+	blackSprite->SetTextureIndex(21);
+
 	over2Sprite->Initialize(spriteCommon);
 	over2Sprite->SetPozition({ 0,0 });
 	over2Sprite->SetSize({ 1280.0f, 720.0f });
@@ -77,32 +82,32 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	spriteCommon->LoadTexture(20, "over.png");
 	over3Sprite->SetTextureIndex(20);
 	//HP3
-	HPSprite->Initialize(spriteCommon);
-	HPSprite->SetPozition({ 0,0 });
-	HPSprite->SetSize({200.0f, 100.0f });
+	hPSprite->Initialize(spriteCommon);
+	hPSprite->SetPozition({ 0,0 });
+	hPSprite->SetSize({200.0f, 100.0f });
 	spriteCommon->LoadTexture(4, "HP3.png");
-	HPSprite->SetTextureIndex(4);
+	hPSprite->SetTextureIndex(4);
 
 	//HP2
-	HP2Sprite->Initialize(spriteCommon);
-	HP2Sprite->SetPozition({ 0,0 });
-	HP2Sprite->SetSize({ 200.0f, 100.0f });
+	hP2Sprite->Initialize(spriteCommon);
+	hP2Sprite->SetPozition({ 0,0 });
+	hP2Sprite->SetSize({ 200.0f, 100.0f });
 	spriteCommon->LoadTexture(5, "HP2.png");
-	HP2Sprite->SetTextureIndex(5);
+	hP2Sprite->SetTextureIndex(5);
 
 	//HP1
-	HP1Sprite->Initialize(spriteCommon);
-	HP1Sprite->SetPozition({ 0,0 });
-	HP1Sprite->SetSize({ 200.0f, 100.0f });
+	hP1Sprite->Initialize(spriteCommon);
+	hP1Sprite->SetPozition({ 0,0 });
+	hP1Sprite->SetSize({ 200.0f, 100.0f });
 	spriteCommon->LoadTexture(6, "HP1.png");
-	HP1Sprite->SetTextureIndex(6);
+	hP1Sprite->SetTextureIndex(6);
 
 	//HP0
-	HP0Sprite->Initialize(spriteCommon);
-	HP0Sprite->SetPozition({ 0,0 });
-	HP0Sprite->SetSize({ 200.0f, 100.0f });
+	hP0Sprite->Initialize(spriteCommon);
+	hP0Sprite->SetPozition({ 0,0 });
+	hP0Sprite->SetSize({ 200.0f, 100.0f });
 	spriteCommon->LoadTexture(7, "HP0.png");
-	HP0Sprite->SetTextureIndex(7);
+	hP0Sprite->SetTextureIndex(7);
 
 	//フェードイン0
 	outSprite->Initialize(spriteCommon);
@@ -185,6 +190,10 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	player_->Initialize(dxCommon,input);
 	player_->SetCamera(mainCamera);
 
+	//プレイヤーの弾
+	playerBullet_ = new PlayerBullet();
+	playerBullet_->Initialize(dxCommon, input);
+	playerBullet_->SetPlayer(player_);
 	//敵
 	enemy_ = new Enemy();
 	enemy_->Initialize(dxCommon, input);
@@ -210,14 +219,16 @@ void GameScene::Reset() {
 	stage_->Reset();
 	boss_->Reset();
 	//その他初期化
+	skydome->wtf.position = { 0.0f,0.0f,0.0f };
 	startFlag = 0;
 	startCountTimer = 0;
 	startCountFlag = 0;
 	roadTimer = 0;
 	enemy_->playerHp = 15;
 	enemy_->enemyCount = 0;
-	overFlag = 0;
+	overFlag = 0; 
 	retryFlag = 0;
+	overTimer = 0;
 	//スプライトの位置を初期化
 	goSprite->SetPozition({ 0,0 });
 	go2Sprite->SetPozition({ 0,0 });
@@ -298,6 +309,10 @@ void GameScene::Update() {
 					}
 				}
 			}
+			if (input->TriggerKey(DIK_R) || input->ButtonInput(Y)) {
+				Reset();
+				sceneNo_ = SceneNo::TITLE;
+			}
 			//ゲーム開始までの演出
 			if (startFlag == 0) {
 				FadeIn();
@@ -368,6 +383,7 @@ void GameScene::Update() {
 			}
 
 			player_->Update();
+			/*playerBullet_->Update();*/
 			stage_->Update();
 			skydome->Update();
 
@@ -388,7 +404,7 @@ void GameScene::Update() {
 				{
 					Over();
 					overFlag = 1;
-					
+					overTimer++;
 					if (input->TriggerKey(DIK_A) || input->TriggerKey(DIK_LEFT) || input->ButtonInput(B)) {
 						retryFlag = 1;
 					}
@@ -426,6 +442,8 @@ void GameScene::Update() {
 
 		player_->Update();
 
+		playerBullet_->Update();
+
 		skydome->Update();
 
 		boss_->Update();
@@ -451,6 +469,7 @@ void GameScene::Update() {
 
 	case SceneNo::GAMEOVER:
 		if (sceneNo_ == SceneNo::GAMEOVER) {
+			overTimer++;
 			//シーン切り替え
 			if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
 				sceneNo_ = SceneNo::TITLE;
@@ -519,6 +538,7 @@ void GameScene::Draw() {
 			Object3d::PreDraw(dxCommon->GetCommandList());
 			//// 3Dオブクジェクトの描画
 			player_->Draw();
+			playerBullet_->Draw();
 			enemy_->Draw();
 			skydome->Draw();
 
@@ -535,16 +555,16 @@ void GameScene::Draw() {
 			if (startFlag == 1) {
 				//HPバー
 				if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
-					HPSprite->Draw();
+					hPSprite->Draw();
 				}
 				else if (enemy_->GetPlayerHP() <= 10 && enemy_->GetPlayerHP() >= 6) {
-					HP2Sprite->Draw();
+					hP2Sprite->Draw();
 				}
 				else if (enemy_->GetPlayerHP() <= 5 && enemy_->GetPlayerHP() >= 1) {
-					HP1Sprite->Draw();
+					hP1Sprite->Draw();
 				}
 				else if (enemy_->GetPlayerHP() <= 0) {
-					HP0Sprite->Draw();
+					hP0Sprite->Draw();
 				}
 			}
 
@@ -582,16 +602,19 @@ void GameScene::Draw() {
 			}
 			if (enemy_->GetPlayerHP() <= 0)
 			{
-
+				
 				//リトライ
-				if (retryFlag == 1) {
-					overSprite->Draw();
-				}
-				else if (retryFlag == 2) {
-					over2Sprite->Draw();
-				}
-				else{
-					over3Sprite->Draw();
+				blackSprite->Draw();
+				if (overTimer >= 40) {
+					if (retryFlag == 1) {
+						overSprite->Draw();
+					}
+					else if (retryFlag == 2) {
+						over2Sprite->Draw();
+					}
+					else {
+						over3Sprite->Draw();
+					}
 				}
 			}
 		}
@@ -600,7 +623,7 @@ void GameScene::Draw() {
 	case SceneNo::BOSS:
 		
 		if (sceneNo_ == SceneNo::BOSS) {
-			HPSprite->Draw();
+			hPSprite->Draw();
 			/// <summary>
 			/// 3Dオブジェクトの描画
 			/// ここに3Dオブジェクトの描画処理を追加できる
@@ -609,6 +632,7 @@ void GameScene::Draw() {
 			Object3d::PreDraw(dxCommon->GetCommandList());
 			//// 3Dオブクジェクトの描画
 			player_->Draw();
+			playerBullet_->Draw();
 			skydome->Draw();
 			boss_->Draw();
 			stage_->Draw();
@@ -621,16 +645,16 @@ void GameScene::Draw() {
 
 			//HPバー
 			if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
-				HPSprite->Draw();
+				hPSprite->Draw();
 			}
 			else if (enemy_->GetPlayerHP() <= 10 && enemy_->GetPlayerHP() >= 6) {
-				HP2Sprite->Draw();
+				hP2Sprite->Draw();
 			}
 			else if (enemy_->GetPlayerHP() <= 5 && enemy_->GetPlayerHP() >= 1) {
-				HP1Sprite->Draw();
+				hP1Sprite->Draw();
 			}
 			else if (enemy_->GetPlayerHP() <= 0) {
-				HP0Sprite->Draw();
+				hP0Sprite->Draw();
 			}
 	
 		}
@@ -646,7 +670,10 @@ void GameScene::Draw() {
 	case SceneNo::GAMEOVER:
 		//ゲームオーバー
 		if (sceneNo_ == SceneNo::GAMEOVER) {
-			overSprite->Draw();
+			blackSprite->Draw();
+			if (overTimer <= 30) {
+				overSprite->Draw();
+			}
 		}
 		break;
 	}

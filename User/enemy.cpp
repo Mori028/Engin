@@ -87,7 +87,7 @@ void Enemy::Reset()
 	enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	enemyBulletObj_->Initialize();
 	//パーティクル初期化
-	EffTimer = 0;
+	effTimer = 0;
 	isEffFlag = 0;
 }
 
@@ -99,14 +99,14 @@ void Enemy::Over()
 void Enemy::Update() {
 	//ダメージエフェクト
 	if (isEffFlag == 1) {
-		EffTimer++;
+		effTimer++;
 	}
-	if (EffTimer <= 10 && EffTimer >= 1) {
+	if (effTimer <= 10 && effTimer >= 1) {
 		EffUpdate();
 	}
-	if (EffTimer >= 11) {
+	if (effTimer >= 11) {
 		isEffFlag = 0;
-		EffTimer = 0;
+		effTimer = 0;
 	}
 
 	if (hp == 1) {

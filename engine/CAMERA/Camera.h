@@ -6,6 +6,11 @@
 #include"Transform.h"
 #include "ConvertXM.h"
 
+/*
+* @file Camera.h
+* @brind カメラ基本機能
+*/
+
 /// <summary>
 /// カメラ基本機能
 /// </summary>

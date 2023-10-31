@@ -193,6 +193,9 @@
     <ClCompile Include="User\SCENE\title.cpp">
       <Filter>user\シーン</Filter>
     </ClCompile>
+    <ClCompile Include="User\playerBullet.cpp">
+      <Filter>user\ソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BASE\FPS.h">
@@ -290,6 +293,9 @@
     </ClInclude>
     <ClInclude Include="User\SCENE\title.h">
       <Filter>user\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="User\playerBullet.h">
+      <Filter>user\ヘッダー</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
