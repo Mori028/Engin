@@ -219,13 +219,14 @@ void GameScene::Reset() {
 	stage_->Reset();
 	boss_->Reset();
 	//その他初期化
+	skydome->wtf.position = { 0.0f,0.0f,0.0f };
 	startFlag = 0;
 	startCountTimer = 0;
 	startCountFlag = 0;
 	roadTimer = 0;
 	enemy_->playerHp = 15;
 	enemy_->enemyCount = 0;
-	overFlag = 0;
+	overFlag = 0; 
 	retryFlag = 0;
 	overTimer = 0;
 	//スプライトの位置を初期化
