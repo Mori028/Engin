@@ -19,7 +19,8 @@
 #include "stage.h"
 #include <boss.h>
 #include <title.h>
-#include "playerBullet.h"
+#include "Bullet.h"
+#include <clear.h>
 
 /*
 * @file GameScene.h
@@ -55,6 +56,7 @@ public: // メンバ関数
 	void FadeOut();
 	void FadeIn();
 	void Over();
+	void ClearMove();
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
@@ -100,19 +102,20 @@ private:	//メンバ変数
 
 	//クリア
 	Sprite* clearSprite = new Sprite();
-
+	Sprite* conSprite = new Sprite();
+	Sprite* backSprite = new Sprite();
 	//ゲームオーバー
 	Sprite* blackSprite = new Sprite();
 	Sprite* overSprite = new Sprite();
 	Sprite* over2Sprite = new Sprite();
 	Sprite* over3Sprite = new Sprite();
-	//Hp
+	//Hp3
 	Sprite* hPSprite = new Sprite();
-	//Hp
+	//Hp2
 	Sprite* hP2Sprite = new Sprite();
-	//Hp
+	//Hp1
 	Sprite* hP1Sprite = new Sprite();
-	//Hp
+	//Hp0
 	Sprite* hP0Sprite = new Sprite();
 
 	//フェードイン＆フェードアウト
@@ -124,39 +127,46 @@ private:	//メンバ変数
 	Sprite* out5Sprite = new Sprite();
 	int fadeCount = 0;
 	int outTimer = 0;
-	int fadeFlag = 0;
+	bool fadeFlag = false;
 	int fadeTimer = 0;
 	//ゲームスタート
 	int roadTimer = 0;
-	 
 	//カウント
 	Sprite* start3Sprite = new Sprite();
-
+	int clearTimer = 0;
+	//ゲームクリア
+	bool clearflag = false;
+	int clearSceneTimer = 0;
 	//ゲームオーバー
-	int overFlag = 0;
-	int retryFlag = 0;
+	bool overFlag = false;
+	int retryFlag = 0;//1リプレイ//2タイトル
 
 	Sprite* goSprite = new Sprite();
 	Sprite* go2Sprite = new Sprite();
 	int startCountTimer = 0;
-	int startCountFlag = 0;
+	bool startCountFlag = false;
 	int startCount = 0;
 	int startTimer = 0;
-	int startFlag = 0;
+	bool startFlag = false;
 	//カメラ
 	Camera* mainCamera = nullptr;
 	Camera* camera1 = nullptr;
 	Camera* camera2 = nullptr;
 	Camera* camera3 = nullptr;
+	//クリア時のカメラ
+	int clearCameraTimer = 0;
 
 	//タイトル
 	Title* title_ = nullptr;
+
+	//タイトル
+	Clear* clear_ = nullptr;
 
 	//プレイヤー
 	Player* player_ = nullptr;
 
 	//プレイヤーの弾
-	PlayerBullet* playerBullet_ = nullptr;
+	Bullet* Bullet_ = nullptr;
 
 	//プレイヤー
 	Enemy* enemy_ = nullptr;

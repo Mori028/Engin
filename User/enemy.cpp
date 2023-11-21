@@ -25,44 +25,64 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 	input_ = input;
 	//モデル
 	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma");
-
+	fbxKnockModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kumaDamage");
 	fbxredModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma1");
-
+	fbxKnockRedModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kumaDamage2");
 	fbxwhiteModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma2");
-
+	fbxKnocWhitekModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kumaDamage3");
 	// デバイスをセット
 	FBXObject3d::SetDevice(dxCommon->GetDevice());
 	// グラフィックスパイプライン生成
 	FBXObject3d::CreateGraphicsPipeline();
-
-	//待機
+	//青の待機
 	fbxObject3d_ = new FBXObject3d;
 	fbxObject3d_->Initialize();
 	fbxObject3d_->SetModel(fbxModel_);
 	fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
-	/*fbxObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };*/
 	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	fbxObject3d_->PlayAnimation(1.0f, true);
-
+	//赤
 	enemyObject3d_ = new FBXObject3d;
 	enemyObject3d_->Initialize();
 	enemyObject3d_->SetModel(fbxredModel_);
 	enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
-	/*enemyObject3d_->wtf.scale = { 0.03f,0.03f,0.03f };*/
 	enemyObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	enemyObject3d_->PlayAnimation(1.0f, true);
-
+	//白
 	enemy1Object3d_ = new FBXObject3d;
 	enemy1Object3d_->Initialize();
 	enemy1Object3d_->SetModel(fbxwhiteModel_);
 	enemy1Object3d_->wtf.position = { +0.5f,-0.3f,+3.0f };
-	/*enemy1Object3d_->wtf.scale = { 0.03f,0.03f,0.03f };*/
 	enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	enemy1Object3d_->PlayAnimation(1.0f, true);
 
+	// 青撃破
+	Knock0Object3d_ = new FBXObject3d;
+	Knock0Object3d_->Initialize();
+	Knock0Object3d_->SetModel(fbxKnockModel_);
+	Knock0Object3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+	Knock0Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	Knock0Object3d_->PlayAnimation(1.0f, true);
+
+	//赤撃破
+	Knock1Object3d_ = new FBXObject3d;
+	Knock1Object3d_->Initialize();
+	Knock1Object3d_->SetModel(fbxKnockRedModel_);
+	Knock1Object3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+	Knock1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	Knock1Object3d_->PlayAnimation(1.0f, true);
+
+	//白撃破
+	Knock2Object3d_ = new FBXObject3d;
+	Knock2Object3d_->Initialize();
+	Knock2Object3d_->SetModel(fbxKnocWhitekModel_);
+	Knock2Object3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+	Knock2Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	Knock2Object3d_->PlayAnimation(1.0f, true);
+
 	//弾
 	enemyBulletModel_ = Model::LoadFromOBJ("boll");
-	enemyBulletObj_ = Object3d::Create();
+	 enemyBulletObj_ = Object3d::Create();
 	enemyBulletObj_->SetModel(enemyBulletModel_);
 	enemyBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y +0.2f , fbxObject3d_->wtf.position.z };
 	enemyBulletObj_->wtf.scale = { 0.5f,0.5f,0.5f };
@@ -76,27 +96,47 @@ void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
 
 void Enemy::Reset()
 {
-	//敵１
+	//敵1
 	fbxObject3d_->Initialize();
 	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	//敵1ダウン
+	Knock0Object3d_->Initialize();
+	Knock0Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	//敵2
 	enemyObject3d_->Initialize();
 	enemyObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	//敵2ダウン
+	Knock1Object3d_->Initialize();
+	Knock1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	//敵3
 	enemy1Object3d_->Initialize();
 	enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+	//敵3ダウン
+	Knock2Object3d_->Initialize();
+	Knock2Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	enemyBulletObj_->Initialize();
 	//パーティクル初期化
+	timer = 0;
 	effTimer = 0;
 	isEffFlag = 0;
+	enemyCount = 0;
+	ClearMove = 0;
+	liveFlag = true;
+	dounDraw = false;
+}
+
+void Enemy::Clear()
+{
+	ClearMove = 1;
 }
 
 void Enemy::Over()
 {
-	liveFlag = 2;
+	liveFlag = false;
 }
 
 void Enemy::Update() {
+
 	//ダメージエフェクト
 	if (isEffFlag == 1) {
 		effTimer++;
@@ -110,9 +150,9 @@ void Enemy::Update() {
 	}
 
 	if (hp == 1) {
-
+		Knock0Object3d_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y , fbxObject3d_->wtf.position.z };
 		////////////
-		//攻撃種類を作るため仮設置（後で消す）
+		//攻撃種類を作るため設置
 		changeTimer++;
 		if (changeTimer == 120) {
 			bulletMode = 2;
@@ -192,13 +232,15 @@ void Enemy::Update() {
 				isShootFlag = false;
 			}
 		}
-
-		//当たり判定(自機弾と敵1)
-		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
-			OnColision();
-		};
+		if (liveFlag == true) {
+			//当たり判定(自機弾と敵1)
+			if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
+				OnColision();
+			};
+		}
 	}
 	if (hp == 2) {
+		Knock1Object3d_->wtf.position = { enemyObject3d_->wtf.position.x,enemyObject3d_->wtf.position.y , enemyObject3d_->wtf.position.z };
 		changeTimer++;
 		if (changeTimer == 120) {
 			bulletMode = 2;
@@ -278,12 +320,15 @@ void Enemy::Update() {
 				isShootFlag = false;
 			}
 		}
-		//当たり判定(自機弾と敵2)
-		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetEne2WorldPosition(), 0.1f, 0.3f)) {
-			OnColision();
-		};
+		if (liveFlag == true) {
+			//当たり判定(自機弾と敵2)
+			if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetEne2WorldPosition(), 0.1f, 0.3f)) {
+				OnColision();
+			};
+		}
 	}
 	if (hp == 3) {
+		Knock2Object3d_->wtf.position = { enemy1Object3d_->wtf.position.x,enemy1Object3d_->wtf.position.y , enemy1Object3d_->wtf.position.z };
 		changeTimer++;
 		if (changeTimer == 120) {
 			bulletMode = 2;
@@ -368,19 +413,24 @@ void Enemy::Update() {
 			OnColision();
 		};
 	}
-	//当たり判定(自機と敵弾)
-	if (coll.CircleCollision(player_->GetWorldPosition(),GetBulletWorldPosition(), 0.1f, 0.1f)) {
-		OnColisionPlayer();
-	};
-		
+	if (liveFlag == true) {
+		//当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), GetBulletWorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+	}
+	
 	fbxObject3d_->Update();
+	Knock0Object3d_->Update();
 	enemyObject3d_->Update();
+	Knock1Object3d_->Update();
 	enemy1Object3d_->Update();
+	Knock2Object3d_->Update();
 	enemyBulletObj_->Update();
 }
 
 void Enemy::Draw() {
-	if (liveFlag == 1) {
+	if (liveFlag == true) {
 		if (isShootFlag == true) {
 			
 			enemyBulletObj_->Draw();
@@ -388,19 +438,19 @@ void Enemy::Draw() {
 		}
 	}
 	if (hp == 1) {
-		if (liveFlag == 0) {
+		if (liveFlag == false) {
 
 			enemyBulletObj_->wtf.position = { enemyObject3d_->wtf.position.x,enemyObject3d_->wtf.position.y + 0.2f , enemyObject3d_->wtf.position.z };
 		}
 	}
 	else if (hp == 2) {
-		if (liveFlag == 0) {
+		if (liveFlag == false) {
 
 			enemyBulletObj_->wtf.position = { enemy1Object3d_->wtf.position.x,enemy1Object3d_->wtf.position.y + 0.2f , enemy1Object3d_->wtf.position.z };
 		}
 	}
 	else if (hp == 3) {
-		if (liveFlag == 0) {
+		if (liveFlag == false) {
 
 			enemyBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.2f , fbxObject3d_->wtf.position.z };
 		}
@@ -408,81 +458,131 @@ void Enemy::Draw() {
 }
 
 void Enemy::FbxDraw() {
-	if (liveFlag == 1) {
-		if (hp == 1) {
+	if (ClearMove == 0) {
+		if (liveFlag == true) {
+			if (hp == 1) {
 
-			fbxObject3d_->Draw(dxCommon->GetCommandList());
-			//敵の接近
-			/*fbxObject3d_->wtf.position.z -= moveSpeed_;*/
+				fbxObject3d_->Draw(dxCommon->GetCommandList());
+				
+				if (fbxObject3d_->wtf.position.z <= 0.5) {
+					hp = 2;
+					fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+				}
 
-			if (fbxObject3d_->wtf.position.z <= 0.5) {
-				hp = 2;
-				fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
 			}
+			else if (hp == 2) {
+			
+				enemyObject3d_->Draw(dxCommon->GetCommandList());
 
-		}
-		else if (hp == 2) {
+				enemyObject3d_->wtf.position.z -= moveSpeed_;
 
-			enemyObject3d_->Draw(dxCommon->GetCommandList());
+				if (enemyObject3d_->wtf.position.z <= 0.5) {
+					//元の座標に戻す
+					fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+					enemyObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+					enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+					fbxObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemyObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemy1Object3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					hp = 3;
+					enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+				}
+			}
+			else if (hp == 3) {
 
-			enemyObject3d_->wtf.position.z -= moveSpeed_;
+				enemy1Object3d_->Draw(dxCommon->GetCommandList());
 
-			if (enemyObject3d_->wtf.position.z <= 0.5) {
-				hp = 3;
-				enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+				enemy1Object3d_->wtf.position.z -= moveSpeed_;
+
+				if (enemy1Object3d_->wtf.position.z <= 0.5) {
+					//元の座標に戻す
+					fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+					enemyObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+					enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+					fbxObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemyObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemy1Object3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					hp = 1;
+					enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+				}
 			}
 		}
-		else if (hp == 3) {
+		else if (liveFlag == false) {
+			timer++;
+			if (hp == 1) {
+				//リアクション
+			
+				if (timer <= 69) {
+					fbxObject3d_->Draw(dxCommon->GetCommandList());
+					fbxObject3d_->wtf.rotation.y++;
 
-			enemy1Object3d_->Draw(dxCommon->GetCommandList());
-
-			enemy1Object3d_->wtf.position.z -= moveSpeed_;
-
-			if (enemy1Object3d_->wtf.position.z <= 0.5) {
-				hp = 1;
-				enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+				}
+				
+				if (timer >= 100) {
+					//元の座標に戻す
+					fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+					enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+					enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+					fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+					enemyObject3d_->wtf.rotation = { 0.0f,-2.8f,0.0f };
+					enemy1Object3d_->wtf.rotation = { 0.0f,-2.8f,0.0f };
+					fbxObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemyObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemy1Object3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					timer = 0;
+					hp = 2;
+					liveFlag = true;
+				}
+			}
+			if (hp == 2) {
+				//リアクション
+				
+				if (timer <= 69) {
+					enemyObject3d_->Draw(dxCommon->GetCommandList());
+					enemyObject3d_->wtf.rotation.y++;
+				}
+				
+				if (timer >= 100) {
+					//元の座標に戻す
+					fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+					enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+					enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+					fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+					enemyObject3d_->wtf.rotation = { 0.0f,-2.8f,0.0f };
+					enemy1Object3d_->wtf.rotation = { 0.0f,-2.8f,0.0f };
+					fbxObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemyObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemy1Object3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					timer = 0;
+					hp = 3;
+					liveFlag = true;
+				}
+			}
+			if (hp == 3) {
+				//リアクション
+				
+				if (timer <= 69) {
+					enemy1Object3d_->Draw(dxCommon->GetCommandList());
+					enemy1Object3d_->wtf.rotation.y++;
+				}
+				if (timer >= 100) {
+					//元の座標に戻す
+					fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
+					enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
+					enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
+					fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
+					enemyObject3d_->wtf.rotation = { 0.0f,-2.8f,0.0f };
+					enemy1Object3d_->wtf.rotation = { 0.0f,-2.8f,0.0f };
+					fbxObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemyObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					enemy1Object3d_->wtf.scale = { 1.0f,1.0f,1.0f };
+					timer = 0;
+					hp = 1;
+					liveFlag = true;
+				}
 			}
 		}
 	}
-	else if (liveFlag == 0) {
-		if (hp == 1) {
-			timer++;
-			//元の座標に戻す
-			fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
-			enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
-			enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
-			if (timer >= 50) {
-				timer = 0;
-				hp = 2;
-				liveFlag = 1;
-			}
-		}
-		if (hp == 2) {
-			timer++;
-			//元の座標に戻す
-			fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
-			enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
-			enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
-			if (timer >= 50) {
-				timer = 0;
-				hp = 3;
-				liveFlag = 1;
-			}
-		}
-		if (hp == 3) {
-			timer++;
-			//元の座標に戻す
-			fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
-			enemyObject3d_->wtf.position = { -0.5f,-0.3f,+3.0f };
-			enemy1Object3d_->wtf.position = { 0.5f,-0.3f,+3.0f };
-			if (timer >= 50) {
-				timer = 0;
-				hp = 1;
-				liveFlag = 1;
-			}
-		}
-	}
-	
 }
 
 void Enemy::EffUpdate()
@@ -520,7 +620,7 @@ void Enemy::EffUpdate()
 
 void Enemy::EffDraw()
 {
-	if (liveFlag == 1) {
+	if (liveFlag == true) {
 		//ダメージエフェクト
 		if (isEffFlag == 1) {
 			// 3Dオブクジェクトの描画
@@ -572,8 +672,8 @@ Vector3 Enemy::GetBulletWorldPosition()
 
 void Enemy::OnColision()
 {
-	liveFlag = 0;
-	enemyCount = enemyCount +1;
+	liveFlag = false;
+	enemyCount = enemyCount + 1;
 }
 
 void Enemy::OnColisionPlayer()

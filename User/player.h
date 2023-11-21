@@ -19,8 +19,8 @@
 */
 class Player {
 public:
-	Player();
-	~Player();
+	Player() = default;
+	~Player() = default;
 public:
 	//初期化
 	void Initialize(DirectXCommon* dxCommon, Input* input);
@@ -30,6 +30,8 @@ public:
 	void FadeIn();
 	//ゲームオーバー時
 	void Over();
+	//ゲームクリア時
+	void Clear();
 	//更新
 	void Update();
 	//描画
@@ -89,19 +91,22 @@ private:
 	//レティクル
 	Object3d* ReticleObj_ = nullptr;
 	Model* ReticleModel_ = nullptr;
-
+	//移動の速度
 	const float moveSpeed_ = 0.013f;
 	const float rotaSpeed_ = 0.1f;
+	const float rotateSpeed_ = 0.02f;
+	const float clearMoveSpeed_ = 0.0033f;
 	//行動制限
 	const float xMax = 0.5f;
 	const float xMin = -0.5f;
 	const float yMax = -0.3f;
 	const float yMin = 0.2f;
-
+	//レティクルの移動速度
 	const float retXMax = 3.5f;
 	const float retXMin = -3.5f;
 	const float retYMax = 0.3f;
 	const float retYMin = -9.3f;
+	const float retSpeed = 0.1f;
 	//傾きフラグ
 	float rollW = 0;
 	float rollA = 0;
@@ -110,6 +115,8 @@ private:
 	//スタート演出
 	int stoptimer = 0;
 	int moovFlag = 0;
+	//クリア
+	bool ClearMove = false;
 	//カメラ関連
 	Camera* camera = nullptr;
 	Transform* camTransForm = nullptr;

@@ -1,14 +1,14 @@
-#include "playerBullet.h"
+#include "Bullet.h"
 
-PlayerBullet::PlayerBullet()
+Bullet::Bullet()
 {
 }
 
-PlayerBullet::~PlayerBullet()
+Bullet::~Bullet()
 {
 }
 
-void PlayerBullet::Initialize(DirectXCommon* dxCommon, Input* input)
+void Bullet::Initialize(DirectXCommon* dxCommon, Input* input)
 {
 	//’e
 	bulletModel_ = Model::LoadFromOBJ("boll");
@@ -17,50 +17,37 @@ void PlayerBullet::Initialize(DirectXCommon* dxCommon, Input* input)
 	bulletObj_->wtf.position = { 0,0,0 };
 }
 
-void PlayerBullet::Update()
+
+void Bullet::Update()
 {
-	if (moovFlag == 0) {
+	if (moovFlag == false) {
 		stoptimer++;
 
 		if (stoptimer >= 250) {
-			moovFlag = 1;
+			moovFlag = true;
 		}
 	}
 	//’e‚Ì”­ŽË
 	float shortSpeed = 1.0f;
 	if (moovFlag == 1) {
-		if (input_->TriggerKey(DIK_SPACE) || input_->ButtonInput(RT)) {
+		if (input_->PushKey(DIK_SPACE) || input_->ButtonInput(RT)) {
+			enemyDistance.nomalize();
 			isShootFlag = true;
 		}
-		if (isShootFlag == true) {
-			bulletCoolTime++;
-			bulletObj_->wtf.position += enemyDistance;
-			distance = enemyDistance;
-			distance *= shortSpeed;
-		}
 		else {
-			bulletObj_->wtf.position = { player_->GetWorldPosition() };
-		}
-		if (bulletCoolTime >= 10.0f) {
-			bulletCoolTime = 0;
 			isShootFlag = false;
 		}
 	}
 }
 
-void PlayerBullet::Move()
-{
-	
-}
-
-void PlayerBullet::Draw()
+void Bullet::Draw()
 {
 	if (isShootFlag == true) {
 		bulletObj_->Draw();
 	}
 }
 
-Vector3 PlayerBullet::bVelocity(Vector3& velocity, Transform& worldTransform)
+Vector3 Bullet::bVelocity(Vector3& velocity, Transform& worldTransform)
 {
 	Vector3 result = { 0,0,0 };
 
@@ -80,7 +67,7 @@ Vector3 PlayerBullet::bVelocity(Vector3& velocity, Transform& worldTransform)
 	return result;
 }
 
-Vector3 PlayerBullet::GetBulletWorldPosition()
+Vector3 Bullet::GetBulletWorldPosition()
 {
 	Vector3 BulletWorldPos;
 

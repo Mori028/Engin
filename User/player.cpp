@@ -4,13 +4,6 @@
 * @file player.cpp
 * @brind プレイヤーの動きなど
 */
-Player::Player() {
-
-}
-
-Player::~Player() {
-
-}
 
 void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	// nullptrチェック
@@ -89,6 +82,7 @@ void Player::Reset()
 	//その他初期化
 	stoptimer = 0;
 	moovFlag = 0;
+	ClearMove = false;
 }
 
 void Player::FadeIn()
@@ -105,6 +99,25 @@ void Player::Over()
 	moovFlag = 2;
 }
 
+void Player::Clear()
+{
+	ClearMove = true;
+	if (fbxObject3d_->wtf.position.x >= 0) {
+		fbxObject3d_->wtf.position.x -= clearMoveSpeed_;
+	}
+	if (fbxObject3d_->wtf.position.x <= 0) {
+		fbxObject3d_->wtf.position.x += clearMoveSpeed_;
+	}
+	if (fbxObject3d_->wtf.position.y >= 0) {
+		fbxObject3d_->wtf.position.y -= clearMoveSpeed_;
+	}
+	if (fbxObject3d_->wtf.position.y <= 0) {
+		fbxObject3d_->wtf.position.y += clearMoveSpeed_;
+	}
+	bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.01f, fbxObject3d_->wtf.position.z };
+	ReticleObj_->wtf.position = { 0.0f,0.0f,10.0f };
+}
+
 void Player::Update() {
 	
 	//キーボード入力による移動処理
@@ -116,14 +129,91 @@ void Player::Update() {
 			moovFlag = 1;
 		}
 	}
+	if(ClearMove==false){
+		if (moovFlag == 1) {
+			//プレイヤーの移動
+			/////D/////
+			if (input_->PushKey(DIK_D) || input_->StickInput(L_RIGHT)) {
+				if (fbxObject3d_->wtf.position.x <= xMax) {
+					fbxObject3d_->wtf.position.x += moveSpeed_;
+				}
+			}
+			//////A/////
+			if (input_->PushKey(DIK_A) || input_->StickInput(L_LEFT)) {
+				// 左の移動処理
+				if (fbxObject3d_->wtf.position.x >= xMin) {
+					fbxObject3d_->wtf.position.x -= moveSpeed_;
+				}
+			}
+	
+			/////S/////
+			if (input_->PushKey(DIK_S) || input_->StickInput(L_DOWN)) {
+				// 下の移動処理
+				if (fbxObject3d_->wtf.position.y >= yMax) {
+					fbxObject3d_->wtf.position.y -= moveSpeed_;
+				}
+			}
+
+			/////W/////
+			if (input_->PushKey(DIK_W) || input_->StickInput(L_UP)) {
+				// 上の移動処理
+				if (fbxObject3d_->wtf.position.y <= yMin) {
+					fbxObject3d_->wtf.position.y += moveSpeed_;
+				}
+			}
+		}
+		//レティクル
+		if (input_->PushKey(DIK_RIGHT) || input_->StickInput(R_RIGHT)) {
+
+			if (ReticleObj_->wtf.position.x <= retXMax) {
+				ReticleObj_->wtf.position.x += moveSpeed_ + retSpeed;
+			}
+		}
+		if (input_->PushKey(DIK_LEFT) || input_->StickInput(R_LEFT)) {
+			if (ReticleObj_->wtf.position.x >= retXMin) {
+				ReticleObj_->wtf.position.x -= moveSpeed_ + retSpeed;
+			}
+		}
+		if (input_->PushKey(DIK_DOWN) || input_->StickInput(R_DOWN)) {
+			/*if (ReticleObj_->wtf.position.y >= retYMax) {*/
+			ReticleObj_->wtf.position.y -= moveSpeed_ + retSpeed;
+			//}
+		}
+		if (input_->PushKey(DIK_UP) || input_->StickInput(R_UP)) {
+			/*if (ReticleObj_->wtf.position.y <= retYMin) {*/
+			ReticleObj_->wtf.position.y += moveSpeed_ + retSpeed;
+			//}
+		}
+		//弾の発射
+		float shortSpeed = 1.0f;
+		if (moovFlag == 1) {
+			if (input_->PushKey(DIK_SPACE) || input_->ButtonInput(RT)) {
+				enemyDistance = ReticleObj_->wtf.position - bulletObj_->wtf.position;
+				enemyDistance.nomalize();
+				isShootFlag = true;
+			}
+			else {
+				isShootFlag = false;
+			}
+			
+			if (isShootFlag == true) {
+				bulletCoolTime++;
+				bulletObj_->wtf.position += enemyDistance;
+				distance = enemyDistance;
+				distance *= shortSpeed;
+				if (bulletCoolTime >= 10.0f) {
+					bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y , fbxObject3d_->wtf.position.z };
+					bulletCoolTime = 0;
+				}
+			}
+		}
+	}
+	///////////////傾き処理/////////////
 	if (moovFlag == 1) {
 		//プレイヤーの移動
 		/////D/////
 		if (input_->PushKey(DIK_D) || input_->StickInput(L_RIGHT)) {
 			rollD = 1;
-			if (fbxObject3d_->wtf.position.x <= xMax) {
-				fbxObject3d_->wtf.position.x += moveSpeed_;
-			}
 		}
 		else {
 			rollD = 0;
@@ -131,22 +221,18 @@ void Player::Update() {
 		if (rollD == 1) {
 			// 右の傾き処理
 			if (fbxObject3d_->wtf.rotation.z >= -1.0) {
-				fbxObject3d_->wtf.rotation.z -= 0.02f;
+				fbxObject3d_->wtf.rotation.z -= rotateSpeed_;
 			}
 		}
 		else if (rollD == 0) {
 			if (fbxObject3d_->wtf.rotation.z <= -0.02) {
-				fbxObject3d_->wtf.rotation.z = 0.0f;
+				fbxObject3d_->wtf.rotation.z += rotateSpeed_;
 			}
 		}
 
 		//////A/////
 		if (input_->PushKey(DIK_A) || input_->StickInput(L_LEFT)) {
 			rollA = 1;
-			// 左の移動処理
-			if (fbxObject3d_->wtf.position.x >= xMin) {
-				fbxObject3d_->wtf.position.x -= moveSpeed_;
-			}
 		}
 		else {
 			rollA = 0;
@@ -154,22 +240,18 @@ void Player::Update() {
 		if (rollA == 1) {
 			// 左の傾き処理
 			if (fbxObject3d_->wtf.rotation.z <= 1.0) {
-				fbxObject3d_->wtf.rotation.z += 0.02f;
+				fbxObject3d_->wtf.rotation.z += rotateSpeed_;
 			}
 		}
 		else if (rollA == 0) {
 			if (fbxObject3d_->wtf.rotation.z >= 0.02) {
-				fbxObject3d_->wtf.rotation.z = 0.0f;
+				fbxObject3d_->wtf.rotation.z -= rotateSpeed_;
 			}
 		}
 
 		/////S/////
 		if (input_->PushKey(DIK_S) || input_->StickInput(L_DOWN)) {
 			rollS = 1;
-			// 下の移動処理
-			if (fbxObject3d_->wtf.position.y >= yMax) {
-				fbxObject3d_->wtf.position.y -= moveSpeed_;
-			}
 		}
 		else {
 			rollS = 0;
@@ -177,22 +259,18 @@ void Player::Update() {
 		if (rollS == 1) {
 			// 下の傾き処理
 			if (fbxObject3d_->wtf.rotation.x <= 1) {
-				fbxObject3d_->wtf.rotation.x += 0.02f;
+				fbxObject3d_->wtf.rotation.x += rotateSpeed_;
 			}
 		}
 		else if (rollS == 0) {
 			if (fbxObject3d_->wtf.rotation.x >= 0.02) {
-				fbxObject3d_->wtf.rotation.x = 0.0f;
+				fbxObject3d_->wtf.rotation.x -= rotateSpeed_;
 			}
 		}
 
 		/////W/////
 		if (input_->PushKey(DIK_W) || input_->StickInput(L_UP)) {
 			rollW = 1;
-			// 上の移動処理
-			if (fbxObject3d_->wtf.position.y <= yMin) {
-				fbxObject3d_->wtf.position.y += moveSpeed_;
-			}
 		}
 		else {
 			rollW = 0;
@@ -200,60 +278,15 @@ void Player::Update() {
 		if (rollW == 1) {
 			// 上の傾き処理
 			if (fbxObject3d_->wtf.rotation.x >= -1) {
-				fbxObject3d_->wtf.rotation.x -= 0.02f;
+				fbxObject3d_->wtf.rotation.x -= rotateSpeed_;
 			}
 		}
 		else if (rollW == 0) {
 			// 上の傾き処理
 			if (fbxObject3d_->wtf.rotation.x <= -0.02) {
-				fbxObject3d_->wtf.rotation.x = 0.0f;
+				fbxObject3d_->wtf.rotation.x += rotateSpeed_;
 			}
 
-		}
-
-		//レティクル
-		if (input_->PushKey(DIK_RIGHT) || input_->StickInput(R_RIGHT)) {
-
-			if (ReticleObj_->wtf.position.x <= retXMax) {
-				ReticleObj_->wtf.position.x += moveSpeed_ + 0.1f;
-			}
-		}
-		if (input_->PushKey(DIK_LEFT) || input_->StickInput(R_LEFT)) {
-			if (ReticleObj_->wtf.position.x >= retXMin) {
-				ReticleObj_->wtf.position.x -= moveSpeed_ + 0.1f;
-			}
-		}
-		if (input_->PushKey(DIK_DOWN) || input_->StickInput(R_DOWN)) {
-			/*if (ReticleObj_->wtf.position.y >= retYMax) {*/
-			ReticleObj_->wtf.position.y -= moveSpeed_ + 0.1f;
-			//}
-		}
-		if (input_->PushKey(DIK_UP) || input_->StickInput(R_UP)) {
-			/*if (ReticleObj_->wtf.position.y <= retYMin) {*/
-			ReticleObj_->wtf.position.y += moveSpeed_ + 0.1f;
-			//}
-		}
-		//弾の発射
-		float shortSpeed = 1.0f;
-		if (moovFlag == 1) {
-			if (input_->TriggerKey(DIK_SPACE) || input_->ButtonInput(RT)) {
-				enemyDistance = ReticleObj_->wtf.position - bulletObj_->wtf.position;
-				enemyDistance.nomalize();
-				isShootFlag = true;
-			}
-			if (isShootFlag == true) {
-				bulletCoolTime++;
-				bulletObj_->wtf.position += enemyDistance;
-				distance = enemyDistance;
-				distance *= shortSpeed;
-			}
-			else {
-				bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y , fbxObject3d_->wtf.position.z };
-			}
-			if (bulletCoolTime >= 10.0f) {
-				bulletCoolTime = 0;
-				isShootFlag = false;
-			}
 		}
 	}
 	//FBXモデル位置固定
@@ -265,13 +298,17 @@ void Player::Update() {
 	ReticleObj_->Update();
 }
 
-void Player::Draw() {
-	if (moovFlag == 1) {
-		ReticleObj_->Draw();
-	}
-	/*RetSprite->Draw();*/
-	if (isShootFlag == true) {
-		bulletObj_->Draw();
+void Player::Draw() {	
+	
+	if (ClearMove == false) {
+
+		if (moovFlag == 1) {
+			ReticleObj_->Draw();
+		}
+
+		if (isShootFlag == true) {
+			bulletObj_->Draw();
+		}
 	}
 }
 

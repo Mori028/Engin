@@ -15,10 +15,10 @@
 */
 class Player;
 
-class PlayerBullet {
+class Bullet {
 public:
-	PlayerBullet();
-	~PlayerBullet();
+	Bullet();
+	~Bullet();
 public:
 	//初期化
 	void Initialize(DirectXCommon* dxCommon, Input* input);
@@ -48,7 +48,7 @@ private:
 	Player* player_ = nullptr;
 	//スタート演出
 	int stoptimer = 0;
-	int moovFlag = 0;
+	bool moovFlag = false;
 	//弾
 	Object3d* bulletObj_ = nullptr;
 	Model* bulletModel_ = nullptr;

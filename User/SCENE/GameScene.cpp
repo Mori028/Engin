@@ -44,38 +44,50 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	titleSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(1, "Titlee.png");
 	titleSprite->SetTextureIndex(1);
-
+	//タイトル(スペース表示)
 	spaceSprite->Initialize(spriteCommon);
 	spaceSprite->SetPozition({ 0,0 });
 	spaceSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(9, "SPACE.png");
 	spaceSprite->SetTextureIndex(9);
-
 	////クリア
 	clearSprite->Initialize(spriteCommon);
 	clearSprite->SetPozition({ 0,0 });
 	clearSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(2, "clear.png");
 	clearSprite->SetTextureIndex(2);
+	//クリア
+	conSprite->Initialize(spriteCommon);
+	conSprite->SetPozition({ 0,0 });
+	conSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(22, "clearcon.png");
+	conSprite->SetTextureIndex(22);
+	//クリア(戻る)
+	backSprite->Initialize(spriteCommon);
+	backSprite->SetPozition({ 0,0 });
+	backSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(23, "backT.png");
+	backSprite->SetTextureIndex(23);
+	
 	//リトライ
 	overSprite->Initialize(spriteCommon);
 	overSprite->SetPozition({ 0,0 });
 	overSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(19, "yes.png");
 	overSprite->SetTextureIndex(19);
-	//ゲームオーバー
+	//ゲームオーバー(背景)
 	blackSprite->Initialize(spriteCommon);
 	blackSprite->SetPozition({ 0,0 });
 	blackSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(21, "Black.png");
 	blackSprite->SetTextureIndex(21);
-
+	//ゲームオーバー(選択画面)
 	over2Sprite->Initialize(spriteCommon);
 	over2Sprite->SetPozition({ 0,0 });
 	over2Sprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(3, "no.png");
 	over2Sprite->SetTextureIndex(3);
-
+	//ゲームオーバー
 	over3Sprite->Initialize(spriteCommon);
 	over3Sprite->SetPozition({ 0,0 });
 	over3Sprite->SetSize({ 1280.0f, 720.0f });
@@ -87,28 +99,24 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	hPSprite->SetSize({200.0f, 100.0f });
 	spriteCommon->LoadTexture(4, "HP3.png");
 	hPSprite->SetTextureIndex(4);
-
 	//HP2
 	hP2Sprite->Initialize(spriteCommon);
 	hP2Sprite->SetPozition({ 0,0 });
 	hP2Sprite->SetSize({ 200.0f, 100.0f });
 	spriteCommon->LoadTexture(5, "HP2.png");
 	hP2Sprite->SetTextureIndex(5);
-
 	//HP1
 	hP1Sprite->Initialize(spriteCommon);
 	hP1Sprite->SetPozition({ 0,0 });
 	hP1Sprite->SetSize({ 200.0f, 100.0f });
 	spriteCommon->LoadTexture(6, "HP1.png");
 	hP1Sprite->SetTextureIndex(6);
-
 	//HP0
 	hP0Sprite->Initialize(spriteCommon);
 	hP0Sprite->SetPozition({ 0,0 });
 	hP0Sprite->SetSize({ 200.0f, 100.0f });
 	spriteCommon->LoadTexture(7, "HP0.png");
 	hP0Sprite->SetTextureIndex(7);
-
 	//フェードイン0
 	outSprite->Initialize(spriteCommon);
 	outSprite->SetPozition({ 0,0 });
@@ -145,20 +153,19 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	out5Sprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(15, "out5.png");
 	out5Sprite->SetTextureIndex(15);
-
 	//スタートカウント
 	start3Sprite->Initialize(spriteCommon);
 	start3Sprite->SetPozition({ 0,0 });
 	start3Sprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(16, "3.png");
 	start3Sprite->SetTextureIndex(16);
-	
+	//スタートの文字
 	goSprite->Initialize(spriteCommon);
 	goSprite->SetPozition({ 0,0 });
 	goSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(17, "G.png");
 	goSprite->SetTextureIndex(17);
-	
+	//スタートの文字
 	go2Sprite->Initialize(spriteCommon);
 	go2Sprite->SetPozition({ 0,0 });
 	go2Sprite->SetSize({ 1280.0f, 720.0f });
@@ -170,11 +177,12 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	camera1 = new Camera(WinApp::window_width, WinApp::window_height);
 	camera2 = new Camera(WinApp::window_width, WinApp::window_height);
 	camera3 = new Camera(WinApp::window_width, WinApp::window_height);
-
+	//カメラ
 	ParticleManager::SetCamera(mainCamera);
 	Object3d::SetCamera(mainCamera);
 	FBXObject3d::SetCamera(mainCamera);
 
+	//スカイドーム
 	skydomeMD = Model::LoadFromOBJ("skydome");
 	skydome = Object3d::Create();
 	skydome->SetModel(skydomeMD);
@@ -185,15 +193,20 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	title_->Initialize(dxCommon, input);
 	title_->SetCamera(mainCamera);
 
+	//クリア
+	clear_ = new Clear();
+	clear_->Initialize(dxCommon, input);
+	clear_->SetCamera(mainCamera);
+
 	//プレイヤー
 	player_ = new Player();
 	player_->Initialize(dxCommon,input);
 	player_->SetCamera(mainCamera);
 
 	//プレイヤーの弾
-	playerBullet_ = new PlayerBullet();
-	playerBullet_->Initialize(dxCommon, input);
-	playerBullet_->SetPlayer(player_);
+	Bullet_ = new Bullet();
+	Bullet_->Initialize(dxCommon, input);
+	Bullet_->SetPlayer(player_);
 	//敵
 	enemy_ = new Enemy();
 	enemy_->Initialize(dxCommon, input);
@@ -214,24 +227,33 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 void GameScene::Reset() {
 	//クラスごとのリセット
 	title_->Reset();
+	clear_->Reset();
 	player_->Reset();
 	enemy_->Reset();
 	stage_->Reset();
 	boss_->Reset();
 	//その他初期化
 	skydome->wtf.position = { 0.0f,0.0f,0.0f };
-	startFlag = 0;
+	startFlag = false;
 	startCountTimer = 0;
-	startCountFlag = 0;
+	startCountFlag = false;
 	roadTimer = 0;
 	enemy_->playerHp = 15;
 	enemy_->enemyCount = 0;
-	overFlag = 0; 
+	overFlag = false; 
 	retryFlag = 0;
 	overTimer = 0;
+	clearflag = false;
+	clearSceneTimer = 0;
+	clearCameraTimer = 0;
+	clearTimer = 0;
 	//スプライトの位置を初期化
 	goSprite->SetPozition({ 0,0 });
 	go2Sprite->SetPozition({ 0,0 });
+	//カメラの位置の初期化
+	Object3d::SetCamera(mainCamera);
+	FBXObject3d::SetCamera(mainCamera);
+	
 }
 
 void GameScene::FadeOut()
@@ -252,6 +274,12 @@ void GameScene::Over()
 	boss_->Over();
 }
 
+void GameScene::ClearMove()
+{
+	player_->Clear();
+	enemy_->Clear();
+}
+
 /// <summary>
 /// 毎フレーム処理
 /// </summary>
@@ -270,7 +298,7 @@ void GameScene::Update() {
 			stage_->Update();
 
 			//シーン切り替え//
-			if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
+			if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(RT)) {
 				if (fadeCount == 0) {
 					fadeCount = 1;
 				}
@@ -280,9 +308,9 @@ void GameScene::Update() {
 				FadeOut();
 			}
 			if (outTimer >= 90) {
-				fadeFlag = 1;
+				fadeFlag = true;
 			}
-			if (fadeFlag == 1) {
+			if (fadeFlag == true) {
 				fadeTimer++;
 				if (fadeTimer >= 47) {
 					fadeCount = 0;
@@ -298,29 +326,29 @@ void GameScene::Update() {
 
 	case SceneNo::GAME:
 		if (sceneNo_ == SceneNo::GAME) {
-			if (fadeFlag == 1) {
+			if (fadeFlag == true) {
 				roadTimer++;
 				if (roadTimer >= 50) {
 					fadeTimer--;
 					if (fadeTimer <= 1) {
 
-						fadeFlag = 0;
+						fadeFlag = false;
 						fadeTimer = 0;
 					}
 				}
 			}
-			if (input->TriggerKey(DIK_R) || input->ButtonInput(Y)) {
+			if (input->TriggerKey(DIK_R) || input->PButtonTrigger(Y)) {
 				Reset();
 				sceneNo_ = SceneNo::TITLE;
 			}
 			//ゲーム開始までの演出
-			if (startFlag == 0) {
+			if (startFlag == false) {
 				FadeIn();
 				startCountTimer++;
 				if (startCountTimer == 150) {
-					startCountFlag = 1;
+					startCountFlag = true;
 				}
-				if (startCountFlag == 1) {
+				if (startCountFlag == true) {
 					startTimer++;
 					//スタートカウント
 					if (startTimer <= 30 && startTimer >= 1) {
@@ -375,35 +403,46 @@ void GameScene::Update() {
 						startCount = 5;
 					}
 					if (startCount == 5) {
-						startFlag = 1;
+						startFlag = true;
 						startTimer = 0;
 						startCount = 0;
 					}
 				}
-			}
-
+			} 
+			
 			player_->Update();
-			/*playerBullet_->Update();*/
+			/*Bullet_->Update();*/
 			stage_->Update();
 			skydome->Update();
 
-			if (startFlag == 1) {
+			if (startFlag == true) {
 				skydome->wtf.position.z -= skyMoveSpeed_;
-
-				enemy_->Update();
+				if (clearflag == false) {
+					enemy_->Update();
+				}
 				//シーン切り替え
-				if (enemy_->GetEnemyHP() == 10)
+				if (enemy_->GetEnemyHP() >= 15)
 				{
-					sceneNo_ = SceneNo::BOSS;
-					enemy_->playerHp = 15;
-					enemy_->enemyCount = 0;
+					clearflag = 1;
+					if (clearflag == true) {
+						ClearMove();
+						clearSceneTimer++;
+						if(clearSceneTimer >=100){
+						enemy_->playerHp = 15;
+						clearTimer++;
+						if (clearTimer >= 1) {
+							enemy_->enemyCount = 0;
+							sceneNo_ = SceneNo::CLEAR;
+						}
+						}
+					}
 				}
 
 				//シーン切り替え&リセット
 				if (enemy_->GetPlayerHP() <= 0)
 				{
 					Over();
-					overFlag = 1;
+					overFlag = true;
 					overTimer++;
 					if (input->TriggerKey(DIK_A) || input->TriggerKey(DIK_LEFT) || input->ButtonInput(B)) {
 						retryFlag = 1;
@@ -442,28 +481,42 @@ void GameScene::Update() {
 
 		player_->Update();
 
-		playerBullet_->Update();
-
 		skydome->Update();
 
 		boss_->Update();
 
 		stage_->Update();
-
-
-		//シーン切り替え
-		if (input->TriggerKey(DIK_R) || input->ButtonInput(RT)) {
-			Reset();
-			sceneNo_ = SceneNo::GAME;
-		}
 		break;
 
 	case SceneNo::CLEAR:
 		if (sceneNo_ == SceneNo::CLEAR) {
-			//シーン切り替え
-			if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
-				sceneNo_ = SceneNo::TITLE;
+			//クリア時の演出
+			stage_->Update();
+			clearCameraTimer++;
+			if (clearCameraTimer <= 100) {
+				camera1->Update();
+				camera1->SetEye(camera1->GetEye() + Vector3{ 0.0f,-0.003f, 0.0f });
 			}
+			if (clearCameraTimer >= 250 && clearCameraTimer <= 350) {
+				camera1->Update();
+				camera1->SetEye(camera1->GetEye() - Vector3{ 0.0f,-0.003f, 0.0f });
+			}
+			if (clearCameraTimer >= 460) {
+				titleTimer++;
+
+				if (titleTimer >= 100) {
+					titleTimer = 0;
+				}
+				////シーン切り替え
+				if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(RT)) {
+					sceneNo_ = SceneNo::TITLE;
+				}
+			}
+			Object3d::SetCamera(camera1);
+			FBXObject3d::SetCamera(camera1);
+
+			clear_->Update();
+
 		}
 		break;
 
@@ -471,7 +524,7 @@ void GameScene::Update() {
 		if (sceneNo_ == SceneNo::GAMEOVER) {
 			overTimer++;
 			//シーン切り替え
-			if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(RT)) {
+			if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(RT)) {
 				sceneNo_ = SceneNo::TITLE;
 			}
 		}
@@ -538,8 +591,10 @@ void GameScene::Draw() {
 			Object3d::PreDraw(dxCommon->GetCommandList());
 			//// 3Dオブクジェクトの描画
 			player_->Draw();
-			playerBullet_->Draw();
-			enemy_->Draw();
+			Bullet_->Draw();
+			if (clearflag == false) {
+				enemy_->Draw();
+			}
 			skydome->Draw();
 
 			stage_->Draw();
@@ -550,9 +605,11 @@ void GameScene::Draw() {
 
 			//// パーティクル UI FBX スプライト描画
 			player_->FbxDraw();
-			enemy_->EffDraw();
-			enemy_->FbxDraw();
-			if (startFlag == 1) {
+			if (overFlag == false) {
+				enemy_->EffDraw();
+				enemy_->FbxDraw();
+			}
+			if (startFlag == true) {
 				//HPバー
 				if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
 					hPSprite->Draw();
@@ -632,7 +689,7 @@ void GameScene::Draw() {
 			Object3d::PreDraw(dxCommon->GetCommandList());
 			//// 3Dオブクジェクトの描画
 			player_->Draw();
-			playerBullet_->Draw();
+			Bullet_->Draw();
 			skydome->Draw();
 			boss_->Draw();
 			stage_->Draw();
@@ -661,13 +718,36 @@ void GameScene::Draw() {
 		break;
 
 	case SceneNo::CLEAR:
-		//クリア
-		if (sceneNo_ == SceneNo::CLEAR) {
+
+		//3Dオブジェクト描画前処理
+		Object3d::PreDraw(dxCommon->GetCommandList());
+		//// 3Dオブクジェクトの描画
+		skydome->Draw();
+		stage_->Draw();
+		clear_->Draw();
+		
+		//3Dオブジェクト描画後処理
+
+		Object3d::PostDraw();
+		clear_->FbxDraw();
+		if (clearCameraTimer >= 280 && clearCameraTimer <= 420) {
 			clearSprite->Draw();
+		}
+		if (clearCameraTimer >= 315 && clearCameraTimer <= 420) {
+			conSprite->Draw();
+			
+		}
+		if (clearCameraTimer >= 445) {
+			backSprite->Draw();
+
+			if (titleTimer >= 50) {
+				spaceSprite->Draw();
+			}
 		}
 		break;
 
 	case SceneNo::GAMEOVER:
+
 		//ゲームオーバー
 		if (sceneNo_ == SceneNo::GAMEOVER) {
 			blackSprite->Draw();
