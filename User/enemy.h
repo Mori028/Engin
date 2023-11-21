@@ -28,6 +28,8 @@ public:
 	void Initialize(DirectXCommon* dxCommon, Input* input);
 	//リセット
 	void Reset();
+	//ゲームクリア
+	void Clear();
 	//ゲームオーバー
 	void Over();
 	//更新
@@ -83,12 +85,21 @@ private:
 	//敵1
 	FBXModel* fbxModel_ = nullptr;
 	FBXObject3d* fbxObject3d_ = nullptr;
+	//敵の撃破時
+	FBXModel* fbxKnockModel_ = nullptr;
+	FBXObject3d* Knock0Object3d_ = nullptr;
 	//敵2
 	FBXModel* fbxredModel_ = nullptr;
 	FBXObject3d* enemyObject3d_ = nullptr;
+	//敵の撃破時2
+	FBXModel* fbxKnockRedModel_ = nullptr;
+	FBXObject3d* Knock1Object3d_ = nullptr;
 	//敵3
 	FBXModel* fbxwhiteModel_ = nullptr;
 	FBXObject3d* enemy1Object3d_ = nullptr;
+	//敵の撃破時3
+	FBXModel* fbxKnocWhitekModel_ = nullptr;
+	FBXObject3d* Knock2Object3d_ = nullptr;
 
 	//弾
 	Object3d* enemyBulletObj_ = nullptr;
@@ -108,8 +119,13 @@ private:
 	int hp = 1;
 	int bulletMode = 1;
 	float changeTimer = 0;
-	int liveFlag = 1;
-
+	bool liveFlag = true;
+	//敵の撃破時
+	int downTimer = 0;
+	int downRotate = 0;
+	bool dounDraw = false;
+	//クリア時
+	int ClearMove = 0;
 	//パーティクル関連
 	int effTimer = 0;
 	int isEffFlag = 0;

@@ -95,9 +95,9 @@ private:
 	int bulletMode = 1;
 	float changeTimer = 0;
 	//¶‘¶‚µ‚Ä‚¢‚é‚©
-	int liveFlag = 1;
+	bool liveFlag = true;
 	float enemyTimer = 0.0f;
-	int returnFlag = 0;
+	bool returnFlag = false;
 	//UŒ‚‚ğ‚µ‚Ä‚¢‚é‚©
 	int attackFlag = 0;
 	//“G‚Ì“oê

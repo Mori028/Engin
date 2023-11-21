@@ -81,7 +81,7 @@ void Boss::Over()
 }
 
 void Boss::Update() {
-	if (liveFlag == 1) {
+	if (liveFlag == true) {
 
 		enemyTimer++;
 		if (entry == 1) {
@@ -94,25 +94,25 @@ void Boss::Update() {
 			}
 		}
 		//////“G‚ÌUŒ‚‚P//////
-		if (returnFlag == 0) {
+		if (returnFlag == false) {
 			if (enemyTimer >= 290) {
 
 				fbxObject3d_->wtf.position.z += attackMoveSpeed_;
 
 				if (fbxObject3d_->wtf.position.z >= 12.0) {
 					fbxObject3d_->wtf.position = { 0.0f,2.0f,+3.0f };
-					returnFlag = 1;
+					returnFlag = true;
 				}
 			}
 		}
-		if (returnFlag == 1) {
+		if (returnFlag == true) {
 			BossWallObj_->wtf.position.z -= moveSpeed_;
 			entryTimer--;
 			if (entryTimer <= 0) {
 				entry = 1;
 				enemyTimer = 0;
 				BossWallObj_->wtf.position = { 0.0f,-0.3f,+2.3f };
-				returnFlag = 0;
+				returnFlag = false;
 				entryTimer = 300.0f;
 			}
 
@@ -135,12 +135,12 @@ void Boss::Update() {
 }
 
 void Boss::Draw() {
-	if (liveFlag == 1) {
+	if (liveFlag == true) {
 		if (isShootFlag == true) {
 
 			BossBulletObj_->Draw();
 		}
-		if (returnFlag == 1) {
+		if (returnFlag == true) {
 			BossWallObj_->Draw();
 		}
 	}
@@ -177,7 +177,7 @@ Vector3 Boss::GetBulletWorldPosition()
 
 void Boss::OnColision()
 {
-	liveFlag = 0;
+	liveFlag = false;
 	BossCount = BossCount + 1;
 }
 
