@@ -45,20 +45,30 @@ void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
 	bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.01f, fbxObject3d_->wtf.position.z };
 	bulletObj_->wtf.scale = { 0.3f,0.3f,0.3f };
 
-	//レティクル
-	ReticleModel_ = Model::LoadFromOBJ("C");
+	//レティクル1重
+	ReticleModel_ = Model::LoadFromOBJ("Ret");
 	ReticleObj_ = Object3d::Create();
 	ReticleObj_->SetModel(ReticleModel_);
-	ReticleObj_->wtf.scale = { 1.0f,1.0f,1.0f };
+	ReticleObj_->wtf.scale = { 5.0f,5.0f,5.0f };
 	ReticleObj_->wtf.rotation = { 0.0f,0.0f,0.0f };
 	ReticleObj_->wtf.position = { 0.0f,0.0f,10.0f };
 
-	////レティクル
-	//RetSprite->Initialize(spriteCommon);
-	//RetSprite->SetPozition({ 0,0 });
-	//RetSprite->SetSize({ 50.0f, 50.0f });
-	//spriteCommon->LoadTexture(8, "ret.png");
-	//RetSprite->SetTextureIndex(8);
+	//レティクル2重
+	Reticle1Model_ = Model::LoadFromOBJ("Ret");
+	Reticle1Obj_ = Object3d::Create();
+	Reticle1Obj_->SetModel(ReticleModel_);
+	Reticle1Obj_->wtf.scale = { 1.0f,1.0f,1.0f };
+	Reticle1Obj_->wtf.rotation = { 0.0f,0.0f,0.0f };
+	Reticle1Obj_->wtf.position = { 0.0f,0.0f,8.0f };
+
+	//レティクル3重
+	Reticle2Model_ = Model::LoadFromOBJ("Ret");
+	Reticle2Obj_ = Object3d::Create();
+	Reticle2Obj_->SetModel(ReticleModel_);
+	Reticle2Obj_->wtf.scale = { 1.0f,1.0f,1.0f };
+	Reticle2Obj_->wtf.rotation = { 0.0f,0.0f,0.0f };
+	Reticle2Obj_->wtf.position = { 0.0f,0.0f,6.0f };
+
 
 	Reset();
 }
@@ -78,7 +88,9 @@ void Player::Reset()
 	bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.01f, fbxObject3d_->wtf.position.z };
 	//レティクル
 	ReticleObj_->Initialize();
-	ReticleObj_->wtf.position = { 0.0f,0.0f,10.0f };
+	ReticleObj_->wtf.position = { 0.0f,0.0f,30.0f };
+	Reticle1Obj_->wtf.position = { 0.0f,0.0f,8.0f };
+	Reticle2Obj_->wtf.position = { 0.0f,0.0f,6.0f };
 	//その他初期化
 	stoptimer = 0;
 	moovFlag = 0;
@@ -163,29 +175,37 @@ void Player::Update() {
 			}
 		}
 		//レティクル
-		if (input_->PushKey(DIK_RIGHT) || input_->StickInput(R_RIGHT)) {
+		if (input_->PushKey(DIK_D) || input_->StickInput(R_RIGHT)) {
 
 			if (ReticleObj_->wtf.position.x <= retXMax) {
-				ReticleObj_->wtf.position.x += moveSpeed_ + retSpeed;
+				ReticleObj_->wtf.position.x += retSpeed;
+				Reticle1Obj_->wtf.position.x += ret1Speed;
+				Reticle2Obj_->wtf.position.x += ret2Speed;
 			}
 		}
-		if (input_->PushKey(DIK_LEFT) || input_->StickInput(R_LEFT)) {
+		if (input_->PushKey(DIK_A) || input_->StickInput(R_LEFT)) {
 			if (ReticleObj_->wtf.position.x >= retXMin) {
-				ReticleObj_->wtf.position.x -= moveSpeed_ + retSpeed;
+				ReticleObj_->wtf.position.x -= retSpeed;
+				Reticle1Obj_->wtf.position.x -= ret1Speed;
+				Reticle2Obj_->wtf.position.x -= ret2Speed;
 			}
 		}
-		if (input_->PushKey(DIK_DOWN) || input_->StickInput(R_DOWN)) {
-			/*if (ReticleObj_->wtf.position.y >= retYMax) {*/
-			ReticleObj_->wtf.position.y -= moveSpeed_ + retSpeed;
-			//}
+		if (input_->PushKey(DIK_S) || input_->StickInput(R_DOWN)) {
+			if (ReticleObj_->wtf.position.y >= retYMax) {
+			ReticleObj_->wtf.position.y -= retSpeed;
+			Reticle1Obj_->wtf.position.y -= retSpeed;
+			Reticle2Obj_->wtf.position.y -= retSpeed;
+			}
 		}
-		if (input_->PushKey(DIK_UP) || input_->StickInput(R_UP)) {
-			/*if (ReticleObj_->wtf.position.y <= retYMin) {*/
-			ReticleObj_->wtf.position.y += moveSpeed_ + retSpeed;
-			//}
+		if (input_->PushKey(DIK_W) || input_->StickInput(R_UP)) {
+			if (ReticleObj_->wtf.position.y <= retYMin) {
+			ReticleObj_->wtf.position.y += retSpeed;
+			Reticle1Obj_->wtf.position.y += retSpeed;
+			Reticle2Obj_->wtf.position.y += retSpeed;
+			}
 		}
 		//弾の発射
-		float shortSpeed = 1.0f;
+		float shortSpeed = 0.01f;
 		if (moovFlag == 1) {
 			if (input_->PushKey(DIK_SPACE) || input_->ButtonInput(RT)) {
 				enemyDistance = ReticleObj_->wtf.position - bulletObj_->wtf.position;
@@ -296,6 +316,9 @@ void Player::Update() {
 	fbxRoteObject3d_->Update();
 	bulletObj_->Update();
 	ReticleObj_->Update();
+	Reticle1Obj_->Update();
+	Reticle2Obj_->Update();
+
 }
 
 void Player::Draw() {	
@@ -304,6 +327,9 @@ void Player::Draw() {
 
 		if (moovFlag == 1) {
 			ReticleObj_->Draw();
+			/*Reticle1Obj_->Draw();*/
+			/*Reticle2Obj_->Draw();*/
+
 		}
 
 		if (isShootFlag == true) {

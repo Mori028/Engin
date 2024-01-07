@@ -34,7 +34,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	this->dxCommon = dxCommon;
 	this->input = input;
 
-	//スプライト共通部分の初期化
+	//スプライト共通部分の初期化  ///75まで
 	spriteCommon = new SpriteCommon;
 	spriteCommon->Initialize(dxCommon);
 
@@ -44,12 +44,18 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	titleSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(1, "Titlee.png");
 	titleSprite->SetTextureIndex(1);
-	//タイトル(スペース表示)
+	//クリア(スペース表示)
 	spaceSprite->Initialize(spriteCommon);
 	spaceSprite->SetPozition({ 0,0 });
 	spaceSprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(9, "SPACE.png");
 	spaceSprite->SetTextureIndex(9);
+	//タイトル(B表示)
+	titleBSprite->Initialize(spriteCommon);
+	titleBSprite->SetPozition({ 0,0 });
+	titleBSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(24, "TitleB.png");
+	titleBSprite->SetTextureIndex(24);
 	////クリア
 	clearSprite->Initialize(spriteCommon);
 	clearSprite->SetPozition({ 0,0 });
@@ -171,6 +177,313 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	go2Sprite->SetSize({ 1280.0f, 720.0f });
 	spriteCommon->LoadTexture(18, "O.png");
 	go2Sprite->SetTextureIndex(18);
+	//BOSSHP
+	h50Sprite->Initialize(spriteCommon);
+	h50Sprite->SetPozition({ 400,50 });
+	h50Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(25, "EHP50.png");
+	h50Sprite->SetTextureIndex(25);
+	//BOSSHP
+	h49Sprite->Initialize(spriteCommon);
+	h49Sprite->SetPozition({ 400,50 });
+	h49Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(26, "EHP49.png");
+	h49Sprite->SetTextureIndex(26);
+	//BOSSHP
+	h48Sprite->Initialize(spriteCommon);
+	h48Sprite->SetPozition({ 400,50 });
+	h48Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(27, "EHP48.png");
+	h48Sprite->SetTextureIndex(27);
+	//BOSSHP
+	h47Sprite->Initialize(spriteCommon);
+	h47Sprite->SetPozition({ 400,50 });
+	h47Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(28, "EHP47.png");
+	h47Sprite->SetTextureIndex(28);
+	//BOSSHP
+	h46Sprite->Initialize(spriteCommon);
+	h46Sprite->SetPozition({ 400,50 });
+	h46Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(29, "EHP46.png");
+	h46Sprite->SetTextureIndex(29);
+	//BOSSHP
+	h45Sprite->Initialize(spriteCommon);
+	h45Sprite->SetPozition({ 400,50 });
+	h45Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(30, "EHP45.png");
+	h45Sprite->SetTextureIndex(30);
+	//BOSSHP
+	h44Sprite->Initialize(spriteCommon);
+	h44Sprite->SetPozition({ 400,50 });
+	h44Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(31, "EHP44.png");
+	h44Sprite->SetTextureIndex(31);
+	//BOSSHP
+	h43Sprite->Initialize(spriteCommon);
+	h43Sprite->SetPozition({ 400,50 });
+	h43Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(32, "EHP43.png");
+	h43Sprite->SetTextureIndex(32);
+	//BOSSHP
+	h42Sprite->Initialize(spriteCommon);
+	h42Sprite->SetPozition({ 400,50 });
+	h42Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(33, "EHP42.png");
+	h42Sprite->SetTextureIndex(33);
+	//BOSSHP
+	h41Sprite->Initialize(spriteCommon);
+	h41Sprite->SetPozition({ 400,50 });
+	h41Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(34, "EHP41.png");
+	h41Sprite->SetTextureIndex(34);
+	//BOSSHP
+	h40Sprite->Initialize(spriteCommon);
+	h40Sprite->SetPozition({ 400,50 });
+	h40Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(35, "EHP40.png");
+	h40Sprite->SetTextureIndex(35);
+	//BOSSHP
+	h39Sprite->Initialize(spriteCommon);
+	h39Sprite->SetPozition({ 400,50 });
+	h39Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(36, "EHP39.png");
+	h39Sprite->SetTextureIndex(36);
+	//BOSSHP
+	h38Sprite->Initialize(spriteCommon);
+	h38Sprite->SetPozition({ 400,50 });
+	h38Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(37, "EHP38.png");
+	h38Sprite->SetTextureIndex(37);
+	//BOSSHP
+	h37Sprite->Initialize(spriteCommon);
+	h37Sprite->SetPozition({ 400,50 });
+	h37Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(38, "EHP37.png");
+	h37Sprite->SetTextureIndex(38);
+	//BOSSHP
+	h36Sprite->Initialize(spriteCommon);
+	h36Sprite->SetPozition({ 400,50 });
+	h36Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(39, "EHP36.png");
+	h36Sprite->SetTextureIndex(39);
+	////BOSSHP
+	h35Sprite->Initialize(spriteCommon);
+	h35Sprite->SetPozition({ 400,50 });
+	h35Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(40, "EHP35.png");
+	h35Sprite->SetTextureIndex(40);
+	//BOSSHP
+	h34Sprite->Initialize(spriteCommon);
+	h34Sprite->SetPozition({ 400,50 });
+	h34Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(41, "EHP34.png");
+	h34Sprite->SetTextureIndex(41);
+	//BOSSHP
+	h33Sprite->Initialize(spriteCommon);
+	h33Sprite->SetPozition({ 400,50 });
+	h33Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(42, "EHP33.png");
+	h33Sprite->SetTextureIndex(42);
+	//BOSSHP
+	h32Sprite->Initialize(spriteCommon);
+	h32Sprite->SetPozition({ 400,50 });
+	h32Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(43, "EHP32.png");
+	h32Sprite->SetTextureIndex(43);
+	//BOSSHP
+	h31Sprite->Initialize(spriteCommon);
+	h31Sprite->SetPozition({ 400,50 });
+	h31Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(44, "EHP31.png");
+	h31Sprite->SetTextureIndex(44);
+	//BOSSHP
+	h30Sprite->Initialize(spriteCommon);
+	h30Sprite->SetPozition({ 400,50 });
+	h30Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(45, "EHP30.png");
+	h30Sprite->SetTextureIndex(45);
+	//BOSSHP
+	h29Sprite->Initialize(spriteCommon);
+	h29Sprite->SetPozition({ 400,50 });
+	h29Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(46, "EHP29.png");
+	h29Sprite->SetTextureIndex(46);
+	//BOSSHP
+	h28Sprite->Initialize(spriteCommon);
+	h28Sprite->SetPozition({ 400,50 });
+	h28Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(47, "EHP28.png");
+	h28Sprite->SetTextureIndex(47);
+	//BOSSHP
+	h27Sprite->Initialize(spriteCommon);
+	h27Sprite->SetPozition({ 400,50 });
+	h27Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(48, "EHP27.png");
+	h27Sprite->SetTextureIndex(48);
+	//BOSSHP
+	h26Sprite->Initialize(spriteCommon);
+	h26Sprite->SetPozition({ 400,50 });
+	h26Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(49, "EHP26.png");
+	h26Sprite->SetTextureIndex(49);
+	//BOSSHP
+	h25Sprite->Initialize(spriteCommon);
+	h25Sprite->SetPozition({ 400,50 });
+	h25Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(50, "EHP25.png");
+	h25Sprite->SetTextureIndex(50);
+	//BOSSHP
+	h24Sprite->Initialize(spriteCommon);
+	h24Sprite->SetPozition({ 400,50 });
+	h24Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(51, "EHP24.png");
+	h24Sprite->SetTextureIndex(51);
+	//BOSSHP
+	h23Sprite->Initialize(spriteCommon);
+	h23Sprite->SetPozition({ 400,50 });
+	h23Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(52, "EHP23.png");
+	h23Sprite->SetTextureIndex(52);
+	//BOSSHP
+	h22Sprite->Initialize(spriteCommon);
+	h22Sprite->SetPozition({ 400,50 });
+	h22Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(53, "EHP22.png");
+	h22Sprite->SetTextureIndex(53);
+	//BOSSHP
+	h21Sprite->Initialize(spriteCommon);
+	h21Sprite->SetPozition({ 400,50 });
+	h21Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(54, "EHP21.png");
+	h21Sprite->SetTextureIndex(54);
+	//BOSSHP
+	h20Sprite->Initialize(spriteCommon);
+	h20Sprite->SetPozition({ 400,50 });
+	h20Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(55, "EHP20.png");
+	h20Sprite->SetTextureIndex(55);
+	//BOSSHP
+	h19Sprite->Initialize(spriteCommon);
+	h19Sprite->SetPozition({ 400,50 });
+	h19Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(56, "EHP19.png");
+	h19Sprite->SetTextureIndex(56);
+	//BOSSHP
+	h18Sprite->Initialize(spriteCommon);
+	h18Sprite->SetPozition({ 400,50 });
+	h18Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(57, "EHP18.png");
+	h18Sprite->SetTextureIndex(57);
+	//BOSSHP
+	h17Sprite->Initialize(spriteCommon);
+	h17Sprite->SetPozition({ 400,50 });
+	h17Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(75, "EHP17.png");
+	h17Sprite->SetTextureIndex(75);
+	//BOSSHP
+	h16Sprite->Initialize(spriteCommon);
+	h16Sprite->SetPozition({ 400,50 });
+	h16Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(58, "EHP16.png");
+	h16Sprite->SetTextureIndex(58);
+	//BOSSHP
+	h15Sprite->Initialize(spriteCommon);
+	h15Sprite->SetPozition({ 400,50 });
+	h15Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(59, "EHP15.png");
+	h15Sprite->SetTextureIndex(59);
+	//BOSSHP
+	h14Sprite->Initialize(spriteCommon);
+	h14Sprite->SetPozition({ 400,50 });
+	h14Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(60, "EHP14.png");
+	h14Sprite->SetTextureIndex(60);
+	//BOSSHP
+	h13Sprite->Initialize(spriteCommon);
+	h13Sprite->SetPozition({ 400,50 });
+	h13Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(61, "EHP13.png");
+	h13Sprite->SetTextureIndex(61);
+	//BOSSHP
+	h12Sprite->Initialize(spriteCommon);
+	h12Sprite->SetPozition({ 400,50 });
+	h12Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(62, "EHP12.png");
+	h12Sprite->SetTextureIndex(62);
+	//BOSSHP
+	h11Sprite->Initialize(spriteCommon);
+	h11Sprite->SetPozition({ 400,50 });
+	h11Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(63, "EHP11.png");
+	h11Sprite->SetTextureIndex(63);
+	//BOSSHP
+	h10Sprite->Initialize(spriteCommon);
+	h10Sprite->SetPozition({ 400,50 });
+	h10Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(64, "EHP10.png");
+	h10Sprite->SetTextureIndex(64);
+	//BOSSHP
+	h9Sprite->Initialize(spriteCommon);
+	h9Sprite->SetPozition({ 400,50 });
+	h9Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(65, "EHP9.png");
+	h9Sprite->SetTextureIndex(65);
+	//BOSSHP
+	h8Sprite->Initialize(spriteCommon);
+	h8Sprite->SetPozition({ 400,50 });
+	h8Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(66, "EHP8.png");
+	h8Sprite->SetTextureIndex(66);
+	//BOSSHP
+	h7Sprite->Initialize(spriteCommon);
+	h7Sprite->SetPozition({ 400,50 });
+	h7Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(67, "EHP7.png");
+	h7Sprite->SetTextureIndex(67);
+	//BOSSHP
+	h6Sprite->Initialize(spriteCommon);
+	h6Sprite->SetPozition({ 400,50 });
+	h6Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(68, "EHP6.png");
+	h6Sprite->SetTextureIndex(68);
+	//BOSSHP
+	h5Sprite->Initialize(spriteCommon);
+	h5Sprite->SetPozition({ 400,50 });
+	h5Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(69, "EHP5.png");
+	h5Sprite->SetTextureIndex(69);
+	//BOSSHP
+	h4Sprite->Initialize(spriteCommon);
+	h4Sprite->SetPozition({ 400,50 });
+	h4Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(70, "EHP4.png");
+	h4Sprite->SetTextureIndex(70);
+	//BOSSHP
+	h3Sprite->Initialize(spriteCommon);
+	h3Sprite->SetPozition({ 400,50 });
+	h3Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(71, "EHP3.png");
+	h3Sprite->SetTextureIndex(71);
+	//BOSSHP
+	h2Sprite->Initialize(spriteCommon);
+	h2Sprite->SetPozition({ 400,50 });
+	h2Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(72, "EHP2.png");
+	h2Sprite->SetTextureIndex(72);
+	//BOSSHP
+	h1Sprite->Initialize(spriteCommon);
+	h1Sprite->SetPozition({ 400,50 });
+	h1Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(73, "EHP1.png");
+	h1Sprite->SetTextureIndex(73);
+	//BOSSHP
+	h0Sprite->Initialize(spriteCommon);
+	h0Sprite->SetPozition({ 400,50 });
+	h0Sprite->SetSize({ 500.0f, 30.0f });
+	spriteCommon->LoadTexture(74, "EHP0.png");
+	h0Sprite->SetTextureIndex(74);
+	
 
 	// カメラ生成
 	mainCamera = new Camera(WinApp::window_width, WinApp::window_height);
@@ -298,7 +611,7 @@ void GameScene::Update() {
 			stage_->Update();
 
 			//シーン切り替え//
-			if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(RT)) {
+			if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(B)) {
 				if (fadeCount == 0) {
 					fadeCount = 1;
 				}
@@ -423,19 +736,7 @@ void GameScene::Update() {
 				//シーン切り替え
 				if (enemy_->GetEnemyHP() >= 15)
 				{
-					clearflag = 1;
-					if (clearflag == true) {
-						ClearMove();
-						clearSceneTimer++;
-						if(clearSceneTimer >=100){
-						enemy_->playerHp = 15;
-						clearTimer++;
-						if (clearTimer >= 1) {
-							enemy_->enemyCount = 0;
-							sceneNo_ = SceneNo::CLEAR;
-						}
-						}
-					}
+					sceneNo_ = SceneNo::BOSS;
 				}
 
 				//シーン切り替え&リセット
@@ -486,6 +787,27 @@ void GameScene::Update() {
 		boss_->Update();
 
 		stage_->Update();
+
+		//シーン切り替え
+		if (boss_->GetBossHP() >= 50)
+		{
+			clearflag = 1;
+			if (clearflag == true) {
+				ClearMove();
+				clearSceneTimer++;
+				if (clearSceneTimer >= 100) {
+					enemy_->playerHp = 15;
+					clearTimer++;
+					if (clearTimer >= 1) {
+						enemy_->enemyCount = 0;
+						boss_->BossCount = 0;
+						
+						
+						sceneNo_ = SceneNo::CLEAR;
+					}
+				}
+			}
+		}
 		break;
 
 	case SceneNo::CLEAR:
@@ -508,7 +830,7 @@ void GameScene::Update() {
 					titleTimer = 0;
 				}
 				////シーン切り替え
-				if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(RT)) {
+				if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(B)) {
 					sceneNo_ = SceneNo::TITLE;
 				}
 			}
@@ -524,7 +846,7 @@ void GameScene::Update() {
 		if (sceneNo_ == SceneNo::GAMEOVER) {
 			overTimer++;
 			//シーン切り替え
-			if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(RT)) {
+			if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(B)) {
 				sceneNo_ = SceneNo::TITLE;
 			}
 		}
@@ -557,7 +879,7 @@ void GameScene::Draw() {
 
 			titleSprite->Draw();
 			if (titleTimer >= 50) {
-				spaceSprite->Draw();
+				titleBSprite->Draw();
 			}
 			//フェードインフェードアウト
 			if (fadeTimer <= 5 && fadeTimer >= 1) {
@@ -582,7 +904,6 @@ void GameScene::Draw() {
 		break;
 	case SceneNo::GAME:
 		if (sceneNo_ == SceneNo::GAME) {
-			
 			/// <summary>
 			/// 3Dオブジェクトの描画
 			/// ここに3Dオブジェクトの描画処理を追加できる
@@ -596,7 +917,6 @@ void GameScene::Draw() {
 				enemy_->Draw();
 			}
 			skydome->Draw();
-
 			stage_->Draw();
 			boss_->Draw();
 
@@ -604,11 +924,12 @@ void GameScene::Draw() {
 			Object3d::PostDraw();
 
 			//// パーティクル UI FBX スプライト描画
-			player_->FbxDraw();
 			if (overFlag == false) {
 				enemy_->EffDraw();
 				enemy_->FbxDraw();
 			}
+			player_->FbxDraw();
+
 			if (startFlag == true) {
 				//HPバー
 				if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
@@ -647,7 +968,8 @@ void GameScene::Draw() {
 			//カウントダウン
 			if (startCount == 1) {
 				start3Sprite->Draw();
-			}else if (startCount == 2) {
+			}
+			else if (startCount == 2) {
 				start3Sprite->Draw();
 			}
 			else if (startCount == 3) {
@@ -659,7 +981,7 @@ void GameScene::Draw() {
 			}
 			if (enemy_->GetPlayerHP() <= 0)
 			{
-				
+
 				//リトライ
 				blackSprite->Draw();
 				if (overTimer >= 40) {
@@ -678,9 +1000,10 @@ void GameScene::Draw() {
 		break;
 
 	case SceneNo::BOSS:
-		
+
 		if (sceneNo_ == SceneNo::BOSS) {
 			hPSprite->Draw();
+
 			/// <summary>
 			/// 3Dオブジェクトの描画
 			/// ここに3Dオブジェクトの描画処理を追加できる
@@ -698,7 +1021,9 @@ void GameScene::Draw() {
 
 			//// パーティクル UI FBX スプライト描画
 			player_->FbxDraw();
-			boss_->FbxDraw();
+			if (boss_->GetBossHP() <= 49) {
+				boss_->FbxDraw();
+			}
 
 			//HPバー
 			if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
@@ -713,7 +1038,162 @@ void GameScene::Draw() {
 			else if (enemy_->GetPlayerHP() <= 0) {
 				hP0Sprite->Draw();
 			}
-	
+			if (boss_->GetBossHP() == 0) {
+				h50Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 1) {
+				h49Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 2) {
+				h48Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 3) {
+				h47Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 4) {
+				h46Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 5) {
+				h45Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 6) {
+				h44Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 7) {
+				h43Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 8) {
+				h42Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 9) {
+				h41Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 10) {
+				h40Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 11) {
+				h39Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 12) {
+				h38Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 13) {
+				h37Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 14) {
+				h36Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 15) {
+				h35Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 16) {
+				h34Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 17) {
+				h33Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 18) {
+				h32Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 19) {
+				h31Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 20) {
+				h30Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 21) {
+				h29Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 22) {
+				h28Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 23) {
+				h27Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 24) {
+				h26Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 25) {
+				h25Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 26) {
+				h24Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 27) {
+				h23Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 28) {
+				h22Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 29) {
+				h21Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 30) {
+				h20Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 31) {
+				h19Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 32) {
+				h18Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 33) {
+				h17Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 34) {
+				h16Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 35) {
+				h15Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 36) {
+				h14Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 37) {
+				h13Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 38) {
+				h12Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 39) {
+				h11Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 40) {
+				h10Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 41) {
+				h9Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 42) {
+				h8Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 43) {
+				h7Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 44) {
+				h6Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 45) {
+				h5Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 46) {
+				h4Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 47) {
+				h3Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 48) {
+				h2Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 49) {
+				h1Sprite->Draw();
+			}
+			else if (boss_->GetBossHP() == 50) {
+				h0Sprite->Draw();
+			}
+		
+
+
 		}
 		break;
 
@@ -725,7 +1205,7 @@ void GameScene::Draw() {
 		skydome->Draw();
 		stage_->Draw();
 		clear_->Draw();
-		
+
 		//3Dオブジェクト描画後処理
 
 		Object3d::PostDraw();
@@ -735,7 +1215,7 @@ void GameScene::Draw() {
 		}
 		if (clearCameraTimer >= 315 && clearCameraTimer <= 420) {
 			conSprite->Draw();
-			
+
 		}
 		if (clearCameraTimer >= 445) {
 			backSprite->Draw();

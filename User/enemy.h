@@ -52,6 +52,8 @@ public:
 
 	//’e‚Ìƒ[ƒ‹ƒhÀ•W‚ğæ“¾
 	Vector3 GetBulletWorldPosition();
+	Vector3 GetBullet1WorldPosition();
+	Vector3 GetBullet2WorldPosition();
 
 	void OnColision();
 	void OnColisionPlayer();
@@ -85,25 +87,24 @@ private:
 	//“G1
 	FBXModel* fbxModel_ = nullptr;
 	FBXObject3d* fbxObject3d_ = nullptr;
-	//“G‚ÌŒ‚”j
-	FBXModel* fbxKnockModel_ = nullptr;
-	FBXObject3d* Knock0Object3d_ = nullptr;
 	//“G2
 	FBXModel* fbxredModel_ = nullptr;
 	FBXObject3d* enemyObject3d_ = nullptr;
-	//“G‚ÌŒ‚”j2
-	FBXModel* fbxKnockRedModel_ = nullptr;
-	FBXObject3d* Knock1Object3d_ = nullptr;
 	//“G3
 	FBXModel* fbxwhiteModel_ = nullptr;
 	FBXObject3d* enemy1Object3d_ = nullptr;
-	//“G‚ÌŒ‚”j3
-	FBXModel* fbxKnocWhitekModel_ = nullptr;
-	FBXObject3d* Knock2Object3d_ = nullptr;
 
 	//’e
 	Object3d* enemyBulletObj_ = nullptr;
 	Model* enemyBulletModel_ = nullptr;
+	//’e2
+	Object3d* enemyBullet1Obj_ = nullptr;
+	Model* enemyBullet1Model_ = nullptr;
+	//’e3
+	Object3d* enemyBullet2Obj_ = nullptr;
+	Model* enemyBullet2Model_ = nullptr;
+
+
 	//‹——£
 	Vector3 playerDistance;
 	Vector3 distance;
