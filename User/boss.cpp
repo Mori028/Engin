@@ -36,8 +36,8 @@ void Boss::Initialize(DirectXCommon* dxCommon, Input* input) {
 	fbxObject3d_ = new FBXObject3d;
 	fbxObject3d_->Initialize();
 	fbxObject3d_->SetModel(fbxModel_);
-	fbxObject3d_->wtf.position = { 0.0f,1.0f,+3.0f };
-	fbxObject3d_->wtf.scale = { 3.5f,3.5f,3.5f };
+	fbxObject3d_->wtf.position = { 0.0f,1.0f,3.0f };
+	fbxObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
 	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	fbxObject3d_->PlayAnimation(1.0f, true);
 
@@ -64,7 +64,7 @@ void Boss::Reset()
 	fbxObject3d_->Initialize();
 	fbxObject3d_->wtf.position = { 0.0f,1.0f,+3.0f };
 	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
-	fbxObject3d_->wtf.scale = { 3.5f,3.5f,3.5f };
+	fbxObject3d_->wtf.scale = { 1.2f,1.2f,1.2f };
 	//ƒ{ƒX‚Ì’e
 	BossBulletObj_->Initialize();
 	BossBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.2f , fbxObject3d_->wtf.position.z };
@@ -74,6 +74,10 @@ void Boss::Reset()
 	BossWallObj_->wtf.position = { 0.0f,-0.3f,+2.3f };
 	BossWallObj_->wtf.rotation = { 0.0f,-1.6f,0.0f };
 	BossWallObj_->wtf.scale = { 0.02f,0.02f,0.02f };
+	liveFlag = true;
+	entry = 1;
+	enemyTimer = 0;
+	BossCount = 0;
 }
 
 void Boss::Over()
@@ -85,16 +89,16 @@ void Boss::Update() {
 
 		enemyTimer++;
 		if (entry == 1) {
-			if (fbxObject3d_->wtf.position.y >= -0.8) {
+			if (fbxObject3d_->wtf.position.y >= -0.3) {
 				fbxObject3d_->wtf.position.y -= moveSpeed_;
 			}
 			else {
-				fbxObject3d_->wtf.position = { 0.0f,-0.8f,+3.0f };
+				fbxObject3d_->wtf.position = { 0.0f,-0.3f,+3.0f };
 				entry = 0;
 			}
 		}
 		//////“G‚ÌUŒ‚‚P//////
-		if (returnFlag == false) {
+		/*if (returnFlag == false) {
 			if (enemyTimer >= 290) {
 
 				fbxObject3d_->wtf.position.z += attackMoveSpeed_;
@@ -116,18 +120,25 @@ void Boss::Update() {
 				entryTimer = 300.0f;
 			}
 
-		}
+		}*/
 		//////“G‚ÌUŒ‚‚P//////
-		
-		//“–‚½‚è”»’è(Ž©‹@’e‚Æƒ{ƒX)
-		if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
-			OnColision();
-		};
 
-		//“–‚½‚è”»’è(Ž©‹@‚Æ“G’e)
-		if (coll.CircleCollision(player_->GetWorldPosition(), GetBulletWorldPosition(), 0.1f, 0.1f)) {
-			OnColisionPlayer();
-		};
+		if (BossCount >= 50) {
+			liveFlag = false;
+		}
+		
+		if (entry == 0) {
+
+			//“–‚½‚è”»’è(Ž©‹@’e‚Æƒ{ƒX)
+			if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
+				OnColision();
+			};
+
+			//“–‚½‚è”»’è(Ž©‹@‚Æ“G’e)
+			if (coll.CircleCollision(player_->GetWorldPosition(), GetBulletWorldPosition(), 0.1f, 0.1f)) {
+				OnColisionPlayer();
+			};
+		}
 	}
 	fbxObject3d_->Update();
 	BossBulletObj_->Update();
@@ -147,8 +158,9 @@ void Boss::Draw() {
 }
 
 void Boss::FbxDraw() {
-	
-	fbxObject3d_->Draw(dxCommon->GetCommandList());
+	if(liveFlag = true){
+		fbxObject3d_->Draw(dxCommon->GetCommandList());
+	}
 	//“G‚ÌÚ‹ß
 	/*fbxObject3d_->wtf.position.z -= moveSpeed_;*/
 
@@ -177,7 +189,6 @@ Vector3 Boss::GetBulletWorldPosition()
 
 void Boss::OnColision()
 {
-	liveFlag = false;
 	BossCount = BossCount + 1;
 }
 

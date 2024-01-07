@@ -99,7 +99,7 @@ private:	//メンバ変数
 	//タイトル
 	Sprite* titleSprite = new Sprite();
 	Sprite* spaceSprite = new Sprite();
-
+	Sprite* titleBSprite = new Sprite();
 	//クリア
 	Sprite* clearSprite = new Sprite();
 	Sprite* conSprite = new Sprite();
@@ -125,6 +125,60 @@ private:	//メンバ変数
 	Sprite* out3Sprite = new Sprite();
 	Sprite* out4Sprite = new Sprite();
 	Sprite* out5Sprite = new Sprite();
+
+	//bossHP
+	Sprite* h50Sprite = new Sprite();
+	Sprite* h49Sprite = new Sprite();
+	Sprite* h48Sprite = new Sprite();
+	Sprite* h47Sprite = new Sprite();
+	Sprite* h46Sprite = new Sprite();
+	Sprite* h45Sprite = new Sprite();
+	Sprite* h44Sprite = new Sprite();
+	Sprite* h43Sprite = new Sprite();
+	Sprite* h42Sprite = new Sprite();
+	Sprite* h41Sprite = new Sprite();
+	Sprite* h40Sprite = new Sprite();
+	Sprite* h39Sprite = new Sprite();
+	Sprite* h38Sprite = new Sprite();
+	Sprite* h37Sprite = new Sprite();
+	Sprite* h36Sprite = new Sprite();
+	Sprite* h35Sprite = new Sprite();
+	Sprite* h34Sprite = new Sprite();
+	Sprite* h33Sprite = new Sprite();
+	Sprite* h32Sprite = new Sprite();
+	Sprite* h31Sprite = new Sprite();
+	Sprite* h30Sprite = new Sprite();
+	Sprite* h29Sprite = new Sprite();
+	Sprite* h28Sprite = new Sprite();
+	Sprite* h27Sprite = new Sprite();
+	Sprite* h26Sprite = new Sprite();
+	Sprite* h25Sprite = new Sprite();
+	Sprite* h24Sprite = new Sprite();
+	Sprite* h23Sprite = new Sprite();
+	Sprite* h22Sprite = new Sprite();
+	Sprite* h21Sprite = new Sprite();
+	Sprite* h20Sprite = new Sprite();
+	Sprite* h19Sprite = new Sprite();
+	Sprite* h18Sprite = new Sprite();
+	Sprite* h17Sprite = new Sprite();
+	Sprite* h16Sprite = new Sprite();
+	Sprite* h15Sprite = new Sprite();
+	Sprite* h14Sprite = new Sprite();
+	Sprite* h13Sprite = new Sprite();
+	Sprite* h12Sprite = new Sprite();
+	Sprite* h11Sprite = new Sprite();
+	Sprite* h10Sprite = new Sprite();
+	Sprite* h9Sprite = new Sprite();
+	Sprite* h8Sprite = new Sprite();
+	Sprite* h7Sprite = new Sprite();
+	Sprite* h6Sprite = new Sprite();
+	Sprite* h5Sprite = new Sprite();
+	Sprite* h4Sprite = new Sprite();
+	Sprite* h3Sprite = new Sprite();
+	Sprite* h2Sprite = new Sprite();
+	Sprite* h1Sprite = new Sprite();
+	Sprite* h0Sprite = new Sprite();
+	
 	int fadeCount = 0;
 	int outTimer = 0;
 	bool fadeFlag = false;

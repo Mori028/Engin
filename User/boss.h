@@ -58,6 +58,8 @@ public:
 	int GetPlayerHP() { return playerHp; }
 	//enemy‚ÌHPŠÇ—
 	int GetBossHP() { return BossCount; }
+	//BossCount
+	int BossCount = 0;
 
 private:
 	const float PI = 3.141592f;
@@ -107,8 +109,6 @@ private:
 	//HP
 	//playerHP
 	int playerHp = 15;//hp0‚ª3
-	//BossCount
-	int BossCount = 0;
 
 	//ƒ[ƒ‹ƒhÀ•W‚ğ“ü‚ê‚é•Ï”
 	Vector3 worldPos;

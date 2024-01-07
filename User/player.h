@@ -10,8 +10,8 @@
 #include "FBXModel.h"
 #include "FbxLoader.h"
 #include "FBXObject3d.h"
-#include "Sprite.h"
 #include "SpriteCommon.h"
+#include "Sprite.h"
 
 /*
 * @file player.h
@@ -70,8 +70,6 @@ private:
 	DirectXCommon* dxCommon = nullptr;
 	Audio* audio = nullptr;
 
-	//レティクル
-	Sprite* RetSprite = new Sprite();
 	//player回転
 	FBXModel* fbxModel_ = nullptr;
 	FBXObject3d* fbxObject3d_ = nullptr;
@@ -91,11 +89,21 @@ private:
 	//レティクル
 	Object3d* ReticleObj_ = nullptr;
 	Model* ReticleModel_ = nullptr;
+
+	Object3d* Reticle1Obj_ = nullptr;
+	Model* Reticle1Model_ = nullptr;
+
+	Object3d* Reticle2Obj_ = nullptr;
+	Model* Reticle2Model_ = nullptr;
+
+	Object3d* Reticle3Obj_ = nullptr;
+	Model* Reticle3Model_ = nullptr;
+
 	//移動の速度
 	const float moveSpeed_ = 0.013f;
 	const float rotaSpeed_ = 0.1f;
 	const float rotateSpeed_ = 0.02f;
-	const float clearMoveSpeed_ = 0.0033f;
+	const float clearMoveSpeed_ = 0.0055f;
 	//行動制限
 	const float xMax = 0.5f;
 	const float xMin = -0.5f;
@@ -104,9 +112,11 @@ private:
 	//レティクルの移動速度
 	const float retXMax = 3.5f;
 	const float retXMin = -3.5f;
-	const float retYMax = 0.3f;
-	const float retYMin = -9.3f;
+	const float retYMax = -1.9f;
+	const float retYMin = 1.9f;
 	const float retSpeed = 0.1f;
+	const float ret1Speed = 0.09f;
+	const float ret2Speed = 0.08f;
 	//傾きフラグ
 	float rollW = 0;
 	float rollA = 0;
