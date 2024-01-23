@@ -117,6 +117,8 @@ private:	//メンバ変数
 	Sprite* hP1Sprite = new Sprite();
 	//Hp0
 	Sprite* hP0Sprite = new Sprite();
+	//ダメージ
+	Sprite* damageSprite = new Sprite();
 
 	//フェードイン＆フェードアウト
 	Sprite* outSprite = new Sprite();
