@@ -34,7 +34,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	this->dxCommon = dxCommon;
 	this->input = input;
 
-	//スプライト共通部分の初期化  ///75まで
+	//スプライト共通部分の初期化  ///76まで
 	spriteCommon = new SpriteCommon;
 	spriteCommon->Initialize(dxCommon);
 
@@ -379,8 +379,8 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	h17Sprite->Initialize(spriteCommon);
 	h17Sprite->SetPozition({ 400,50 });
 	h17Sprite->SetSize({ 500.0f, 30.0f });
-	spriteCommon->LoadTexture(75, "EHP17.png");
-	h17Sprite->SetTextureIndex(75);
+	spriteCommon->LoadTexture(76, "EHP17.png");
+	h17Sprite->SetTextureIndex(76);
 	//BOSSHP
 	h16Sprite->Initialize(spriteCommon);
 	h16Sprite->SetPozition({ 400,50 });
@@ -483,6 +483,13 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	h0Sprite->SetSize({ 500.0f, 30.0f });
 	spriteCommon->LoadTexture(74, "EHP0.png");
 	h0Sprite->SetTextureIndex(74);
+
+	//damage
+	damageSprite->Initialize(spriteCommon);
+	damageSprite->SetPozition({ 0,0 });
+	damageSprite->SetSize({ 1280.0f, 720.0f });
+	spriteCommon->LoadTexture(75, "sousa.png");
+	damageSprite->SetTextureIndex(75);
 	
 
 	// カメラ生成
@@ -700,7 +707,7 @@ void GameScene::Update() {
 							go2Sprite->SetPozition({ 0,150 });
 						}
 						else if (startTimer <= 120 && startTimer >= 119) {
-							goSprite->SetPozition({ 0,-180 });
+							goSprite->SetPozition({ 0,-180 });              
 							go2Sprite->SetPozition({ 0,180 });
 						}
 						else if (startTimer <= 123 && startTimer >= 121) {
@@ -713,7 +720,7 @@ void GameScene::Update() {
 						}
 					}
 					else if (startTimer >= 125) {
-						startCount = 5;
+						startCount = 5;    
 					}
 					if (startCount == 5) {
 						startFlag = true;
@@ -830,7 +837,7 @@ void GameScene::Update() {
 					titleTimer = 0;
 				}
 				////シーン切り替え
-				if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(B)) {
+				if (input->TriggerKey(DIK_SPACE)|| input->PButtonTrigger(B)) {
 					sceneNo_ = SceneNo::TITLE;
 				}
 			}
@@ -909,6 +916,7 @@ void GameScene::Draw() {
 			/// ここに3Dオブジェクトの描画処理を追加できる
 			/// <summary>
 			//3Dオブジェクト描画前処理
+		
 			Object3d::PreDraw(dxCommon->GetCommandList());
 			//// 3Dオブクジェクトの描画
 			player_->Draw();
@@ -922,15 +930,18 @@ void GameScene::Draw() {
 
 			//3Dオブジェクト描画後処理
 			Object3d::PostDraw();
-
 			//// パーティクル UI FBX スプライト描画
 			if (overFlag == false) {
 				enemy_->EffDraw();
 				enemy_->FbxDraw();
 			}
 			player_->FbxDraw();
-
+		
+			
+			
 			if (startFlag == true) {
+				//操作説明
+				damageSprite->Draw();
 				//HPバー
 				if (enemy_->GetPlayerHP() <= 15 && enemy_->GetPlayerHP() >= 11) {
 					hPSprite->Draw();
@@ -1018,7 +1029,6 @@ void GameScene::Draw() {
 			stage_->Draw();
 			//3Dオブジェクト描画後処理
 			Object3d::PostDraw();
-
 			//// パーティクル UI FBX スプライト描画
 			player_->FbxDraw();
 			if (boss_->GetBossHP() <= 49) {

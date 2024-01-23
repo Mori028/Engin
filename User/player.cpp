@@ -278,7 +278,7 @@ void Player::Update() {
 		}
 		if (rollS == 1) {
 			// 下の傾き処理
-			if (fbxObject3d_->wtf.rotation.x <= 1) {
+			if (fbxObject3d_->wtf.rotation.x <= 0.6) {
 				fbxObject3d_->wtf.rotation.x += rotateSpeed_;
 			}
 		}
@@ -297,7 +297,7 @@ void Player::Update() {
 		}
 		if (rollW == 1) {
 			// 上の傾き処理
-			if (fbxObject3d_->wtf.rotation.x >= -1) {
+			if (fbxObject3d_->wtf.rotation.x >= -0.1) {
 				fbxObject3d_->wtf.rotation.x -= rotateSpeed_;
 			}
 		}
