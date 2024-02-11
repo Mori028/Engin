@@ -21,7 +21,7 @@ public:
 	~Bullet();
 public:
 	//初期化
-	void Initialize(DirectXCommon* dxCommon, Input* input);
+	void Initialize(DirectXCommon* dxCommon, MyEngine::Input* input);
 	//更新
 	void Update();
 	//弾の挙動
@@ -41,7 +41,7 @@ public:
 
 private:
 	const float PI = 3.141592f;
-	Input* input_ = nullptr;
+	MyEngine::Input* input_ = nullptr;
 	DirectXCommon* dxCommon = nullptr;
 	Audio* audio = nullptr;
 	//プレイヤー

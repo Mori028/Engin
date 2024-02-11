@@ -23,7 +23,7 @@ public:
 	~Player() = default;
 public:
 	//初期化
-	void Initialize(DirectXCommon* dxCommon, Input* input);
+	void Initialize(DirectXCommon* dxCommon, MyEngine::Input* input);
 	//リセット
 	void Reset();
 	//登場時
@@ -33,7 +33,7 @@ public:
 	//ゲームクリア時
 	void Clear();
 	//更新
-	void Update();
+	virtual void Update();
 	//描画
 	void Draw();
 	//FBXの描画
@@ -66,7 +66,7 @@ public:
 
 private:
 	const float PI = 3.141592f;
-	Input* input_ = nullptr;
+	MyEngine::Input* input_ = nullptr;
 	DirectXCommon* dxCommon = nullptr;
 	Audio* audio = nullptr;
 

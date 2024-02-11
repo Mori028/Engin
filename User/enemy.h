@@ -25,7 +25,7 @@ public:
 	~Enemy();
 public:
 	//初期化
-	void Initialize(DirectXCommon* dxCommon, Input* input);
+	void Initialize(DirectXCommon* dxCommon, MyEngine::Input* input);
 	//リセット
 	void Reset();
 	//ゲームクリア
@@ -77,9 +77,11 @@ public:
 	//enemyの数
 	int enemyCount = 0;
 
+
+
 private:
 	const float PI = 3.141592f;
-	Input* input_ = nullptr;
+	MyEngine::Input* input_ = nullptr;
 	DirectXCommon* dxCommon = nullptr;
 	Audio* audio = nullptr;
 	Player* player_ = nullptr;

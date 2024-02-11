@@ -26,7 +26,7 @@ GameScene::~GameScene() {
 /// <summary>
 /// 初期化
 /// </summary>
-void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
+void GameScene::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	// nullチェック
 	assert(dxCommon);
 	assert(input);
@@ -542,6 +542,9 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input) {
 	stage_->Initialize(dxCommon, input);
 	stage_->SetCamera(mainCamera);
 
+
+	//ファイルの読み込み
+	LoadEnemyPopData();
 }
 
 void GameScene::Reset() {
@@ -738,7 +741,13 @@ void GameScene::Update() {
 			if (startFlag == true) {
 				skydome->wtf.position.z -= skyMoveSpeed_;
 				if (clearflag == false) {
-					enemy_->Update();
+
+				/*enemy_->Update();*/
+					for (std::unique_ptr<Enemys>& enemys : enemys_) {
+						enemys->Update();
+					}
+					// 敵発生コマンドの更新
+					UpdataEnemyPopCommands();
 				}
 				//シーン切り替え
 				if (enemy_->GetEnemyHP() >= 15)
@@ -916,13 +925,20 @@ void GameScene::Draw() {
 			/// ここに3Dオブジェクトの描画処理を追加できる
 			/// <summary>
 			//3Dオブジェクト描画前処理
-		
+			if (overFlag == false) {
+				/*enemy_->EffDraw();
+				enemy_->FbxDraw();*/
+			}
+
 			Object3d::PreDraw(dxCommon->GetCommandList());
 			//// 3Dオブクジェクトの描画
 			player_->Draw();
 			Bullet_->Draw();
 			if (clearflag == false) {
-				enemy_->Draw();
+				/*enemy_->Draw();*/
+				for (std::unique_ptr<Enemys>& enemys : enemys_) {
+					enemys->Draw();
+				}
 			}
 			skydome->Draw();
 			stage_->Draw();
@@ -931,10 +947,6 @@ void GameScene::Draw() {
 			//3Dオブジェクト描画後処理
 			Object3d::PostDraw();
 			//// パーティクル UI FBX スプライト描画
-			if (overFlag == false) {
-				enemy_->EffDraw();
-				enemy_->FbxDraw();
-			}
 			player_->FbxDraw();
 		
 			
@@ -1248,6 +1260,96 @@ void GameScene::Draw() {
 		break;
 	}
 
+}
+
+void GameScene::LoadEnemyPopData() {
+
+	//ファイルを開く
+	std::ifstream file;
+	file.open("Resources/enemyPop.csv");
+
+	assert(file.is_open());
+
+	//ファイルの内容を文字列ストリームにコピー
+	enemyPopCommands << file.rdbuf();
+
+	//ファイルを閉じる
+	file.close();
+
+}
+
+void GameScene::UpdataEnemyPopCommands()
+{
+	//待機処理
+	if (isStand_) {
+		standTime_--;
+		if (standTime_ <= 0) {
+			//待機完了
+			isStand_ = false;
+		}
+		return;
+	}
+
+	// 1行分の文字列を入れる変数
+	std::string line;
+
+	//コマンド実行ループ
+	while (getline(enemyPopCommands, line)) {
+		// 1行分の文字数をストリームに変換して解折しやすくなる
+		std::istringstream line_stream(line);
+
+		std::string word;
+		//,区切りで行の先頭文字を取得
+		getline(line_stream, word, ',');
+
+		//"//"から始まる行はコメント
+		if (word.find("//") == 0) {
+			//コメント行を飛ばす
+			continue;
+		}
+		// POPコマンド
+		if (word.find("POP") == 0) {
+			// X座標
+			std::getline(line_stream, word, ',');
+			float x = static_cast<float>(std::atof(word.c_str()));
+
+			// Y座標
+			std::getline(line_stream, word, ',');
+			float y = static_cast<float>(std::atof(word.c_str()));
+
+			// Z座標
+			std::getline(line_stream, word, ',');
+			float z = static_cast<float>(std::atof(word.c_str()));
+
+			GenerEnemy(Vector3(x, y, z));
+		}
+		// WAITコマンド
+		else if (word.find("WAIT") == 0) {
+			std::getline(line_stream, word, ',');
+
+			//待ち時間
+			int32_t waitTime = std::atoi(word.c_str());
+
+			//待機開始
+			isStand_ = true;
+			standTime_ = waitTime;
+
+			//ループを抜ける
+			break;
+		}
+	}
+
+}
+
+void GameScene::GenerEnemy(Vector3 EnemyPos)
+{
+	std::unique_ptr<Enemys> newEnemys = std::make_unique<Enemys>();
+
+	newEnemys->Initialize(dxCommon, input);
+	//敵キャラにアドレスを渡す
+	newEnemys->SetPlayer(player_);
+
+	enemys_.push_back(std::move(newEnemys));
 }
 
 Vector3 GameScene::bVelocity(Vector3& velocity, Transform& worldTransform)

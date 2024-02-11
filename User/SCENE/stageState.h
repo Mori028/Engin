@@ -1,31 +1,30 @@
+/*
+ * @file stageState.h
+ * @brind ステージパターン
+ */
+
 #pragma once
+#include"Transform.h"
+#include"stage.h"
 #include "DirectXCommon.h"
 #include "Object3d.h"
 #include "Input.h"
 #include "Camera.h"
 
-/*
-* @file stage.h
-* @brind ステージ配置など
-*/
+class Stage;
 
-class Stage {
+class StageState {
 public:
-	Stage();
-	~Stage();
-public:
+
 	//初期化
 	void Initialize(DirectXCommon* dxCommon, MyEngine::Input* input);
+	//ゲームオーバー時に動きを止める
+	void Over();
+
 	//リセット
 	void Reset();
 	//ステージのループ
 	void Loop();
-	//ゲームオーバー時に動きを止める
-	void Over();
-	//更新
-	void Update();
-	//描画
-	void Draw();
 
 	/// <summary>
 	/// ポジション
