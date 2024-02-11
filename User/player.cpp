@@ -5,7 +5,7 @@
 * @brind プレイヤーの動きなど
 */
 
-void Player::Initialize(DirectXCommon* dxCommon, Input* input) {
+void Player::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	// nullptrチェック
 	assert(dxCommon);
 	assert(input);
@@ -174,6 +174,86 @@ void Player::Update() {
 				}
 			}
 		}
+		if (moovFlag == 1) {
+			//プレイヤーの移動
+			/////D/////
+			if (input_->PushKey(DIK_D) || input_->StickInput(L_RIGHT)) {
+				rollD = 1;
+			}
+			else {
+				rollD = 0;
+			}
+			if (rollD == 1) {
+				// 右の傾き処理
+				if (fbxObject3d_->wtf.rotation.z >= -1.0) {
+					fbxObject3d_->wtf.rotation.z -= rotateSpeed_;
+				}
+			}
+			else if (rollD == 0) {
+				if (fbxObject3d_->wtf.rotation.z <= -0.02) {
+					fbxObject3d_->wtf.rotation.z += rotateSpeed_;
+				}
+			}
+
+			//////A/////
+			if (input_->PushKey(DIK_A) || input_->StickInput(L_LEFT)) {
+				rollA = 1;
+			}
+			else {
+				rollA = 0;
+			}
+			if (rollA == 1) {
+				// 左の傾き処理
+				if (fbxObject3d_->wtf.rotation.z <= 1.0) {
+					fbxObject3d_->wtf.rotation.z += rotateSpeed_;
+				}
+			}
+			else if (rollA == 0) {
+				if (fbxObject3d_->wtf.rotation.z >= 0.02) {
+					fbxObject3d_->wtf.rotation.z -= rotateSpeed_;
+				}
+			}
+
+			/////S/////
+			if (input_->PushKey(DIK_S) || input_->StickInput(L_DOWN)) {
+				rollS = 1;
+			}
+			else {
+				rollS = 0;
+			}
+			if (rollS == 1) {
+				// 下の傾き処理
+				if (fbxObject3d_->wtf.rotation.x <= 0.6) {
+					fbxObject3d_->wtf.rotation.x += rotateSpeed_;
+				}
+			}
+			else if (rollS == 0) {
+				if (fbxObject3d_->wtf.rotation.x >= 0.02) {
+					fbxObject3d_->wtf.rotation.x -= rotateSpeed_;
+				}
+			}
+
+			/////W/////
+			if (input_->PushKey(DIK_W) || input_->StickInput(L_UP)) {
+				rollW = 1;
+			}
+			else {
+				rollW = 0;
+			}
+			if (rollW == 1) {
+				// 上の傾き処理
+				if (fbxObject3d_->wtf.rotation.x >= -0.1) {
+					fbxObject3d_->wtf.rotation.x -= rotateSpeed_;
+				}
+			}
+			else if (rollW == 0) {
+				// 上の傾き処理
+				if (fbxObject3d_->wtf.rotation.x <= -0.02) {
+					fbxObject3d_->wtf.rotation.x += rotateSpeed_;
+				}
+
+			}
+		}
 		//レティクル
 		if (input_->PushKey(DIK_D) || input_->StickInput(R_RIGHT)) {
 
@@ -222,93 +302,14 @@ void Player::Update() {
 				distance = enemyDistance;
 				distance *= shortSpeed;
 				if (bulletCoolTime >= 10.0f) {
-					bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y , fbxObject3d_->wtf.position.z };
+					bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y - 0.05f , fbxObject3d_->wtf.position.z  };
 					bulletCoolTime = 0;
 				}
 			}
 		}
 	}
 	///////////////傾き処理/////////////
-	if (moovFlag == 1) {
-		//プレイヤーの移動
-		/////D/////
-		if (input_->PushKey(DIK_D) || input_->StickInput(L_RIGHT)) {
-			rollD = 1;
-		}
-		else {
-			rollD = 0;
-		}
-		if (rollD == 1) {
-			// 右の傾き処理
-			if (fbxObject3d_->wtf.rotation.z >= -1.0) {
-				fbxObject3d_->wtf.rotation.z -= rotateSpeed_;
-			}
-		}
-		else if (rollD == 0) {
-			if (fbxObject3d_->wtf.rotation.z <= -0.02) {
-				fbxObject3d_->wtf.rotation.z += rotateSpeed_;
-			}
-		}
-
-		//////A/////
-		if (input_->PushKey(DIK_A) || input_->StickInput(L_LEFT)) {
-			rollA = 1;
-		}
-		else {
-			rollA = 0;
-		}
-		if (rollA == 1) {
-			// 左の傾き処理
-			if (fbxObject3d_->wtf.rotation.z <= 1.0) {
-				fbxObject3d_->wtf.rotation.z += rotateSpeed_;
-			}
-		}
-		else if (rollA == 0) {
-			if (fbxObject3d_->wtf.rotation.z >= 0.02) {
-				fbxObject3d_->wtf.rotation.z -= rotateSpeed_;
-			}
-		}
-
-		/////S/////
-		if (input_->PushKey(DIK_S) || input_->StickInput(L_DOWN)) {
-			rollS = 1;
-		}
-		else {
-			rollS = 0;
-		}
-		if (rollS == 1) {
-			// 下の傾き処理
-			if (fbxObject3d_->wtf.rotation.x <= 0.6) {
-				fbxObject3d_->wtf.rotation.x += rotateSpeed_;
-			}
-		}
-		else if (rollS == 0) {
-			if (fbxObject3d_->wtf.rotation.x >= 0.02) {
-				fbxObject3d_->wtf.rotation.x -= rotateSpeed_;
-			}
-		}
-
-		/////W/////
-		if (input_->PushKey(DIK_W) || input_->StickInput(L_UP)) {
-			rollW = 1;
-		}
-		else {
-			rollW = 0;
-		}
-		if (rollW == 1) {
-			// 上の傾き処理
-			if (fbxObject3d_->wtf.rotation.x >= -0.1) {
-				fbxObject3d_->wtf.rotation.x -= rotateSpeed_;
-			}
-		}
-		else if (rollW == 0) {
-			// 上の傾き処理
-			if (fbxObject3d_->wtf.rotation.x <= -0.02) {
-				fbxObject3d_->wtf.rotation.x += rotateSpeed_;
-			}
-
-		}
-	}
+	
 	//FBXモデル位置固定
 	fbxRoteObject3d_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y , fbxObject3d_->wtf.position.z };
 

@@ -8,7 +8,7 @@ Bullet::~Bullet()
 {
 }
 
-void Bullet::Initialize(DirectXCommon* dxCommon, Input* input)
+void Bullet::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input)
 {
 	//’e
 	bulletModel_ = Model::LoadFromOBJ("boll");

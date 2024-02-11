@@ -22,7 +22,7 @@ public:
 	Title();
 	~Title();
 
-	void Initialize(DirectXCommon* dxCommon, Input* input);
+	void Initialize(DirectXCommon* dxCommon, MyEngine::Input* input);
 	void Reset();
 	void FadeOut();
 	void Update();
@@ -41,7 +41,7 @@ public:
 
 private:
 	const float PI = 3.141592f;
-	Input* input_ = nullptr;
+	MyEngine::Input* input_ = nullptr;
 	DirectXCommon* dxCommon = nullptr;
 	Audio* audio = nullptr;
 

@@ -12,7 +12,7 @@ Clear::~Clear()
 {
 }
 
-void Clear::Initialize(DirectXCommon* dxCommon, Input* input)
+void Clear::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input)
 {
 	// nullptrチェック
 	assert(dxCommon);

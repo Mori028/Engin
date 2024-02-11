@@ -1,3 +1,5 @@
+#include "stageState.h"
+
 #include "stage.h"
 
 
@@ -5,16 +7,8 @@
 * @file stage.cpp
 * @brind ステージ配置など
 */
-Stage::Stage()
-{
-}
 
-Stage::~Stage()
-{
-	
-}
-
-void Stage::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input)
+void StageState::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input)
 {
 	// nullptrチェック
 	assert(dxCommon);
@@ -86,7 +80,7 @@ void Stage::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input)
 	stage10_->SetModel(felld);
 }
 
-void Stage::Reset()
+void StageState::Reset()
 {
 	//ステージの位置初期化
 	stage_->Initialize();
@@ -132,7 +126,7 @@ void Stage::Reset()
 	moveFlag = 1;
 }
 
-void Stage::Loop()
+void StageState::Loop()
 {
 	//ステージの位置をループさせる
 	stage_->Initialize();
@@ -177,51 +171,7 @@ void Stage::Loop()
 
 }
 
-void Stage::Over()
+void StageState::Over()
 {
 	moveFlag = 0;
-}
-
-void Stage::Update()
-{
-	//ステージ3でループさせる
-	if (stage3_->wtf.position.z <= 0) {
-		Loop();
-	}
-	if (moveFlag == 1) {
-		stage_->wtf.position.z -= moveSpeed_;
-		stage2_->wtf.position.z -= moveSpeed_;
-		stage3_->wtf.position.z -= moveSpeed_;
-		stage4_->wtf.position.z -= moveSpeed_;
-		stage5_->wtf.position.z -= moveSpeed_;
-		stage6_->wtf.position.z -= moveSpeed_;
-		stage7_->wtf.position.z -= moveSpeed_;
-		stage8_->wtf.position.z -= moveSpeed_;
-		stage9_->wtf.position.z -= moveSpeed_;
-		stage10_->wtf.position.z -= moveSpeed_;
-	}
-	stage_->Update();
-	stage2_->Update();
-	stage3_->Update();
-	stage4_->Update();
-	stage5_->Update();
-	stage6_->Update();
-	stage7_->Update();
-	stage8_->Update();
-	stage9_->Update();
-	stage10_->Update();
-}
-
-void Stage::Draw()
-{
-	stage_->Draw();
-	stage2_->Draw();
-	stage3_->Draw();
-	stage4_->Draw();
-	stage5_->Draw();
-	stage6_->Draw();
-	stage7_->Draw();
-	stage8_->Draw();
-	stage9_->Draw();
-	stage10_->Draw();
 }

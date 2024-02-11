@@ -11,7 +11,7 @@
 
 #include "Matrix4.h"
 #include "Camera.h"
-
+#include <sstream>
 #include "ParticleManager.h"
 
 #include "Player.h"
@@ -21,6 +21,7 @@
 #include <title.h>
 #include "Bullet.h"
 #include <clear.h>
+#include <enemys.h>
 
 /*
 * @file GameScene.h
@@ -49,7 +50,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(DirectXCommon* dxCommon, Input* input);
+	void Initialize(DirectXCommon* dxCommon, MyEngine::Input* input);
 
 	void Reset();
 
@@ -67,7 +68,31 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 敵発生
+	/// </summary>
+	void LoadEnemyPopData();
+
+	/// <summary>
+	/// 敵発生コマンドの更新
+	/// </summary>
+	void UpdataEnemyPopCommands();
+
+	/// <summary>
+	/// 敵の発生
+	/// </summary>
+	void GenerEnemy(Vector3 EnemyPos);
+
 	Vector3 bVelocity(Vector3& velocity, Transform& worldTransform);
+
+	// 敵発生コマンド
+	std::stringstream enemyPopCommands;
+
+	//待機中フラグ
+	bool isStand_ = false;
+
+	//待機タイマー
+	int standTime_ = 0;
 
 public:
 	//音を止める関数
@@ -76,7 +101,7 @@ public:
 
 private: // メンバ変数 (固定)
 	DirectXCommon* dxCommon = nullptr;
-	Input* input = nullptr;
+	MyEngine::Input* input = nullptr;
 
 	SpriteCommon* spriteCommon = nullptr;
 	Audio* audio = nullptr;
@@ -232,6 +257,12 @@ private:	//メンバ変数
 
 	//ボス
 	Boss* boss_ = nullptr;
+
+	// 敵キャラ
+	std::list<std::unique_ptr<Enemys>> enemys_;
+
+	// 敵発生コマンド
+	std::stringstream enemyPopCommands_;
 
 	//背景や床
 	Object3d* skydome = nullptr;

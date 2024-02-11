@@ -16,7 +16,7 @@ Enemy::~Enemy() {
 	delete fbxModel_;
 }
 
-void Enemy::Initialize(DirectXCommon* dxCommon, Input* input) {
+void Enemy::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	// nullptrチェック
 	assert(dxCommon);
 	assert(input);

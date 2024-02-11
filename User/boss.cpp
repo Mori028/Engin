@@ -16,7 +16,7 @@ Boss::~Boss() {
 	delete fbxModel_;
 }
 
-void Boss::Initialize(DirectXCommon* dxCommon, Input* input) {
+void Boss::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	// nullptrチェック
 	assert(dxCommon);
 	assert(input);

@@ -13,7 +13,7 @@ Title::~Title()
 {
 }
 
-void Title::Initialize(DirectXCommon* dxCommon, Input* input)
+void Title::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input)
 {
 	// nullptrチェック
 	assert(dxCommon);

@@ -119,11 +119,13 @@
     <ClCompile Include="Engine\MATH\Vector3.cpp" />
     <ClCompile Include="Engine\MATH\Vector4.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="User\enemy.cpp" />
-    <ClCompile Include="User\player.cpp" />
     <ClCompile Include="User\bullet.cpp" />
+    <ClCompile Include="User\enemy.cpp" />
+    <ClCompile Include="User\enemys.cpp" />
+    <ClCompile Include="User\player.cpp" />
     <ClCompile Include="User\SCENE\clear.cpp" />
     <ClCompile Include="User\SCENE\GameScene.cpp" />
+    <ClCompile Include="User\SCENE\stageState.cpp" />
     <ClCompile Include="User\SCENE\title.cpp" />
     <ClCompile Include="User\stage.cpp" />
     <ClCompile Include="User\boss.cpp" />
@@ -156,11 +158,13 @@
     <ClInclude Include="Engine\MATH\Vector3.h" />
     <ClInclude Include="Engine\MATH\Vector4.h" />
     <ClInclude Include="User\boss.h" />
-    <ClInclude Include="User\enemy.h" />
-    <ClInclude Include="User\player.h" />
     <ClInclude Include="User\bullet.h" />
+    <ClInclude Include="User\enemy.h" />
+    <ClInclude Include="User\enemys.h" />
+    <ClInclude Include="User\player.h" />
     <ClInclude Include="User\SCENE\clear.h" />
     <ClInclude Include="User\SCENE\GameScene.h" />
+    <ClInclude Include="User\SCENE\stageState.h" />
     <ClInclude Include="User\SCENE\title.h" />
     <ClInclude Include="User\stage.h" />
   </ItemGroup>

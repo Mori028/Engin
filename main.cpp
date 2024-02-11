@@ -22,11 +22,11 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	//ポインタ
 	WinApp* winApp = nullptr;
 	DirectXCommon* dxCommon = nullptr;
-	FPS* fps = new FPS;
-	Input* input = nullptr;
+	MyEngine::FPS* fps = new MyEngine::FPS;
+	MyEngine::Input* input = nullptr;
 	GameScene* gameScene = nullptr;
 
-	ImGuiManager* imgui = nullptr;
+	MyEngine::ImGuiManager* imgui = nullptr;
 
 	//windowsAPIの初期化
 	winApp = new WinApp();
@@ -36,11 +36,11 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	dxCommon->Initialize(winApp);
 
 	//入力の初期化　
-	input = new Input();
+	input = new MyEngine::Input();
 	input->Initialize(winApp);
 
 	// ImGuiの初期化
-	imgui = new ImGuiManager();
+	imgui = new MyEngine::ImGuiManager();
 	imgui->Initialize(winApp,dxCommon);
 
 

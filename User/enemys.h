@@ -13,53 +13,42 @@
 #include "Collision.h"
 
 /*
-* @file boss.h
-* @brind ボスの動きなど
+* @file Enemys.h
+* @brind 敵の動きなど
 */
 class Player;
 
-class Boss {
-public:
-	Boss();
-	~Boss();
-
+class Enemys {
 public:
 	//初期化
 	void Initialize(DirectXCommon* dxCommon, MyEngine::Input* input);
-	//リセット
-	void Reset();
-	//ゲームオーバー
-	void Over();
+	
 	//更新
 	void Update();
 	//描画
 	void Draw();
-	//FBXの描画
-	void FbxDraw();
-	////ワールド座標を取得
-	Vector3 GetWorldPosition();
-
-	//弾のワールド座標を取得
-	Vector3 GetBulletWorldPosition();
-	//当たり判定
-	void OnColision();
-	void OnColisionPlayer();
 
 	/// <summary>
 	/// ポジション
 	/// </summary>
 	/// <param name="pos"></param>
-	void SetPos(Vector3 pos) { fbxObject3d_->wtf.position = pos; };
+	void SetPos(Vector3 pos) { EnemysObj_->wtf.position = pos; };
 	void SetPlayer(Player* player) { player_ = player; };
+	
 public:
 	//音を止める関数
 	IXAudio2SourceVoice* pSourceVoice[10] = { 0 };
-	//playerのHP管理
+
 	int GetPlayerHP() { return playerHp; }
-	//enemyのHP管理
-	int GetBossHP() { return BossCount; }
-	//BossCount
-	int BossCount = 0;
+
+	int GetEnemysHP() { return EnemysCount; }
+
+	//playerのHP
+	int playerHp = 15;
+	//Enemysの数
+	int EnemysCount = 0;
+
+
 
 private:
 	const float PI = 3.141592f;
@@ -68,17 +57,11 @@ private:
 	Audio* audio = nullptr;
 	Player* player_ = nullptr;
 	Collision coll;
-	//敵1
-	FBXModel* fbxModel_ = nullptr;
-	FBXObject3d* fbxObject3d_ = nullptr;
-
+	
 	//弾
-	Object3d* BossBulletObj_ = nullptr;
-	Model* BossBulletModel_ = nullptr;
+	Object3d* EnemysObj_ = nullptr;
+	Model* EnemysModel_ = nullptr;
 
-	//壁
-	Object3d* BossWallObj_ = nullptr;
-	Model* BossWallModel_ = nullptr;
 	//距離
 	Vector3 playerDistance;
 	Vector3 distance;
@@ -86,29 +69,27 @@ private:
 	//弾のフラグ
 	bool isShootFlag = false;
 	float bulletTimer = 0;
-	//動くスピード
-	const float moveSpeed_ = 0.01f;
+	//敵のスピード
+	const float moveSpeed_ = 0.05f;
 	const float rotaSpeed_ = 0.1f;
-	const float attackMoveSpeed_ = 0.30f;
+	//敵関連
 	float timer = 0;
-	//敵のHP
 	int hp = 1;
-	//攻撃の種類
 	int bulletMode = 1;
 	float changeTimer = 0;
-	//生存しているか
 	bool liveFlag = true;
-	float enemyTimer = 0.0f;
-	bool returnFlag = false;
-	//攻撃をしているか
-	int attackFlag = 0;
-	//敵の登場
-	float entryTimer = 300.0f;
-	int entry = 1;
-
-	//HP
-	//playerHP
-	int playerHp = 15;//hp0が3
+	//敵の撃破時
+	int downTimer = 0;
+	int downRotate = 0;
+	bool dounDraw = false;
+	//クリア時
+	int ClearMove = 0;
+	//パーティクル関連
+	int effTimer = 0;
+	int isEffFlag = 0;
+	//パーティクルクラスの初期化 
+	//ダメージ
+	std::unique_ptr<ParticleManager> particleManager;
 
 	//ワールド座標を入れる変数
 	Vector3 worldPos;
