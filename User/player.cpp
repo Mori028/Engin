@@ -142,6 +142,8 @@ void Player::Update() {
 		}
 	}
 	if(ClearMove==false){
+
+
 		if (moovFlag == 1) {
 			//プレイヤーの移動
 			/////D/////
