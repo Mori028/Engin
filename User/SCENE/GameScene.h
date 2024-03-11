@@ -15,14 +15,14 @@
 #include "ParticleManager.h"
 
 #include "Player.h"
-#include "enemy.h"
 #include "stage.h"
 #include <boss.h>
 #include <title.h>
 #include "Bullet.h"
 #include <clear.h>
 #include <enemys.h>
-
+#include <GameScene.h>
+#include "effectManager.h"
 /*
 * @file GameScene.h
 * @brind ゲームの本体
@@ -54,6 +54,7 @@ public: // メンバ関数
 
 	void Reset();
 
+
 	void FadeOut();
 	void FadeIn();
 	void Over();
@@ -67,6 +68,11 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
+
+	//パーティクル更新
+	void EffUpdate();
+	//バーティクル描画
+	void EffDraw();
 
 	/// <summary>
 	/// 敵発生
@@ -83,7 +89,12 @@ public: // メンバ関数
 	/// </summary>
 	void GenerEnemy(Vector3 EnemyPos);
 
+
 	Vector3 bVelocity(Vector3& velocity, Transform& worldTransform);
+
+	void OnColision();
+
+	void OnColisionPlayer();
 
 	// 敵発生コマンド
 	std::stringstream enemyPopCommands;
@@ -94,7 +105,12 @@ public: // メンバ関数
 	//待機タイマー
 	int standTime_ = 0;
 
+	void SetPlayer(Player* player) { player_ = player; };
+	//敵のリスト
+	const std::list<std::unique_ptr<Enemys>>& GetEnemys() { return enemys_; }
+
 public:
+
 	//音を止める関数
 	IXAudio2SourceVoice* pSourceVoice[10] = { 0 };
 
@@ -105,7 +121,7 @@ private: // メンバ変数 (固定)
 
 	SpriteCommon* spriteCommon = nullptr;
 	Audio* audio = nullptr;
-
+	Collision coll;
 
 private:	//メンバ変数
 	const float PI = 3.141592f;
@@ -206,6 +222,9 @@ private:	//メンバ変数
 	Sprite* h1Sprite = new Sprite();
 	Sprite* h0Sprite = new Sprite();
 	
+	//playerのHP
+	int playerHp = 15;
+
 	int fadeCount = 0;
 	int outTimer = 0;
 	bool fadeFlag = false;
@@ -247,10 +266,7 @@ private:	//メンバ変数
 	Player* player_ = nullptr;
 
 	//プレイヤーの弾
-	Bullet* Bullet_ = nullptr;
-
-	//プレイヤー
-	Enemy* enemy_ = nullptr;
+	Bullet* bullet_ = nullptr;
 
 	//ステージ
 	Stage* stage_ = nullptr;
@@ -261,8 +277,15 @@ private:	//メンバ変数
 	// 敵キャラ
 	std::list<std::unique_ptr<Enemys>> enemys_;
 
-	// 敵発生コマンド
-	std::stringstream enemyPopCommands_;
+	//倒した敵のカウント
+	int EnemyCount = 0;
+
+	//パーティクル関連
+	int effTimer = 0;
+	int isEffFlag = 0;
+	//パーティクルクラスの初期化 
+	//ダメージ
+	std::unique_ptr<ParticleManager> particleManager;
 
 	//背景や床
 	Object3d* skydome = nullptr;

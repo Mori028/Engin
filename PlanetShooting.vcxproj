@@ -120,7 +120,7 @@
     <ClCompile Include="Engine\MATH\Vector4.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="User\bullet.cpp" />
-    <ClCompile Include="User\enemy.cpp" />
+    <ClCompile Include="User\effectManager.cpp" />
     <ClCompile Include="User\enemys.cpp" />
     <ClCompile Include="User\player.cpp" />
     <ClCompile Include="User\SCENE\clear.cpp" />
@@ -159,7 +159,7 @@
     <ClInclude Include="Engine\MATH\Vector4.h" />
     <ClInclude Include="User\boss.h" />
     <ClInclude Include="User\bullet.h" />
-    <ClInclude Include="User\enemy.h" />
+    <ClInclude Include="User\effectManager.h" />
     <ClInclude Include="User\enemys.h" />
     <ClInclude Include="User\player.h" />
     <ClInclude Include="User\SCENE\clear.h" />
@@ -178,6 +178,7 @@
     <None Include="Engine\SHADER\OBJShaderHeader.hlsli" />
     <None Include="Engine\SHADER\Particle.hlsli" />
     <None Include="Engine\SHADER\Sprite.hlsli" />
+    <None Include="Resources\enemyPop.csv" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Engine\SHADER\FBXPS.hlsl">

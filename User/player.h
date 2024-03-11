@@ -17,6 +17,7 @@
 * @file player.h
 * @brind プレイヤーの動きなど
 */
+
 class Player {
 public:
 	Player() = default;

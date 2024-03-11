@@ -181,9 +181,6 @@
     <ClCompile Include="Engine\3D\FBXObject3d.cpp">
       <Filter>Engine\ソースファイル\3D</Filter>
     </ClCompile>
-    <ClCompile Include="User\enemy.cpp">
-      <Filter>user\ソース</Filter>
-    </ClCompile>
     <ClCompile Include="User\stage.cpp">
       <Filter>user\ソース</Filter>
     </ClCompile>
@@ -203,6 +200,9 @@
       <Filter>user\シーン</Filter>
     </ClCompile>
     <ClCompile Include="User\bullet.cpp">
+      <Filter>user\ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="User\effectManager.cpp">
       <Filter>user\ソース</Filter>
     </ClCompile>
   </ItemGroup>
@@ -294,9 +294,6 @@
     <ClInclude Include="User\stage.h">
       <Filter>user\ヘッダー</Filter>
     </ClInclude>
-    <ClInclude Include="User\enemy.h">
-      <Filter>user\ヘッダー</Filter>
-    </ClInclude>
     <ClInclude Include="User\boss.h">
       <Filter>user\ヘッダー</Filter>
     </ClInclude>
@@ -315,6 +312,9 @@
     <ClInclude Include="User\bullet.h">
       <Filter>user\ヘッダー</Filter>
     </ClInclude>
+    <ClInclude Include="User\effectManager.h">
+      <Filter>user\ヘッダー</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\SHADER\Sprite.hlsli">
@@ -328,6 +328,9 @@
     </None>
     <None Include="Engine\SHADER\FBX.hlsli">
       <Filter>Engine\シェーダーファイル</Filter>
+    </None>
+    <None Include="Resources\enemyPop.csv">
+      <Filter>user\リソース</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
