@@ -53,23 +53,6 @@ void Player::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	ReticleObj_->wtf.rotation = { 0.0f,0.0f,0.0f };
 	ReticleObj_->wtf.position = { 0.0f,0.0f,10.0f };
 
-	//レティクル2重
-	Reticle1Model_ = Model::LoadFromOBJ("Ret");
-	Reticle1Obj_ = Object3d::Create();
-	Reticle1Obj_->SetModel(ReticleModel_);
-	Reticle1Obj_->wtf.scale = { 1.0f,1.0f,1.0f };
-	Reticle1Obj_->wtf.rotation = { 0.0f,0.0f,0.0f };
-	Reticle1Obj_->wtf.position = { 0.0f,0.0f,8.0f };
-
-	//レティクル3重
-	Reticle2Model_ = Model::LoadFromOBJ("Ret");
-	Reticle2Obj_ = Object3d::Create();
-	Reticle2Obj_->SetModel(ReticleModel_);
-	Reticle2Obj_->wtf.scale = { 1.0f,1.0f,1.0f };
-	Reticle2Obj_->wtf.rotation = { 0.0f,0.0f,0.0f };
-	Reticle2Obj_->wtf.position = { 0.0f,0.0f,6.0f };
-
-
 	Reset();
 }
 
@@ -89,8 +72,7 @@ void Player::Reset()
 	//レティクル
 	ReticleObj_->Initialize();
 	ReticleObj_->wtf.position = { 0.0f,0.0f,30.0f };
-	Reticle1Obj_->wtf.position = { 0.0f,0.0f,8.0f };
-	Reticle2Obj_->wtf.position = { 0.0f,0.0f,6.0f };
+	
 	//その他初期化
 	stoptimer = 0;
 	moovFlag = 0;
@@ -99,10 +81,21 @@ void Player::Reset()
 
 void Player::FadeIn()
 {
-	if (fbxObject3d_->wtf.position.y >= 0) {
+	if (fbxObject3d_->wtf.position.y >= -0.2) {
 		fbxObject3d_->wtf.position.y -= moveSpeed_;
 	}
 	
+}
+
+void Player::Start()
+{
+	moovFlag = 1;
+}
+
+void Player::Retry()
+{
+	fbxObject3d_->wtf.position = { 0.0f,-0.2f,0.0f };
+	moovFlag = 1;
 }
 
 void Player::Over()
@@ -135,11 +128,7 @@ void Player::Update() {
 	//キーボード入力による移動処理
 	// //ゲーム開始からの攻撃受付
 	if (moovFlag == 0) {
-		stoptimer++;
-
-		if (stoptimer >= 250) {
-			moovFlag = 1;
-		}
+		
 	}
 	if(ClearMove==false){
 
@@ -257,37 +246,49 @@ void Player::Update() {
 			}
 		}
 		//レティクル
-		if (input_->PushKey(DIK_D) || input_->StickInput(R_RIGHT)) {
+		if (input_->PushKey(DIK_D)|| input_->StickInput(L_RIGHT)) {
 
 			if (ReticleObj_->wtf.position.x <= retXMax) {
 				ReticleObj_->wtf.position.x += retSpeed;
-				Reticle1Obj_->wtf.position.x += ret1Speed;
-				Reticle2Obj_->wtf.position.x += ret2Speed;
 			}
 		}
-		if (input_->PushKey(DIK_A) || input_->StickInput(R_LEFT)) {
+		if (input_->PushKey(DIK_RIGHT) || input_->StickInput(R_RIGHT)) {
+			if (ReticleObj_->wtf.position.x <= retXMax) {
+				ReticleObj_->wtf.position.x += retSubSpeed;
+			}
+		}
+		if (input_->PushKey(DIK_A)|| input_->StickInput(L_LEFT)) {
 			if (ReticleObj_->wtf.position.x >= retXMin) {
 				ReticleObj_->wtf.position.x -= retSpeed;
-				Reticle1Obj_->wtf.position.x -= ret1Speed;
-				Reticle2Obj_->wtf.position.x -= ret2Speed;
 			}
 		}
-		if (input_->PushKey(DIK_S) || input_->StickInput(R_DOWN)) {
+		if (input_->PushKey(DIK_LEFT)|| input_->StickInput(R_LEFT)) {
+			if (ReticleObj_->wtf.position.x >= retXMin) {
+				ReticleObj_->wtf.position.x -= retSubSpeed;
+			}
+		}
+		if (input_->PushKey(DIK_S)|| input_->StickInput(L_DOWN)) {
 			if (ReticleObj_->wtf.position.y >= retYMax) {
 			ReticleObj_->wtf.position.y -= retSpeed;
-			Reticle1Obj_->wtf.position.y -= retSpeed;
-			Reticle2Obj_->wtf.position.y -= retSpeed;
 			}
 		}
-		if (input_->PushKey(DIK_W) || input_->StickInput(R_UP)) {
+		if (input_->PushKey(DIK_DOWN)|| input_->StickInput(R_DOWN)) {
+			if (ReticleObj_->wtf.position.y >= retYMax) {
+				ReticleObj_->wtf.position.y -= retSubSpeed;
+			}
+		}
+		if (input_->PushKey(DIK_W)|| input_->StickInput(L_UP)) {
 			if (ReticleObj_->wtf.position.y <= retYMin) {
 			ReticleObj_->wtf.position.y += retSpeed;
-			Reticle1Obj_->wtf.position.y += retSpeed;
-			Reticle2Obj_->wtf.position.y += retSpeed;
+			}
+		}
+		if (input_->PushKey(DIK_UP)|| input_->StickInput(R_UP)) {
+			if (ReticleObj_->wtf.position.y <= retYMin) {
+				ReticleObj_->wtf.position.y += retSubSpeed;
 			}
 		}
 		//弾の発射
-		float shortSpeed = 0.01f;
+		float shortSpeed = 0.001f;
 		if (moovFlag == 1) {
 			if (input_->PushKey(DIK_SPACE) || input_->ButtonInput(RT)) {
 				enemyDistance = ReticleObj_->wtf.position - bulletObj_->wtf.position;
@@ -308,6 +309,9 @@ void Player::Update() {
 					bulletCoolTime = 0;
 				}
 			}
+			if (isShootFlag == false) {
+				bulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.01f, fbxObject3d_->wtf.position.z };
+			}
 		}
 	}
 	///////////////傾き処理/////////////
@@ -319,8 +323,6 @@ void Player::Update() {
 	fbxRoteObject3d_->Update();
 	bulletObj_->Update();
 	ReticleObj_->Update();
-	Reticle1Obj_->Update();
-	Reticle2Obj_->Update();
 
 }
 
@@ -330,9 +332,6 @@ void Player::Draw() {
 
 		if (moovFlag == 1) {
 			ReticleObj_->Draw();
-			/*Reticle1Obj_->Draw();*/
-			/*Reticle2Obj_->Draw();*/
-
 		}
 
 		if (isShootFlag == true) {

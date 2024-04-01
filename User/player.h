@@ -29,6 +29,10 @@ public:
 	void Reset();
 	//登場時
 	void FadeIn();
+	//ゲーム開始
+	void Start();
+	//ゲーム開始
+	void Retry();
 	//ゲームオーバー時
 	void Over();
 	//ゲームクリア時
@@ -114,10 +118,9 @@ private:
 	const float retXMax = 3.5f;
 	const float retXMin = -3.5f;
 	const float retYMax = -1.9f;
-	const float retYMin = 1.9f;
+	const float retYMin = 3.0f;
 	const float retSpeed = 0.1f;
-	const float ret1Speed = 0.09f;
-	const float ret2Speed = 0.08f;
+	const float retSubSpeed = 0.1f;
 	//傾きフラグ
 	float rollW = 0;
 	float rollA = 0;

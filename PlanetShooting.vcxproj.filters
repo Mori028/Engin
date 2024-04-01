@@ -205,6 +205,12 @@
     <ClCompile Include="User\effectManager.cpp">
       <Filter>user\ソース</Filter>
     </ClCompile>
+    <ClCompile Include="User\Enemy.cpp">
+      <Filter>user\ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="User\fade.cpp">
+      <Filter>user\ソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BASE\FPS.h">
@@ -313,6 +319,12 @@
       <Filter>user\ヘッダー</Filter>
     </ClInclude>
     <ClInclude Include="User\effectManager.h">
+      <Filter>user\ヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="User\Enemy.h">
+      <Filter>user\ヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="User\fade.h">
       <Filter>user\ヘッダー</Filter>
     </ClInclude>
   </ItemGroup>

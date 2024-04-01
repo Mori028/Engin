@@ -3,15 +3,11 @@
 * @file GameScene.cpp
 * @brind ゲームの本体
 */
-/// <summary>
-	/// コンストクラタ
-	/// </summary>
+
+/// コンストクラタ
 GameScene::GameScene() {
 }
-
-/// <summary>
 /// デストラクタ
-/// </summary>
 GameScene::~GameScene() {
 	
 	delete mainCamera;
@@ -21,22 +17,16 @@ GameScene::~GameScene() {
 	delete skydome;
 	delete skydomeMD;
 }
-
-/// <summary>
 /// 初期化
-/// </summary>
 void GameScene::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	// nullチェック
 	assert(dxCommon);
 	assert(input);
-
 	this->dxCommon = dxCommon;
 	this->input = input;
-
-	//スプライト共通部分の初期化  ///76まで
+	//スプライト共通部分の初期化  ///106まで
 	spriteCommon = new SpriteCommon;
 	spriteCommon->Initialize(dxCommon);
-
 	//タイトル
 	titleSprite->Initialize(spriteCommon);titleSprite->SetPozition({ 0,0 });
 	titleSprite->SetSize({ 1280.0f, 720.0f });spriteCommon->LoadTexture(1, "Titlee.png");titleSprite->SetTextureIndex(1);
@@ -262,6 +252,67 @@ void GameScene::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	//damage
 	damageSprite->Initialize(spriteCommon);damageSprite->SetPozition({ 0,0 });
 	damageSprite->SetSize({ 1280.0f, 720.0f });spriteCommon->LoadTexture(75, "sousa.png");damageSprite->SetTextureIndex(75);
+	//敵数30カウント
+	E30Sprite->Initialize(spriteCommon); E30Sprite->SetPozition({ 1200,0 });
+	E30Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(77, "30t.png"); E30Sprite->SetTextureIndex(77);
+	E29Sprite->Initialize(spriteCommon); E29Sprite->SetPozition({ 1200,0 });
+	E29Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(78, "29t.png"); E29Sprite->SetTextureIndex(78);
+	E28Sprite->Initialize(spriteCommon); E28Sprite->SetPozition({ 1200,0 });
+	E28Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(79, "28t.png"); E28Sprite->SetTextureIndex(79);
+	E27Sprite->Initialize(spriteCommon); E27Sprite->SetPozition({ 1200,0 });
+	E27Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(80, "27t.png"); E27Sprite->SetTextureIndex(80);
+	E26Sprite->Initialize(spriteCommon); E26Sprite->SetPozition({ 1200,0 });
+	E26Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(81, "26t.png"); E26Sprite->SetTextureIndex(81);
+	E25Sprite->Initialize(spriteCommon); E25Sprite->SetPozition({ 1200,0 });
+	E25Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(82, "25t.png"); E25Sprite->SetTextureIndex(82);
+	E24Sprite->Initialize(spriteCommon); E24Sprite->SetPozition({ 1200,0 });
+	E24Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(83, "24t.png"); E24Sprite->SetTextureIndex(83);
+	E23Sprite->Initialize(spriteCommon); E23Sprite->SetPozition({ 1200,0 });
+	E23Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(84, "23t.png"); E23Sprite->SetTextureIndex(84);
+	E22Sprite->Initialize(spriteCommon); E22Sprite->SetPozition({ 1200,0 });
+	E22Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(85, "22t.png"); E22Sprite->SetTextureIndex(85);
+	E21Sprite->Initialize(spriteCommon); E21Sprite->SetPozition({ 1200,0 });
+	E21Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(86, "21t.png"); E21Sprite->SetTextureIndex(86);
+	E20Sprite->Initialize(spriteCommon); E20Sprite->SetPozition({ 1200,0 });
+	E20Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(87, "20t.png"); E20Sprite->SetTextureIndex(87);
+	E19Sprite->Initialize(spriteCommon); E19Sprite->SetPozition({ 1200,0 });
+	E19Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(88, "19t.png"); E19Sprite->SetTextureIndex(88);
+	E18Sprite->Initialize(spriteCommon); E18Sprite->SetPozition({ 1200,0 });
+	E18Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(89, "18t.png"); E18Sprite->SetTextureIndex(89);
+	E17Sprite->Initialize(spriteCommon); E17Sprite->SetPozition({ 1200,0 });
+	E17Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(90, "17t.png"); E17Sprite->SetTextureIndex(90);
+	E16Sprite->Initialize(spriteCommon); E16Sprite->SetPozition({ 1200,0 });
+	E16Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(91, "16t.png"); E16Sprite->SetTextureIndex(91);
+	E15Sprite->Initialize(spriteCommon); E15Sprite->SetPozition({ 1200,0 });
+	E15Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(92, "15t.png"); E15Sprite->SetTextureIndex(92);
+	E14Sprite->Initialize(spriteCommon); E14Sprite->SetPozition({ 1200,0 });
+	E14Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(93, "14t.png"); E14Sprite->SetTextureIndex(93);
+	E13Sprite->Initialize(spriteCommon); E13Sprite->SetPozition({ 1200,0 });
+	E13Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(94, "13t.png"); E13Sprite->SetTextureIndex(94);
+	E12Sprite->Initialize(spriteCommon); E12Sprite->SetPozition({ 1200,0 });
+	E12Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(95, "12t.png"); E12Sprite->SetTextureIndex(95);
+	E11Sprite->Initialize(spriteCommon); E11Sprite->SetPozition({ 1200,0 });
+	E11Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(96, "11t.png"); E11Sprite->SetTextureIndex(96);
+	E10Sprite->Initialize(spriteCommon); E10Sprite->SetPozition({ 1200,0 });
+	E10Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(97, "10t.png"); E10Sprite->SetTextureIndex(97);
+	E9Sprite->Initialize(spriteCommon); E9Sprite->SetPozition({ 1200,0 });
+	E9Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(98, "9t.png"); E9Sprite->SetTextureIndex(98);
+	E8Sprite->Initialize(spriteCommon); E8Sprite->SetPozition({ 1200,0 });
+	E8Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(99, "8t.png"); E8Sprite->SetTextureIndex(99);
+	E7Sprite->Initialize(spriteCommon); E7Sprite->SetPozition({ 1200,0 });
+	E7Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(100, "7t.png"); E7Sprite->SetTextureIndex(100);
+	E6Sprite->Initialize(spriteCommon); E6Sprite->SetPozition({ 1200,0 });
+	E6Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(101, "6t.png"); E6Sprite->SetTextureIndex(101);
+	E5Sprite->Initialize(spriteCommon); E5Sprite->SetPozition({ 1200,0 });
+	E5Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(102, "5t.png"); E5Sprite->SetTextureIndex(102);
+	E4Sprite->Initialize(spriteCommon); E4Sprite->SetPozition({ 1200,0 });
+	E4Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(103, "4t.png"); E4Sprite->SetTextureIndex(103);
+	E3Sprite->Initialize(spriteCommon); E3Sprite->SetPozition({ 1200,0 });
+	E3Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(104, "3t.png"); E3Sprite->SetTextureIndex(104);
+	E2Sprite->Initialize(spriteCommon); E2Sprite->SetPozition({ 1200,0 });
+	E2Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(105, "2t.png"); E2Sprite->SetTextureIndex(105);
+	E1Sprite->Initialize(spriteCommon); E1Sprite->SetPozition({ 1200,0 });
+	E1Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(106, "1t.png"); E1Sprite->SetTextureIndex(106);
 	// カメラ生成
 	mainCamera = new Camera(WinApp::window_width, WinApp::window_height);
 	camera1 = new Camera(WinApp::window_width, WinApp::window_height);
@@ -276,7 +327,6 @@ void GameScene::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	skydome = Object3d::Create();
 	skydome->SetModel(skydomeMD);
 	skydome->wtf.scale = (Vector3{ 1000, 1000, 1000 });
-
 	//タイトル
 	title_ = new Title();
 	title_->Initialize(dxCommon, input);
@@ -289,6 +339,10 @@ void GameScene::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	player_ = new Player();
 	player_->Initialize(dxCommon,input);
 	player_->SetCamera(mainCamera);
+	//ボス
+	enemy_ = new Enemy();
+	enemy_->Initialize(dxCommon, input);
+	enemy_->SetPlayer(player_);
 	//敵の弾
 	bullet_ = new Bullet();
 	bullet_->Initialize(dxCommon, input);
@@ -297,29 +351,32 @@ void GameScene::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	boss_ = new Boss();
 	boss_->Initialize(dxCommon, input);
 	boss_->SetPlayer(player_);
+	//ゲーム開始時
+	fade_ = new Fade();
+	fade_->Initialize(dxCommon, input);
 	//ステージ
 	stage_ = new Stage();
 	stage_->Initialize(dxCommon, input);
 	stage_->SetCamera(mainCamera);
-		
 	//パーティクル生成
 	particleManager = std::make_unique<ParticleManager>();
 	particleManager.get()->Initialize();
 	particleManager->LoadTexture("blod.png");
 	particleManager->Update();
-
 	//ファイルの読み込み
 	LoadEnemyPopData();
 }
-
+//リセット
 void GameScene::Reset() {
 	//クラスごとのリセット
 	title_->Reset();
 	clear_->Reset();
 	player_->Reset();
 	bullet_->Reset();
+	enemy_->Reset();
 	stage_->Reset();
 	boss_->Reset();
+	fade_->Reset();
 	//その他初期化
 	skydome->wtf.position = { 0.0f,0.0f,0.0f };
 	startFlag = false;
@@ -334,7 +391,8 @@ void GameScene::Reset() {
 	clearSceneTimer = 0;
 	clearCameraTimer = 0;
 	clearTimer = 0;
-	EnemyCount = 0;
+	EnemyCount = 15;
+	startTimer = 280;
 	//スプライトの位置を初期化
 	goSprite->SetPozition({ 0,0 });
 	go2Sprite->SetPozition({ 0,0 });
@@ -342,34 +400,42 @@ void GameScene::Reset() {
 	Object3d::SetCamera(mainCamera);
 	FBXObject3d::SetCamera(mainCamera);
 }
-
+//フェ-ドアウト
 void GameScene::FadeOut()
 {
 	title_->FadeOut();
 }
-
+//フェードイン
 void GameScene::FadeIn()
 {
 	player_->FadeIn();
 }
-
+//スタート
+void GameScene::Start()
+{
+	player_->Start();
+}
+//リトライ
+void GameScene::Retry()
+{
+	player_->Retry();
+}
+//ゲームオーバー
 void GameScene::Over()
 {
 	player_->Over();
 	stage_->Over();
 	boss_->Over();
 	bullet_->Over();
+	enemy_->Over();
 }
-
+//クリア
 void GameScene::ClearMove()
 {
 	player_->Clear();
 	bullet_->Clear();
 }
-
-/// <summary>
 /// 毎フレーム処理
-/// </summary>
 void GameScene::Update() {
 	switch (sceneNo_)
 	{
@@ -383,7 +449,6 @@ void GameScene::Update() {
 
 			title_->Update();
 			stage_->Update();
-
 			//シーン切り替え//
 			if (input->TriggerKey(DIK_SPACE) || input->PButtonTrigger(B)) {
 				if (fadeCount == 0) {
@@ -404,10 +469,8 @@ void GameScene::Update() {
 					outTimer = 0;
 					Reset();
 					sceneNo_ = SceneNo::GAME;
-					
 				}
 			}
-
 		}
 		break;
 
@@ -424,79 +487,81 @@ void GameScene::Update() {
 					}
 				}
 			}
-			if (input->TriggerKey(DIK_R) || input->PButtonTrigger(Y)) {
+			if (input->TriggerKey(DIK_R)) {
 				Reset();
 				sceneNo_ = SceneNo::TITLE;
 			}
 			//ゲーム開始までの演出
 			if (startFlag == false) {
-				FadeIn();
+				player_->FadeIn();
 				startCountTimer++;
 				if (startCountTimer == 150) {
 					startCountFlag = true;
 				}
 				if (startCountFlag == true) {
+
 					startTimer++;
+					
 					//スタートカウント
-					if (startTimer <= 30 && startTimer >= 1) {
+					if (startTimer <= 280 && startTimer >= 251) {
 						startCount = 1;
 					}
-					else if (startTimer <= 60 && startTimer >= 31) {
+					else if (startTimer <= 310 && startTimer >= 281) {
 						startCount = 2;
 					}
-					else if (startTimer <= 90 && startTimer >= 61) {
+					else if (startTimer <= 340 && startTimer >= 311) {
 						startCount = 3;
 					}
-					else if (startTimer <= 120 && startTimer >= 91) {
+					else if (startTimer <= 380 && startTimer >= 341) {
 						startCount = 4;
-						if (startTimer <= 103 && startTimer >= 100) {
+						if (startTimer <= 353 && startTimer >= 350) {
 							goSprite->SetPozition({ 0,0 });
 							go2Sprite->SetPozition({ 0,0 });
 						}
-						else if (startTimer <= 106 && startTimer >= 104) {
+						else if (startTimer <= 356 && startTimer >= 354) {
 							goSprite->SetPozition({ 0,-30 });
 							go2Sprite->SetPozition({ 0,30 });
 						}
-						else if (startTimer <= 109 && startTimer >= 107) {
+						else if (startTimer <= 359 && startTimer >= 357) {
 							goSprite->SetPozition({ 0,-60 });
 							go2Sprite->SetPozition({ 0,60 });
 						}
-						else if (startTimer <= 112 && startTimer >= 110) {
+						else if (startTimer <= 362 && startTimer >= 360) {
 							goSprite->SetPozition({ 0,-90 });
 							go2Sprite->SetPozition({ 0,90 });
 						}
-						else if (startTimer <= 115 && startTimer >= 113) {
+						else if (startTimer <= 365 && startTimer >= 363) {
 							goSprite->SetPozition({ 0,-120 });
 							go2Sprite->SetPozition({ 0,120 });
 						}
-						else if (startTimer <= 118 && startTimer >= 116) {
+						else if (startTimer <= 368 && startTimer >= 366) {
 							goSprite->SetPozition({ 0,-150 });
 							go2Sprite->SetPozition({ 0,150 });
 						}
-						else if (startTimer <= 120 && startTimer >= 119) {
+						else if (startTimer <= 370 && startTimer >= 369) {
 							goSprite->SetPozition({ 0,-180 });              
 							go2Sprite->SetPozition({ 0,180 });
 						}
-						else if (startTimer <= 123 && startTimer >= 121) {
+						else if (startTimer <= 373 && startTimer >= 371) {
 							goSprite->SetPozition({ 0,-210 });
 							go2Sprite->SetPozition({ 0,210 });
 						}
-						else if (startTimer <= 125 && startTimer >= 124) {
+						else if (startTimer <= 375 && startTimer >= 374) {
 							goSprite->SetPozition({ 0,-240 });
 							go2Sprite->SetPozition({ 0,240 });
 						}
 					}
-					else if (startTimer >= 125) {
+					else if (startTimer >= 375) {
 						startCount = 5;   
 					}
 					if (startCount == 5) {
+						Start();
 						startFlag = true;
 						startTimer = 0;
 						startCount = 0;
 					}
 				}
 			} 
-			
 			player_->Update();
 			stage_->Update();
 			skydome->Update();
@@ -505,34 +570,104 @@ void GameScene::Update() {
 				skydome->wtf.position.z -= skyMoveSpeed_;
 				if (clearflag == false) {
 					bullet_->Update();
+					enemy_->Update();
 					for (std::unique_ptr<Enemys>& enemys : enemys_) {
 						enemys->Update();
 					}
+					//敵の無敵時間
+					if (live1 == false) {
+						live1Timer++;
+						if (live1Timer >= 100) {
+							live1 = true;
+							live1Timer = 0;
+						}
+					}
+					if (live2 == false) {
+						live2Timer++;
+						if (live2Timer >= 100) {
+							live2 = true;
+							live2Timer = 0;
+						}
+					}
+					if (live3 == false) {
+						live3Timer++;
+						if (live3Timer >= 100) {
+							live3 = true;
+							live3Timer = 0;
+						}
+					}
+					if (live4 == false) {
+						live4Timer++;
+						if (live4Timer >= 100) {
+							live4 = true;
+							live4Timer = 0;
+						}
+					}
+					if (live5 == false) {
+						live5Timer++;
+							if (live5Timer >= 100) {
+								live5 = true;
+								live5Timer = 0;
+							}
+					};
+
 					// 敵発生コマンドの更新
-					/*UpdataEnemyPopCommands();*/
-
-
+					UpdataEnemyPopCommands();
+					if (live1 == true) {
+						////当たり判定(敵1機と自弾)
+						if (coll.CircleCollision(enemy_->GetWorldPosition(), player_->GetBulletWorldPosition(), 0.1f, 0.1f)) {
+							OnColision1();
+						};
+					}
+					if (live2 == true) {
+						////当たり判定(敵2機と自弾)
+						if (coll.CircleCollision(enemy_->GetEne2WorldPosition(), player_->GetBulletWorldPosition(), 0.1f, 0.1f)) {
+							OnColision2();
+						};
+					}
+					if (live3 == true) {
+						////当たり判定(敵3機と自弾)
+						if (coll.CircleCollision(enemy_->GetEne3WorldPosition(), player_->GetBulletWorldPosition(), 0.1f, 0.1f)) {
+							OnColision3();
+						};
+					}
+					if (live4 == true) {
+						////当たり判定(敵4機と自弾)
+						if (coll.CircleCollision(enemy_->GetEne4WorldPosition(), player_->GetBulletWorldPosition(), 0.1f, 0.1f)) {
+							OnColision4();
+						};
+					}
 					////当たり判定(自機と敵弾)
 					if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBulletWorldPosition(), 0.1f, 0.1f)) {
 						OnColisionPlayer();
 					};
-					for (std::unique_ptr<Enemys>& enemys : enemys_) {
-						//当たり判定(敵機と自機弾)
-						if (coll.CircleCollision(player_->GetBulletWorldPosition(), enemys->GetWorldPosition(), 0.1f, 0.1f)) {
-							OnColision();
-						}
-					}
+					////当たり判定(自機と敵弾)
+					if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet1WorldPosition(), 0.1f, 0.1f)) {
+						OnColisionPlayer();
+					};
+					////当たり判定(自機と敵弾)
+					if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet2WorldPosition(), 0.1f, 0.1f)) {
+						OnColisionPlayer();
+					};
+					//if (live5 == true) {
+					//	for (std::unique_ptr<Enemys>& enemys : enemys_) {
+					//		//当たり判定(敵機と自機弾)
+					//		if (coll.CircleCollision(player_->GetBulletWorldPosition(), enemys->GetWorldPosition(), 0.1f, 0.1f)) {
+					//			OnColision();
+					//		}
+					//	}
+					//}
 					// デスフラグの立った敵を削除
 					enemys_.remove_if([](std::unique_ptr<Enemys>& enemys) {
 						return enemys->IsDead();
 						});
 				}
 				//シーン切り替え
-				if (EnemyCount >= 5)
+				if (EnemyCount >= 30)
 				{
+					bullet_->ModeChange();
 					sceneNo_ = SceneNo::BOSS;
 				}
-
 				//シーン切り替え&リセット
 				if (playerHp <= 0)
 				{
@@ -560,7 +695,6 @@ void GameScene::Update() {
 							sceneNo_ = SceneNo::TITLE;
 						}
 					}
-
 				}
 			}
 			if (playerHp <= 1) {
@@ -575,13 +709,10 @@ void GameScene::Update() {
 	case SceneNo::BOSS:
 
 		player_->Update();
-
 		skydome->Update();
-
 		boss_->Update();
-
 		stage_->Update();
-
+		bullet_->Update();
 		//シーン切り替え
 		if (boss_->GetBossHP() >= 50)
 		{
@@ -597,6 +728,95 @@ void GameScene::Update() {
 						
 						sceneNo_ = SceneNo::CLEAR;
 					}
+				}
+			}
+		}
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBulletWorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet1WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet2WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet3WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet4WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet5WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet6WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet7WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet8WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet9WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet10WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet11WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet12WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet13WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		////当たり判定(自機と敵弾)
+		if (coll.CircleCollision(player_->GetWorldPosition(), bullet_->GetBullet14WorldPosition(), 0.1f, 0.1f)) {
+			OnColisionPlayer();
+		};
+		//シーン切り替え&リセット
+		if (playerHp <= 0)
+		{
+			Over();
+			overFlag = true;
+			overTimer++;
+			if (input->TriggerKey(DIK_A) || input->TriggerKey(DIK_LEFT) || input->ButtonInput(B)) {
+				retryFlag = 1;
+			}
+			if (input->TriggerKey(DIK_D) || input->TriggerKey(DIK_RIGHT) || input->ButtonInput(A)) {
+				retryFlag = 2;
+			}
+			//リトライ
+			if (retryFlag == 1) {
+				if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(B)) {
+					Reset();
+					bullet_->ModeChange();
+					Retry();
+					sceneNo_ = SceneNo::BOSS;
+				}
+			}
+			if (retryFlag == 2) {
+				//タイトルに戻る
+				if (input->TriggerKey(DIK_SPACE) || input->ButtonInput(A)) {
+					Reset();
+					sceneNo_ = SceneNo::TITLE;
 				}
 			}
 		}
@@ -623,6 +843,7 @@ void GameScene::Update() {
 				}
 				////シーン切り替え
 				if (input->TriggerKey(DIK_SPACE)|| input->PButtonTrigger(B)) {
+					Reset();
 					sceneNo_ = SceneNo::TITLE;
 				}
 			}
@@ -630,7 +851,6 @@ void GameScene::Update() {
 			FBXObject3d::SetCamera(camera1);
 
 			clear_->Update();
-
 		}
 		break;
 
@@ -645,10 +865,7 @@ void GameScene::Update() {
 		break;
 	}
 }
-
-/// <summary>
 /// 描画
-/// </summary>
 void GameScene::Draw() {
 	switch (sceneNo_)
 	{
@@ -699,13 +916,16 @@ void GameScene::Draw() {
 
 			Object3d::PreDraw(dxCommon->GetCommandList());
 			//// 3Dオブクジェクトの描画
-			
-			player_->Draw();
 			skydome->Draw();
 			stage_->Draw();
-			if(startFlag == true){
+			if (startFlag == true) {
 				bullet_->Draw();
 			}
+			if (startTimer <= 250 && startTimer >= 1) {
+				//ボスの登場
+				fade_->FbxDraw();
+			}
+			player_->Draw();
 
 			//3Dオブジェクト描画後処理
 			Object3d::PostDraw();
@@ -713,12 +933,12 @@ void GameScene::Draw() {
 			player_->FbxDraw();
 			//ダメージエフェクト
 			bullet_->EffDraw();
-
+			boss_->FbxDraw();
 			if (startFlag == true) {
 				for (std::unique_ptr<Enemys>& enemys : enemys_) {
 					enemys->FbxDraw();
 				}
-
+				enemy_->FbxDraw();
 				//操作説明
 				damageSprite->Draw();
 				//HPバー
@@ -734,8 +954,68 @@ void GameScene::Draw() {
 				else if (playerHp <= 0) {
 					hP0Sprite->Draw();
 				}
+				if (EnemyCount == 0) {
+					E30Sprite->Draw();
+				}if (EnemyCount == 1) {
+					E29Sprite->Draw();
+				}if (EnemyCount == 2) {
+					E28Sprite->Draw();
+				}if (EnemyCount == 3) {
+					E27Sprite->Draw();
+				}if (EnemyCount == 4) {
+					E26Sprite->Draw();
+				}if (EnemyCount == 5) {
+					E25Sprite->Draw();
+				}if (EnemyCount == 6) {
+					E24Sprite->Draw();
+				}if (EnemyCount == 7) {
+					E23Sprite->Draw();
+				}if (EnemyCount == 8) {
+					E22Sprite->Draw();
+				}if (EnemyCount == 9) {
+					E21Sprite->Draw();
+				}if (EnemyCount == 10) {
+					E20Sprite->Draw();
+				}if (EnemyCount == 11) {
+					E19Sprite->Draw();
+				}if (EnemyCount == 12) {
+					E18Sprite->Draw();
+				}if (EnemyCount == 13) {
+					E17Sprite->Draw();
+				}if (EnemyCount == 14) {
+					E16Sprite->Draw();
+				}if (EnemyCount == 15) {
+					E15Sprite->Draw();
+				}if (EnemyCount == 16) {
+					E14Sprite->Draw();
+				}if (EnemyCount == 17) {
+					E13Sprite->Draw();
+				}if (EnemyCount == 18) {
+					E12Sprite->Draw();
+				}if (EnemyCount == 19) {
+					E11Sprite->Draw();
+				}if (EnemyCount == 20) {
+					E10Sprite->Draw();
+				}if (EnemyCount == 21) {
+					E9Sprite->Draw();
+				}if (EnemyCount == 22) {
+					E8Sprite->Draw();
+				}if (EnemyCount == 23) {
+					E7Sprite->Draw();
+				}if (EnemyCount == 24) {
+					E6Sprite->Draw();
+				}if (EnemyCount == 25) {
+					E5Sprite->Draw();
+				}if (EnemyCount == 26) {
+					E4Sprite->Draw();
+				}if (EnemyCount == 27) {
+					E3Sprite->Draw();
+				}if (EnemyCount == 28) {
+					E2Sprite->Draw();
+				}if (EnemyCount == 29) {
+					E1Sprite->Draw();
+				}
 			}
-
 			//フェードインフェードアウト
 			if (fadeTimer <= 5 && fadeTimer >= 1) {
 				outSprite->Draw();
@@ -771,7 +1051,6 @@ void GameScene::Draw() {
 			}
 			if (playerHp <= 0)
 			{
-
 				//リトライ
 				blackSprite->Draw();
 				if (overTimer >= 40) {
@@ -793,7 +1072,6 @@ void GameScene::Draw() {
 
 		if (sceneNo_ == SceneNo::BOSS) {
 			hPSprite->Draw();
-
 			/// <summary>
 			/// 3Dオブジェクトの描画
 			/// ここに3Dオブジェクトの描画処理を追加できる
@@ -804,10 +1082,13 @@ void GameScene::Draw() {
 			player_->Draw();
 			skydome->Draw();
 			boss_->Draw();
+			bullet_->Draw();
 			stage_->Draw();
 			//3Dオブジェクト描画後処理
 			Object3d::PostDraw();
 			//// パーティクル UI FBX スプライト描画
+			//ダメージエフェクト
+			bullet_->EffDraw();
 			player_->FbxDraw();
 			if (boss_->GetBossHP() <= 49) {
 				boss_->FbxDraw();
@@ -978,7 +1259,22 @@ void GameScene::Draw() {
 			else if (boss_->GetBossHP() == 50) {
 				h0Sprite->Draw();
 			}
-		
+			if (playerHp <= 0)
+			{
+				//リトライ
+				blackSprite->Draw();
+				if (overTimer >= 40) {
+					if (retryFlag == 1) {
+						overSprite->Draw();
+					}
+					else if (retryFlag == 2) {
+						over2Sprite->Draw();
+					}
+					else {
+						over3Sprite->Draw();
+					}
+				}
+			}
 		}
 		break;
 
@@ -998,7 +1294,7 @@ void GameScene::Draw() {
 			clearSprite->Draw();
 		}
 		if (clearCameraTimer >= 315 && clearCameraTimer <= 420) {
-		
+
 		}
 		if (clearCameraTimer >= 445) {
 			backSprite->Draw();
@@ -1020,9 +1316,8 @@ void GameScene::Draw() {
 		}
 		break;
 	}
-
 }
-
+//エフェクト
 void GameScene::EffUpdate()
 {
 	//パーティクル範囲
@@ -1055,7 +1350,7 @@ void GameScene::EffUpdate()
 		particleManager->Update();
 	}
 }
-
+//エフェクト描画
 void GameScene::EffDraw()
 {
 	//ダメージエフェクト
@@ -1064,7 +1359,7 @@ void GameScene::EffDraw()
 		particleManager->Draw();
 	}
 }
-
+//敵のデータ
 void GameScene::LoadEnemyPopData() {
 
 	//ファイルを開く
@@ -1080,7 +1375,7 @@ void GameScene::LoadEnemyPopData() {
 	file.close();
 
 }
-
+//敵の出現
 void GameScene::UpdataEnemyPopCommands()
 {
 	//待機処理
@@ -1141,9 +1436,8 @@ void GameScene::UpdataEnemyPopCommands()
 			break;
 		}
 	}
-
 }
-
+//敵のデータ読み込み
 void GameScene::GenerEnemy(Vector3 EnemyPos)
 {
 	std::unique_ptr<Enemys> newEnemys = std::make_unique<Enemys>();
@@ -1174,19 +1468,44 @@ Vector3 GameScene::bVelocity(Vector3& velocity, Transform& worldTransform)
 
 	return result;
 }
-
+//敵の当たり判定
 void GameScene::OnColision()
 {
 	EnemyCount = EnemyCount + 1;
 	isEffFlag = 1;
-	
+	live5 = false;
 	//当たり判定(敵機と自機弾)
 	for (std::unique_ptr<Enemys>& enemys : enemys_) {
 		enemys->OnColision();
 	}
 }
-
+//プレイヤーが当たった時
 void GameScene::OnColisionPlayer()
 {
 	playerHp = playerHp - 1;
+}
+
+void GameScene::OnColision1()
+{
+	EnemyCount = EnemyCount + 1;
+	live1 = false;
+	enemy_->OnColision1();
+}
+void GameScene::OnColision2()
+{
+	EnemyCount = EnemyCount + 1;
+	live2 = false;
+	enemy_->OnColision2();
+}
+void GameScene::OnColision3()
+{
+	EnemyCount = EnemyCount + 1;
+	live3 = false;
+	enemy_->OnColision3();
+}
+void GameScene::OnColision4()
+{
+	EnemyCount = EnemyCount + 1;
+	live4 = false;
+	enemy_->OnColision4();
 }

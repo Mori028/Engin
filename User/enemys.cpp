@@ -16,26 +16,26 @@ void Enemys::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input)
 	EnemysObject3d_ = new FBXObject3d;
 	EnemysObject3d_->Initialize();
 	EnemysObject3d_->SetModel(EnemysModel_);
-	EnemysObject3d_->wtf.position = { 0.0f,-0.1f,0.0f };
+	EnemysObject3d_->wtf.position = { 0.0f,-0.2f,5.5f };
 	EnemysObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
-	EnemysObject3d_->wtf.scale = { 0.3f,0.3f,0.3f };
+	EnemysObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
 	EnemysObject3d_->PlayAnimation(1.0f, true);
 }
 
 void Enemys::Update()
 {
 	//敵の行動
-	EnemysObject3d_->wtf.position.x -= moveSpeed_;
+	/*EnemysObject3d_->wtf.position.x -= moveSpeed_;*/
 	
 	// 時間経過でデス
-	if (--dethTimer_ <= 0) {
-		isDead_ = true;
-	}
+	//if (--dethTimer_ <= 0) {
+	//	isDead_ = true;
+	//}
 
-	// HP0でデス
-	if (dethHp_ <= 0) {
-		isDead_ = true;
-	}
+	//// HP0でデス
+	//if (dethHp_ <= 0) {
+	//	isDead_ = true;
+	//}
 
 	// 敵の更新
 	EnemysObject3d_->Update();
@@ -55,7 +55,7 @@ void Enemys::FbxDraw()
 
 void Enemys::OnColision()
 {
-	--dethHp_;
+	isDead_ = true;
 }
 
 Vector3 Enemys::GetWorldPosition()
