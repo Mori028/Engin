@@ -26,12 +26,10 @@ void Boss::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 
 	fbxModel_ = FbxLoader::GetInstance()->LoadModelFromFile("kuma");
 
-
 	// デバイスをセット
 	FBXObject3d::SetDevice(dxCommon->GetDevice());
 	// グラフィックスパイプライン生成
 	FBXObject3d::CreateGraphicsPipeline();
-
 	//待機
 	fbxObject3d_ = new FBXObject3d;
 	fbxObject3d_->Initialize();
@@ -40,15 +38,12 @@ void Boss::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	fbxObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
 	fbxObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	fbxObject3d_->PlayAnimation(1.0f, true);
-
-
 	//弾
 	BossBulletModel_ = Model::LoadFromOBJ("boll");
 	BossBulletObj_ = Object3d::Create();
 	BossBulletObj_->SetModel(BossBulletModel_);
 	BossBulletObj_->wtf.position = { fbxObject3d_->wtf.position.x,fbxObject3d_->wtf.position.y + 0.2f , fbxObject3d_->wtf.position.z };
 	BossBulletObj_->wtf.scale = { 0.5f,0.5f,0.5f };
-
 	//壁
 	BossWallModel_ = Model::LoadFromOBJ("box");
 	BossWallObj_ = Object3d::Create();
@@ -122,18 +117,15 @@ void Boss::Update() {
 
 		}*/
 		//////敵の攻撃１//////
-
 		if (BossCount >= 50) {
 			liveFlag = false;
 		}
 		
 		if (entry == 0) {
-
 			//当たり判定(自機弾とボス)
 			if (coll.CircleCollision(player_->GetBulletWorldPosition(), GetWorldPosition(), 0.1f, 0.3f)) {
 				OnColision();
 			};
-
 			//当たり判定(自機と敵弾)
 			if (coll.CircleCollision(player_->GetWorldPosition(), GetBulletWorldPosition(), 0.1f, 0.1f)) {
 				OnColisionPlayer();
@@ -163,7 +155,6 @@ void Boss::FbxDraw() {
 	}
 	//敵の接近
 	/*fbxObject3d_->wtf.position.z -= moveSpeed_;*/
-
 }
 
 Vector3 Boss::GetWorldPosition() {

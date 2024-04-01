@@ -121,7 +121,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="User\bullet.cpp" />
     <ClCompile Include="User\effectManager.cpp" />
+    <ClCompile Include="User\Enemy.cpp" />
     <ClCompile Include="User\enemys.cpp" />
+    <ClCompile Include="User\fade.cpp" />
     <ClCompile Include="User\player.cpp" />
     <ClCompile Include="User\SCENE\clear.cpp" />
     <ClCompile Include="User\SCENE\GameScene.cpp" />
@@ -160,7 +162,9 @@
     <ClInclude Include="User\boss.h" />
     <ClInclude Include="User\bullet.h" />
     <ClInclude Include="User\effectManager.h" />
+    <ClInclude Include="User\Enemy.h" />
     <ClInclude Include="User\enemys.h" />
+    <ClInclude Include="User\fade.h" />
     <ClInclude Include="User\player.h" />
     <ClInclude Include="User\SCENE\clear.h" />
     <ClInclude Include="User\SCENE\GameScene.h" />

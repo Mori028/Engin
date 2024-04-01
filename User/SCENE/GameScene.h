@@ -23,6 +23,8 @@
 #include <enemys.h>
 #include <GameScene.h>
 #include "effectManager.h"
+#include <Enemy.h>
+#include <fade.h>
 /*
 * @file GameScene.h
 * @brind ゲームの本体
@@ -57,6 +59,8 @@ public: // メンバ関数
 
 	void FadeOut();
 	void FadeIn();
+	void Start();
+	void Retry();
 	void Over();
 	void ClearMove();
 	/// <summary>
@@ -87,8 +91,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 敵の発生
 	/// </summary>
-	void GenerEnemy(Vector3 EnemyPos);
-
+	void GenerEnemy(Vector3 EnemyPos); 
 
 	Vector3 bVelocity(Vector3& velocity, Transform& worldTransform);
 
@@ -96,6 +99,11 @@ public: // メンバ関数
 
 	void OnColisionPlayer();
 
+	//当たり判定
+	void OnColision1();
+	void OnColision2();
+	void OnColision3();
+	void OnColision4();
 	// 敵発生コマンド
 	std::stringstream enemyPopCommands;
 
@@ -221,6 +229,37 @@ private:	//メンバ変数
 	Sprite* h2Sprite = new Sprite();
 	Sprite* h1Sprite = new Sprite();
 	Sprite* h0Sprite = new Sprite();
+	//敵数カウント
+	Sprite* E30Sprite = new Sprite();
+	Sprite* E29Sprite = new Sprite();
+	Sprite* E28Sprite = new Sprite();
+	Sprite* E27Sprite = new Sprite();
+	Sprite* E26Sprite = new Sprite();
+	Sprite* E25Sprite = new Sprite();
+	Sprite* E24Sprite = new Sprite();
+	Sprite* E23Sprite = new Sprite();
+	Sprite* E22Sprite = new Sprite();
+	Sprite* E21Sprite = new Sprite();
+	Sprite* E20Sprite = new Sprite();
+	Sprite* E19Sprite = new Sprite();
+	Sprite* E18Sprite = new Sprite();
+	Sprite* E17Sprite = new Sprite();
+	Sprite* E16Sprite = new Sprite();
+	Sprite* E15Sprite = new Sprite();
+	Sprite* E14Sprite = new Sprite();
+	Sprite* E13Sprite = new Sprite();
+	Sprite* E12Sprite = new Sprite();
+	Sprite* E11Sprite = new Sprite();
+	Sprite* E10Sprite = new Sprite();
+	Sprite* E9Sprite = new Sprite();
+	Sprite* E8Sprite = new Sprite();
+	Sprite* E7Sprite = new Sprite();
+	Sprite* E6Sprite = new Sprite();
+	Sprite* E5Sprite = new Sprite();
+	Sprite* E4Sprite = new Sprite();
+	Sprite* E3Sprite = new Sprite();
+	Sprite* E2Sprite = new Sprite();
+	Sprite* E1Sprite = new Sprite();
 	
 	//playerのHP
 	int playerHp = 15;
@@ -273,9 +312,22 @@ private:	//メンバ変数
 
 	//ボス
 	Boss* boss_ = nullptr;
+	//プレイヤー
+	Fade* fade_ = nullptr;
 
 	// 敵キャラ
 	std::list<std::unique_ptr<Enemys>> enemys_;
+	Enemy* enemy_ = nullptr;
+	bool live1 = true;
+	bool live2 = true;
+	bool live3 = true;
+	bool live4 = true;
+	bool live5 = true;
+	int live1Timer = 0;
+	int live2Timer = 0;
+	int live3Timer = 0;
+	int live4Timer = 0;
+	int live5Timer = 0;
 
 	//倒した敵のカウント
 	int EnemyCount = 0;

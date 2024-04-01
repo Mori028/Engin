@@ -26,6 +26,8 @@ public:
 	void Clear();
 	//ÉQÅ[ÉÄÉIÅ[ÉoÅ[
 	void Over();
+	//É{ÉXÇÃçUåÇ
+	void ModeChange();
 	//çXêV
 	void Update();
 	//ï`âÊ
@@ -40,6 +42,17 @@ public:
 	Vector3 GetBullet1WorldPosition();
 	Vector3 GetBullet2WorldPosition();
 	Vector3 GetBullet3WorldPosition();
+	Vector3 GetBullet4WorldPosition();
+	Vector3 GetBullet5WorldPosition();
+	Vector3 GetBullet6WorldPosition();
+	Vector3 GetBullet7WorldPosition();
+	Vector3 GetBullet8WorldPosition();
+	Vector3 GetBullet9WorldPosition();
+	Vector3 GetBullet10WorldPosition();
+	Vector3 GetBullet11WorldPosition();
+	Vector3 GetBullet12WorldPosition();
+	Vector3 GetBullet13WorldPosition();
+	Vector3 GetBullet14WorldPosition();
 
 	void OnColisionPlayer();
 
@@ -49,6 +62,7 @@ public:
 	/// É|ÉWÉVÉáÉì
 	/// </summary>
 	/// <param name="pos"></param>
+	void SetPos(Vector3 pos) { enemyBullet3Obj_->wtf.position = pos; };
 	void SetPlayer(Player* player) { player_ = player; };
 	void SetEnemys(Enemys* enemys) { enemys_ = enemys; };
 
@@ -73,9 +87,47 @@ private:
 	//íe3
 	Object3d* enemyBullet2Obj_ = nullptr;
 	Model* enemyBullet2Model_ = nullptr;
-	// é©ã@ë_Ç¢íe
+	//íe4
 	Object3d* enemyBullet3Obj_ = nullptr;
 	Model* enemyBullet3Model_ = nullptr;
+	//íe5
+	Object3d* enemyBullet4Obj_ = nullptr;
+	Model* enemyBullet4Model_ = nullptr;
+	//íe6
+	Object3d* enemyBullet5Obj_ = nullptr;
+	Model* enemyBullet5Model_ = nullptr;
+	//íe7
+	Object3d* enemyBullet6Obj_ = nullptr;
+	Model* enemyBullet6Model_ = nullptr;
+	//íe8
+	Object3d* enemyBullet7Obj_ = nullptr;
+	Model* enemyBullet7Model_ = nullptr;
+	//íe9
+	Object3d* enemyBullet8Obj_ = nullptr;
+	Model* enemyBullet8Model_ = nullptr;
+	//íe10
+	Object3d* enemyBullet9Obj_ = nullptr;
+	Model* enemyBullet9Model_ = nullptr;
+	//íe11
+	Object3d* enemyBullet10Obj_ = nullptr;
+	Model* enemyBullet10Model_ = nullptr;
+	//íe12
+	Object3d* enemyBullet11Obj_ = nullptr;
+	Model* enemyBullet11Model_ = nullptr;
+	//íe13
+	Object3d* enemyBullet12Obj_ = nullptr;
+	Model* enemyBullet12Model_ = nullptr;
+	//íe14
+	Object3d* enemyBullet13Obj_ = nullptr;
+	Model* enemyBullet13Model_ = nullptr;
+	//íe15
+	Object3d* enemyBullet14Obj_ = nullptr;
+	Model* enemyBullet14Model_ = nullptr;
+
+	//îÚÇŒÇ∑Ç‹Ç≈ÇÃéûä‘Ç∆ÉtÉâÉO
+	int crystalTimer;
+	bool isLive = false;
+	int shotTimer;
 
 	//ãóó£
 	Vector3 playerDistance;
@@ -86,13 +138,20 @@ private:
 	float bulletTimer = 0;
 	//ìGÇÃÉXÉsÅ[Éh
 	const float moveSpeed_ = 0.01f;
+	const float bossMoveSpeed_ = 0.06f;
 	const float rotaSpeed_ = 0.1f;
+	float shortSpeed = 0.05f;
+	float shortXSpeed = 0.005f;
 	//ìGä÷òA
 	float timer = 0;
 	int hp = 1;
 	int bulletMode = 1;
 	float changeTimer = 0;
 	bool liveFlag = true;
+	bool mode = false;
+	int bossTimer = 0;
+	bool bossAttack = true;
+	bool verticalAttack = true;
 	//ÉNÉäÉAéû
 	int ClearMove = 0;
 	//ÉpÅ[ÉeÉBÉNÉãä÷òA
