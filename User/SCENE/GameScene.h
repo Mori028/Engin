@@ -134,6 +134,12 @@ private: // メンバ変数 (固定)
 private:	//メンバ変数
 	const float PI = 3.141592f;
 
+	//音関係まとめ
+	int soundCheckFlag = 0;
+	int soundCheckFlag2 = 0;
+	int soundCheckFlag3 = 0;
+	int soundCheckFlag4 = 0;
+
 	//シーン切り替え
 	enum class SceneNo {
 		TITLE, //タイトル
@@ -158,6 +164,8 @@ private:	//メンバ変数
 	Sprite* overSprite = new Sprite();
 	Sprite* over2Sprite = new Sprite();
 	Sprite* over3Sprite = new Sprite();
+	//ダメージ
+	Sprite* damagesSprite = new Sprite();
 	//Hp3
 	Sprite* hPSprite = new Sprite();
 	//Hp2
@@ -287,6 +295,8 @@ private:	//メンバ変数
 	int startCount = 0;
 	int startTimer = 0;
 	bool startFlag = false;
+	bool damageFlag = false;
+	int damagecount = 0;
 	//カメラ
 	Camera* mainCamera = nullptr;
 	Camera* camera1 = nullptr;

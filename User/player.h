@@ -115,11 +115,11 @@ private:
 	const float yMax = -0.3f;
 	const float yMin = 0.2f;
 	//レティクルの移動速度
-	const float retXMax = 3.5f;
-	const float retXMin = -3.5f;
+	const float retXMax = 2.9f;
+	const float retXMin = -2.9f;
 	const float retYMax = -1.9f;
-	const float retYMin = 3.0f;
-	const float retSpeed = 0.1f;
+	const float retYMin = 2.8f;
+	const float retSpeed = 0.13f;
 	const float retSubSpeed = 0.1f;
 	//傾きフラグ
 	float rollW = 0;

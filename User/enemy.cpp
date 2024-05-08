@@ -54,14 +54,14 @@ void Enemy::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	enemy1Object3d_ = new FBXObject3d;
 	enemy1Object3d_->Initialize();
 	enemy1Object3d_->SetModel(fbxwhiteModel_);
-	enemy1Object3d_->wtf.position = { +0.75f,+0.3f,+5.0f };
+	enemy1Object3d_->wtf.position = { +0.75f,+0.43f,+5.0f };
 	enemy1Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	enemy1Object3d_->PlayAnimation(1.0f, true);
 
 	enemy2Object3d_ = new FBXObject3d;
 	enemy2Object3d_->Initialize();
 	enemy2Object3d_->SetModel(fbxwhiteModel_);
-	enemy2Object3d_->wtf.position = { -0.75f,+0.3f,+5.0f };
+	enemy2Object3d_->wtf.position = { -0.75f,+0.43f,+5.0f };
 	enemy2Object3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	enemy2Object3d_->PlayAnimation(1.0f, true);
 

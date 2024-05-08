@@ -16,7 +16,7 @@ void Enemys::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input)
 	EnemysObject3d_ = new FBXObject3d;
 	EnemysObject3d_->Initialize();
 	EnemysObject3d_->SetModel(EnemysModel_);
-	EnemysObject3d_->wtf.position = { 0.0f,-0.2f,5.5f };
+	EnemysObject3d_->wtf.position.z = 5.5f;
 	EnemysObject3d_->wtf.rotation = { 0.0f,-1.7f,0.0f };
 	EnemysObject3d_->wtf.scale = { 1.0f,1.0f,1.0f };
 	EnemysObject3d_->PlayAnimation(1.0f, true);

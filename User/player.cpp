@@ -252,39 +252,20 @@ void Player::Update() {
 				ReticleObj_->wtf.position.x += retSpeed;
 			}
 		}
-		if (input_->PushKey(DIK_RIGHT) || input_->StickInput(R_RIGHT)) {
-			if (ReticleObj_->wtf.position.x <= retXMax) {
-				ReticleObj_->wtf.position.x += retSubSpeed;
-			}
-		}
 		if (input_->PushKey(DIK_A)|| input_->StickInput(L_LEFT)) {
 			if (ReticleObj_->wtf.position.x >= retXMin) {
 				ReticleObj_->wtf.position.x -= retSpeed;
 			}
 		}
-		if (input_->PushKey(DIK_LEFT)|| input_->StickInput(R_LEFT)) {
-			if (ReticleObj_->wtf.position.x >= retXMin) {
-				ReticleObj_->wtf.position.x -= retSubSpeed;
-			}
-		}
+	
 		if (input_->PushKey(DIK_S)|| input_->StickInput(L_DOWN)) {
 			if (ReticleObj_->wtf.position.y >= retYMax) {
 			ReticleObj_->wtf.position.y -= retSpeed;
 			}
 		}
-		if (input_->PushKey(DIK_DOWN)|| input_->StickInput(R_DOWN)) {
-			if (ReticleObj_->wtf.position.y >= retYMax) {
-				ReticleObj_->wtf.position.y -= retSubSpeed;
-			}
-		}
 		if (input_->PushKey(DIK_W)|| input_->StickInput(L_UP)) {
 			if (ReticleObj_->wtf.position.y <= retYMin) {
 			ReticleObj_->wtf.position.y += retSpeed;
-			}
-		}
-		if (input_->PushKey(DIK_UP)|| input_->StickInput(R_UP)) {
-			if (ReticleObj_->wtf.position.y <= retYMin) {
-				ReticleObj_->wtf.position.y += retSubSpeed;
 			}
 		}
 		//弾の発射
