@@ -24,7 +24,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	assert(input);
 	this->dxCommon = dxCommon;
 	this->input = input;
-	//スプライト共通部分の初期化  ///107まで 77~91削除 27~73削除
+	//スプライト共通部分の初期化  ///43まで 
 	spriteCommon = new SpriteCommon;
 	spriteCommon->Initialize(dxCommon);
 	//タイトル
@@ -108,37 +108,52 @@ void GameScene::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	//damage
 	damageSprite->Initialize(spriteCommon);damageSprite->SetPozition({ 0,0 });
 	damageSprite->SetSize({ 1280.0f, 720.0f });spriteCommon->LoadTexture(27, "sousa.png");damageSprite->SetTextureIndex(27);
-	//敵数30カウント
+	//敵数15カウント
 	E15Sprite->Initialize(spriteCommon); E15Sprite->SetPozition({ 1200,0 });
 	E15Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(28, "15t.png"); E15Sprite->SetTextureIndex(28);
+	//敵数14カウント
 	E14Sprite->Initialize(spriteCommon); E14Sprite->SetPozition({ 1200,0 });
 	E14Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(29, "14t.png"); E14Sprite->SetTextureIndex(29);
+	//敵数13カウント
 	E13Sprite->Initialize(spriteCommon); E13Sprite->SetPozition({ 1200,0 });
 	E13Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(30, "13t.png"); E13Sprite->SetTextureIndex(30);
+	//敵数12カウント
 	E12Sprite->Initialize(spriteCommon); E12Sprite->SetPozition({ 1200,0 });
 	E12Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(31, "12t.png"); E12Sprite->SetTextureIndex(31);
+	//敵数11カウント
 	E11Sprite->Initialize(spriteCommon); E11Sprite->SetPozition({ 1200,0 });
 	E11Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(32, "11t.png"); E11Sprite->SetTextureIndex(32);
+	//敵数10カウント
 	E10Sprite->Initialize(spriteCommon); E10Sprite->SetPozition({ 1200,0 });
 	E10Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(33, "10t.png"); E10Sprite->SetTextureIndex(33);
+	//敵数9カウント
 	E9Sprite->Initialize(spriteCommon); E9Sprite->SetPozition({ 1200,0 });
 	E9Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(34, "9t.png"); E9Sprite->SetTextureIndex(34);
+	//敵数8カウント
 	E8Sprite->Initialize(spriteCommon); E8Sprite->SetPozition({ 1200,0 });
 	E8Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(35, "8t.png"); E8Sprite->SetTextureIndex(35);
+	//敵数7カウント
 	E7Sprite->Initialize(spriteCommon); E7Sprite->SetPozition({ 1200,0 });
 	E7Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(36, "7t.png"); E7Sprite->SetTextureIndex(36);
+	//敵数6カウント
 	E6Sprite->Initialize(spriteCommon); E6Sprite->SetPozition({ 1200,0 });
 	E6Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(37, "6t.png"); E6Sprite->SetTextureIndex(37);
+	//敵数5カウント
 	E5Sprite->Initialize(spriteCommon); E5Sprite->SetPozition({ 1200,0 });
 	E5Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(38, "5t.png"); E5Sprite->SetTextureIndex(38);
+	//敵数4カウント
 	E4Sprite->Initialize(spriteCommon); E4Sprite->SetPozition({ 1200,0 });
 	E4Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(39, "4t.png"); E4Sprite->SetTextureIndex(39);
+	//敵数3カウント
 	E3Sprite->Initialize(spriteCommon); E3Sprite->SetPozition({ 1200,0 });
 	E3Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(40, "3t.png"); E3Sprite->SetTextureIndex(40);
+	//敵数2カウント
 	E2Sprite->Initialize(spriteCommon); E2Sprite->SetPozition({ 1200,0 });
 	E2Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(41, "2t.png"); E2Sprite->SetTextureIndex(41);
+	//敵数1カウント
 	E1Sprite->Initialize(spriteCommon); E1Sprite->SetPozition({ 1200,0 });
 	E1Sprite->SetSize({ 80.0f, 80.0f }); spriteCommon->LoadTexture(42, "1t.png"); E1Sprite->SetTextureIndex(42);
+	//被ダメ時
 	damagesSprite->Initialize(spriteCommon); damagesSprite->SetPozition({ 0,0 });
 	damagesSprite->SetSize({ 1280.0f, 720.0f }); spriteCommon->LoadTexture(43, "damage.png"); damagesSprite->SetTextureIndex(43);
 	// カメラ生成
@@ -334,6 +349,12 @@ void GameScene::Update() {
 
 	case SceneNo::GAME:
 		if (sceneNo_ == SceneNo::GAME) {
+			//リセット(デバッグ用)
+			/*if (input->TriggerKey(DIK_R)) {
+				Reset();
+				sceneNo_ = SceneNo::TITLE;
+			}*/
+
 			//タイトルの音楽を止める
 			pSourceVoice[0]->Stop();
 			soundCheckFlag = 0;
@@ -356,10 +377,6 @@ void GameScene::Update() {
 						fadeTimer = 0;
 					}
 				}
-			}
-			if (input->TriggerKey(DIK_R)) {
-				Reset();
-				sceneNo_ = SceneNo::TITLE;
 			}
 			//ゲーム開始までの演出
 			if (startFlag == false) {
@@ -437,7 +454,6 @@ void GameScene::Update() {
 			skydome->Update();
 
 			if (startFlag == true) {
-				skydome->wtf.position.z -= skyMoveSpeed_;
 				if (clearflag == false) {
 					bullet_->Update();
 					enemy_->Update();
@@ -596,18 +612,33 @@ void GameScene::Update() {
 			}
 			
 			camera2->Update();
-
-			if (input->PushKey(DIK_D) || input->StickInput(L_RIGHT)) {
-				camera2->SetEye(camera2->GetEye() + Vector3{ -0.001f,0.0f, 0.0f });
+			if (cameraD <= 50) {
+				if (input->PushKey(DIK_D) || input->StickInput(L_RIGHT)) {
+					camera2->SetEye(camera2->GetEye() + Vector3{ -0.001f,0.0f, 0.0f });
+					cameraD++;
+					cameraA--;
+				}
 			}
-			if (input->PushKey(DIK_A) || input->StickInput(L_LEFT)) {
-				camera2->SetEye(camera2->GetEye() - Vector3{ -0.001f,0.0f, 0.0f });
+			if (cameraA <= 50) {
+				if (input->PushKey(DIK_A) || input->StickInput(L_LEFT)) {
+					camera2->SetEye(camera2->GetEye() - Vector3{ -0.001f,0.0f, 0.0f });
+					cameraA++;
+					cameraD--;
+				}
 			}
-			if (input->PushKey(DIK_S) || input->StickInput(L_DOWN)) {
-				camera2->SetEye(camera2->GetEye() - Vector3{ 0.0f,-0.001f, 0.0f });
+			if (cameraS <= 50) {
+				if (input->PushKey(DIK_S) || input->StickInput(L_DOWN)) {
+					camera2->SetEye(camera2->GetEye() - Vector3{ 0.0f,-0.001f, 0.0f });
+					cameraS++;
+					cameraW--;
+				}
 			}
-			if (input->PushKey(DIK_W) || input->StickInput(L_UP)) {
-				camera2->SetEye(camera2->GetEye() + Vector3{ 0.0f,-0.001f, 0.0f });
+			if (cameraW <= 50) {
+				if (input->PushKey(DIK_W) || input->StickInput(L_UP)) {
+					camera2->SetEye(camera2->GetEye() + Vector3{ 0.0f,-0.001f, 0.0f });
+					cameraW++;
+					cameraS--;
+				}
 			}
 			
 			
@@ -616,6 +647,12 @@ void GameScene::Update() {
 		}
 		break;
 	case SceneNo::BOSS:
+		//リセット(デバッグ用)
+		/*if (input->TriggerKey(DIK_R)) {
+			Reset();
+			sceneNo_ = SceneNo::TITLE;
+		}*/
+
 		//雑魚敵戦の音楽を止める
 		/*pSourceVoice[2]->Stop();*/
 		soundCheckFlag3 = 0;
