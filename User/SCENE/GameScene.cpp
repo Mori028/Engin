@@ -30,10 +30,10 @@ void GameScene::Initialize(DirectXCommon* dxCommon, MyEngine::Input* input) {
 	//タイトル
 	titleSprite->Initialize(spriteCommon);titleSprite->SetPozition({ 0,0 });
 	titleSprite->SetSize({ 1280.0f, 720.0f });spriteCommon->LoadTexture(1, "Titlee.png");titleSprite->SetTextureIndex(1);
-	//クリア(スペース表示)
+	//クリア(SPACE)
 	spaceSprite->Initialize(spriteCommon);spaceSprite->SetPozition({ 0,0 });
 	spaceSprite->SetSize({ 1280.0f, 720.0f });spriteCommon->LoadTexture(2, "SPACE.png");spaceSprite->SetTextureIndex(2);
-	//タイトル(B表示)
+	//タイトル(B)
 	titleBSprite->Initialize(spriteCommon);titleBSprite->SetPozition({ 0,0 });
 	titleBSprite->SetSize({ 1280.0f, 720.0f });spriteCommon->LoadTexture(3, "TitleB.png");titleBSprite->SetTextureIndex(3);
 	////クリア
@@ -248,6 +248,10 @@ void GameScene::Reset() {
 	soundCheckFlag2 = 0;
 	soundCheckFlag3 = 0;
 	soundCheckFlag4 = 0;
+	cameraW = 0;
+	cameraA = 0;
+	cameraS = 0;
+	cameraD = 0;
 	//スプライトの位置を初期化
 	goSprite->SetPozition({ 0,0 });
 	go2Sprite->SetPozition({ 0,0 });
@@ -671,7 +675,7 @@ void GameScene::Update() {
 		stage_->Update();
 		bullet_->Update();
 		//シーン切り替え
-		if (boss_->GetBossHP() >= 50)
+		if (boss_->GetBossHP() >= 72)
 		{
 			clearflag = 1;
 			if (clearflag == true) {
@@ -800,19 +804,34 @@ void GameScene::Update() {
 		}
 		camera2->Update();
 
-		if (input->PushKey(DIK_D) || input->StickInput(L_RIGHT)) {
-			camera2->SetEye(camera2->GetEye() + Vector3{ -0.001f,0.0f, 0.0f });
+		if (cameraD <= 50) {
+			if (input->PushKey(DIK_D) || input->StickInput(L_RIGHT)) {
+				camera2->SetEye(camera2->GetEye() + Vector3{ -0.001f,0.0f, 0.0f });
+				cameraD++;
+				cameraA--;
+			}
 		}
-		if (input->PushKey(DIK_A) || input->StickInput(L_LEFT)) {
-			camera2->SetEye(camera2->GetEye() - Vector3{ -0.001f,0.0f, 0.0f });
+		if (cameraA <= 50) {
+			if (input->PushKey(DIK_A) || input->StickInput(L_LEFT)) {
+				camera2->SetEye(camera2->GetEye() - Vector3{ -0.001f,0.0f, 0.0f });
+				cameraA++;
+				cameraD--;
+			}
 		}
-		if (input->PushKey(DIK_S) || input->StickInput(L_DOWN)) {
-			camera2->SetEye(camera2->GetEye() - Vector3{ 0.0f,-0.001f, 0.0f });
+		if (cameraS <= 50) {
+			if (input->PushKey(DIK_S) || input->StickInput(L_DOWN)) {
+				camera2->SetEye(camera2->GetEye() - Vector3{ 0.0f,-0.001f, 0.0f });
+				cameraS++;
+				cameraW--;
+			}
 		}
-		if (input->PushKey(DIK_W) || input->StickInput(L_UP)) {
-			camera2->SetEye(camera2->GetEye() + Vector3{ 0.0f,-0.001f, 0.0f });
+		if (cameraW <= 50) {
+			if (input->PushKey(DIK_W) || input->StickInput(L_UP)) {
+				camera2->SetEye(camera2->GetEye() + Vector3{ 0.0f,-0.001f, 0.0f });
+				cameraW++;
+				cameraS--;
+			}
 		}
-
 
 		Object3d::SetCamera(camera2);
 		FBXObject3d::SetCamera(camera2);
@@ -1063,7 +1082,7 @@ void GameScene::Draw() {
 			//ダメージエフェクト
 			bullet_->EffDraw();
 			player_->FbxDraw();
-			if (boss_->GetBossHP() <= 49) {
+			if (boss_->GetBossHP() <= 71) {
 				boss_->FbxDraw();
 			}
 			if (damageFlag == true) {
@@ -1089,155 +1108,222 @@ void GameScene::Draw() {
 				h50Sprite->Draw();
 			}
 			else if (boss_->GetBossHP() == 1) {
-				h49Sprite->SetSize({ 490.0f, 30.0f });
+				h49Sprite->SetSize({ 493.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 2) {
-				h49Sprite->SetSize({ 480.0f, 30.0f });
+				h49Sprite->SetSize({ 486.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 3) {
-				h49Sprite->SetSize({ 470.0f, 30.0f });
+				h49Sprite->SetSize({ 479.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 4) {
-				h49Sprite->SetSize({ 460.0f, 30.0f });
+				h49Sprite->SetSize({ 472.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 5) {
-				h49Sprite->SetSize({ 450.0f, 30.0f });
+				h49Sprite->SetSize({ 465.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 6) {
-				h49Sprite->SetSize({ 440.0f, 30.0f });
+				h49Sprite->SetSize({ 458.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 7) {
-				h49Sprite->SetSize({ 430.0f, 30.0f });
+				h49Sprite->SetSize({ 451.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 8) {
-				h49Sprite->SetSize({ 420.0f, 30.0f });
+				h49Sprite->SetSize({ 444.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 9) {
-				h49Sprite->SetSize({ 410.0f, 30.0f });
+				h49Sprite->SetSize({ 437.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 10) {
-				h49Sprite->SetSize({ 400.0f, 30.0f });
+				h49Sprite->SetSize({ 430.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 11) {
-				h49Sprite->SetSize({ 390.0f, 30.0f });
+				h49Sprite->SetSize({ 423.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 12) {
-				h49Sprite->SetSize({ 380.0f, 30.0f });
+				h49Sprite->SetSize({ 416.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 13) {
-				h49Sprite->SetSize({ 370.0f, 30.0f });
+				h49Sprite->SetSize({ 409.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 14) {
-				h49Sprite->SetSize({ 360.0f, 30.0f });
+				h49Sprite->SetSize({ 402.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 15) {
-				h49Sprite->SetSize({ 350.0f, 30.0f });
+				h49Sprite->SetSize({ 395.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 16) {
-				h49Sprite->SetSize({ 340.0f, 30.0f });
+				h49Sprite->SetSize({ 388.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 17) {
-				h49Sprite->SetSize({ 330.0f, 30.0f });
+				h49Sprite->SetSize({ 381.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 18) {
-				h49Sprite->SetSize({ 320.0f, 30.0f });
+				h49Sprite->SetSize({ 374.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 19) {
-				h49Sprite->SetSize({ 310.0f, 30.0f });
+				h49Sprite->SetSize({ 367.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 20) {
-				h49Sprite->SetSize({ 300.0f, 30.0f });
+				h49Sprite->SetSize({ 360.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 21) {
-				h49Sprite->SetSize({ 290.0f, 30.0f });
+				h49Sprite->SetSize({ 353.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 22) {
-				h49Sprite->SetSize({ 280.0f, 30.0f });
+				h49Sprite->SetSize({ 346.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 23) {
-				h49Sprite->SetSize({ 270.0f, 30.0f });
+				h49Sprite->SetSize({ 339.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 24) {
-				h49Sprite->SetSize({ 260.0f, 30.0f });
+				h49Sprite->SetSize({ 332.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 25) {
-				h49Sprite->SetSize({ 250.0f, 30.0f });
+				h49Sprite->SetSize({ 325.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 26) {
-				h49Sprite->SetSize({ 240.0f, 30.0f });
+				h49Sprite->SetSize({ 318.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 27) {
-				h49Sprite->SetSize({ 230.0f, 30.0f });
+				h49Sprite->SetSize({ 311.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 28) {
-				h49Sprite->SetSize({ 220.0f, 30.0f });
+				h49Sprite->SetSize({ 304.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 29) {
-				h49Sprite->SetSize({ 210.0f, 30.0f });
+				h49Sprite->SetSize({ 297.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 30) {
-				h49Sprite->SetSize({ 200.0f, 30.0f });
+				h49Sprite->SetSize({ 290.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 31) {
-				h49Sprite->SetSize({ 190.0f, 30.0f });
+				h49Sprite->SetSize({ 283.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 32) {
-				h49Sprite->SetSize({ 180.0f, 30.0f });
+				h49Sprite->SetSize({ 276.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 33) {
-				h49Sprite->SetSize({ 170.0f, 30.0f });
+				h49Sprite->SetSize({ 269.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 34) {
-				h49Sprite->SetSize({ 160.0f, 30.0f });
+				h49Sprite->SetSize({ 262.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 35) {
-				h49Sprite->SetSize({ 150.0f, 30.0f });
+				h49Sprite->SetSize({ 255.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 36) {
-				h49Sprite->SetSize({ 140.0f, 30.0f });
+				h49Sprite->SetSize({ 248.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 37) {
-				h49Sprite->SetSize({ 130.0f, 30.0f });
+				h49Sprite->SetSize({ 241.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 38) {
-				h49Sprite->SetSize({ 120.0f, 30.0f });
+				h49Sprite->SetSize({ 234.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 39) {
-				h49Sprite->SetSize({ 110.0f, 30.0f });
+				h49Sprite->SetSize({ 227.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 40) {
-				h49Sprite->SetSize({ 100.0f, 30.0f });
+				h49Sprite->SetSize({ 220.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 41) {
-				h49Sprite->SetSize({ 90.0f, 30.0f });
+				h49Sprite->SetSize({ 213.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 42) {
-				h49Sprite->SetSize({ 80.0f, 30.0f });
+				h49Sprite->SetSize({ 206.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 43) {
-				h49Sprite->SetSize({ 70.0f, 30.0f });
+				h49Sprite->SetSize({ 199.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 44) {
-				h49Sprite->SetSize({ 60.0f, 30.0f });
+				h49Sprite->SetSize({ 192.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 45) {
-				h49Sprite->SetSize({ 50.0f, 30.0f });
+				h49Sprite->SetSize({ 185.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 46) {
-				h49Sprite->SetSize({ 40.0f, 30.0f });
+				h49Sprite->SetSize({ 178.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 47) {
-				h49Sprite->SetSize({ 30.0f, 30.0f });
+				h49Sprite->SetSize({ 171.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 48) {
-				h49Sprite->SetSize({ 20.0f, 30.0f });
+				h49Sprite->SetSize({ 164.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 49) {
-				h49Sprite->SetSize({ 10.0f, 30.0f });
+				h49Sprite->SetSize({ 157.0f, 30.0f });
 			}
 			else if (boss_->GetBossHP() == 50) {
+				h49Sprite->SetSize({ 150.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 51) {
+				h49Sprite->SetSize({ 143.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 52) {
+				h49Sprite->SetSize({ 136.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 53) {
+				h49Sprite->SetSize({ 129.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 54) {
+				h49Sprite->SetSize({ 122.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 55) {
+				h49Sprite->SetSize({ 115.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 56) {
+				h49Sprite->SetSize({ 108.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 57) {
+				h49Sprite->SetSize({ 101.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 58) {
+				h49Sprite->SetSize({ 94.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 59) {
+				h49Sprite->SetSize({ 87.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 60) {
+				h49Sprite->SetSize({ 80.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 61) {
+				h49Sprite->SetSize({ 73.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 62) {
+				h49Sprite->SetSize({ 66.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 63) {
+				h49Sprite->SetSize({ 59.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 64) {
+				h49Sprite->SetSize({ 52.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 65) {
+				h49Sprite->SetSize({ 45.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 66) {
+				h49Sprite->SetSize({ 38.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 67) {
+				h49Sprite->SetSize({ 31.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 68) {
+				h49Sprite->SetSize({ 24.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 69) {
+				h49Sprite->SetSize({ 17.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 70) {
+				h49Sprite->SetSize({ 10.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 71) {
+				h49Sprite->SetSize({ 3.0f, 30.0f });
+			}
+			else if (boss_->GetBossHP() == 72) {
 				h49Sprite->SetSize({ 0.0f, 0.0f });
 			}
+
 			if (playerHp <= 0)
 			{
 				//リトライ
