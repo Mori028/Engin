@@ -53,10 +53,7 @@ public: // メンバ関数
 	/// 初期化
 	/// </summary>
 	void Initialize(DirectXCommon* dxCommon, MyEngine::Input* input);
-
 	void Reset();
-
-
 	void FadeOut();
 	void FadeIn();
 	void Start();
