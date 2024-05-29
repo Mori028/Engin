@@ -147,8 +147,11 @@ void Bullet::Reset()
 	liveFlag = true;
 	mode = false;
 	bossTimer = 0;
+	bulletCount = 0;
 	bossAttack = false;
 	verticalAttack = false;
+	mode2Attack = false;
+	mode2AttackCount = 0;
 }
 
 void Bullet::Clear()
@@ -326,40 +329,85 @@ void Bullet::Update() {
 		}
 	}
 	if (mode == true) {
-		bossTimer++;
-		if (bossTimer >= 200) {
-			bossAttack = true;
-		}
-		if (bossTimer >= 240) {
-			verticalAttack = true;
-		}
-		if (bossTimer >= 350) {
-			bossAttack = false;
-			verticalAttack = false;
-			bossTimer = 0;
-		}
-		if (bossTimer <= 0) {
-			ModeChange();
-		}
+		if (mode2AttackCount <= 2) {
+			bossTimer++;
+			if (bossTimer >= 200) {
+				bossAttack = true;
+			}
+			if (bossTimer >= 240) {
+				verticalAttack = true;
+			}
+			if (bossTimer >= 350) {
+				bossAttack = false;
+				verticalAttack = false;
+				mode2AttackCount++;
+				bossTimer = 0;
+			}
+			if (bossTimer <= 0) {
+				ModeChange();
+			}
 
-		if (bossAttack == true) {
-			enemyBulletObj_->wtf.position.z-= bossMoveSpeed_;
-			enemyBullet1Obj_->wtf.position.z-= bossMoveSpeed_;
-			enemyBullet2Obj_->wtf.position.z-= bossMoveSpeed_;
-			enemyBullet3Obj_->wtf.position.z-= bossMoveSpeed_;
-			enemyBullet4Obj_->wtf.position.z-= bossMoveSpeed_;
-			enemyBullet5Obj_->wtf.position.z-= bossMoveSpeed_;
-			enemyBullet6Obj_->wtf.position.z-= bossMoveSpeed_;
-			enemyBullet7Obj_->wtf.position.z-= bossMoveSpeed_;
-			enemyBullet8Obj_->wtf.position.z-= bossMoveSpeed_;
+			if (bossAttack == true) {
+				enemyBulletObj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet1Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet2Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet3Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet4Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet5Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet6Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet7Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet8Obj_->wtf.position.z -= bossMoveSpeed_;
+			}
+			if (verticalAttack == true) {
+				enemyBullet9Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet10Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet11Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet12Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet13Obj_->wtf.position.z -= bossMoveSpeed_;
+				enemyBullet14Obj_->wtf.position.z -= bossMoveSpeed_;
+			}
 		}
-		if (verticalAttack == true) {
-			enemyBullet9Obj_->wtf.position.z -= bossMoveSpeed_;
-			enemyBullet10Obj_->wtf.position.z -= bossMoveSpeed_;
-			enemyBullet11Obj_->wtf.position.z -= bossMoveSpeed_;
-			enemyBullet12Obj_->wtf.position.z -= bossMoveSpeed_;
-			enemyBullet13Obj_->wtf.position.z -= bossMoveSpeed_;
-			enemyBullet14Obj_->wtf.position.z -= bossMoveSpeed_;
+		if (mode2AttackCount >= 3) {
+			mode2Attack = true;
+			if (mode2Attack == true) {
+				mode2AttackCount++;
+
+				if (mode2AttackCount >= 30) {
+					enemyBullet1Obj_->wtf.position.z -= bossMoveSpeed_;
+				}
+				if (mode2AttackCount >= 60) {
+					enemyBullet6Obj_->wtf.position.z -= bossMoveSpeed_;
+				}
+				if (mode2AttackCount >= 90) {
+					enemyBullet5Obj_->wtf.position.z -= bossMoveSpeed_;
+				}
+				if (mode2AttackCount >= 120) {
+					enemyBullet2Obj_->wtf.position.z -= bossMoveSpeed_;
+				}
+				if (mode2AttackCount >= 150) {
+					enemyBullet8Obj_->wtf.position.z -= bossMoveSpeed_;
+				}
+				if (mode2AttackCount >= 180) {
+					enemyBullet7Obj_->wtf.position.z -= bossMoveSpeed_;
+				}
+				if (mode2AttackCount >= 210) {
+					enemyBullet3Obj_->wtf.position.z -= bossMoveSpeed_;
+				}
+				if (mode2AttackCount >= 240) {
+					enemyBulletObj_->wtf.position.z -= bossMoveSpeed_;
+				}
+				if (mode2AttackCount >= 270) {
+					enemyBullet4Obj_->wtf.position.z -= bossMoveSpeed_;
+				}
+				if (mode2AttackCount >= 400) {
+					mode2AttackCount = 0;
+					mode2Attack = false;
+				}
+
+				if (mode2AttackCount == 1) {
+					ModeChange();
+				}
+			}
 		}
 	}
 
@@ -470,42 +518,58 @@ void Bullet::Draw() {
 		}
 	}
 	else if (mode == true) {
-		if (liveFlag == true) {
-			if (bossTimer >= 180) {
+		if (mode2AttackCount <= 2) {
+			if (liveFlag == true) {
+				if (bossTimer >= 180) {
+					enemyBulletObj_->Draw();
+				}
+				if (bossTimer >= 160) {
+					enemyBullet1Obj_->Draw();
+				}
+				if (bossTimer >= 140) {
+					enemyBullet2Obj_->Draw();
+				}
+				if (bossTimer >= 120) {
+					enemyBullet3Obj_->Draw();
+				}
+				if (bossTimer >= 100) {
+					enemyBullet4Obj_->Draw();
+				}
+				if (bossTimer >= 80) {
+					enemyBullet5Obj_->Draw();
+				}
+				if (bossTimer >= 60) {
+					enemyBullet6Obj_->Draw();
+				}
+				if (bossTimer >= 40) {
+					enemyBullet7Obj_->Draw();
+				}
+				if (bossTimer >= 20) {
+					enemyBullet8Obj_->Draw();
+				}
+				if (mode2AttackCount <= 2) {
+					if (verticalAttack == true) {
+						enemyBullet9Obj_->Draw();
+						enemyBullet10Obj_->Draw();
+						enemyBullet11Obj_->Draw();
+						enemyBullet12Obj_->Draw();
+						enemyBullet13Obj_->Draw();
+						enemyBullet14Obj_->Draw();
+					}
+				}
+			}
+		}
+		else if(mode2AttackCount >= 3){
+			if (mode2Attack == true) {
 				enemyBulletObj_->Draw();
-			}
-			if (bossTimer >= 160) {
 				enemyBullet1Obj_->Draw();
-			}
-			if (bossTimer >= 140) {
 				enemyBullet2Obj_->Draw();
-			}
-			if (bossTimer >= 120) {
 				enemyBullet3Obj_->Draw();
-			}
-			if (bossTimer >= 100) {
 				enemyBullet4Obj_->Draw();
-			}
-			if (bossTimer >= 80) {
 				enemyBullet5Obj_->Draw();
-			}
-			if (bossTimer >= 60) {
 				enemyBullet6Obj_->Draw();
-			}
-			if (bossTimer >= 40) {
 				enemyBullet7Obj_->Draw();
-			}
-			if (bossTimer >= 20) {
 				enemyBullet8Obj_->Draw();
-			}
-
-			if (verticalAttack == true) {
-				enemyBullet9Obj_->Draw();
-				enemyBullet10Obj_->Draw();
-				enemyBullet11Obj_->Draw();
-				enemyBullet12Obj_->Draw();
-				enemyBullet13Obj_->Draw();
-				enemyBullet14Obj_->Draw();
 			}
 		}
 	}
