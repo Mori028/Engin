@@ -152,6 +152,9 @@ private:
 	int bossTimer = 0;
 	bool bossAttack = true;
 	bool verticalAttack = true;
+	int bulletCount = 0;
+	bool mode2Attack = false;
+	int mode2AttackCount = 0;
 	//クリア時
 	int ClearMove = 0;
 	//パーティクル関連
